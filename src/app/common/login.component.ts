@@ -3,8 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
-declare var $: any;
+//import { LoginGuard } from './login.guard';
 
+
+declare var $: any;
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html'
@@ -54,6 +56,10 @@ export class LoginComponent implements OnInit {
         console.log(data);
        // const Params = new HttpParams().set('data', data);
         this.httpClient.post(this.basePath + '/user/loginUser', {"data": data}).subscribe(data => {
+
+            if (data['msg'] == '') {
+                //this.loginGuard.canActivate( true );
+            }
 
         }, error => {
             this.route.navigate(['/error'], {queryParams: {'msg': 'http请求失败', 'title': ''}});
