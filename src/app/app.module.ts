@@ -18,6 +18,7 @@ import { ErrorComponent} from './common/error.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './common/header.component';
 import { FooterComponent } from './common/footer.component';
+import { LeaveComponent } from './leave/leave.component';
 
 registerLocaleData(en);
 
@@ -29,7 +30,8 @@ registerLocaleData(en);
     LoginComponent,
     ErrorComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LeaveComponent
   ],
   imports: [
     BrowserModule,

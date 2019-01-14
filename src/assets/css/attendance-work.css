@@ -64,28 +64,85 @@ a{
     color: #000 !important;
 }
 /* system footer */
-.footer{
-    padding: 20px 100px;
+.footer a:hover{
+    color: red !important;
 }
-.attendance-foot-nav{text-align: center;}
+.attendance-foot-nav{
+    border-bottom: 1px solid #fff;
+    display: flex;
+    justify-content: space-around;
+}
 .attendance-foot-nav>ul{
     list-style: none;
     height: 35px;
-    line-height: 35px;
+    line-height: 50px;
 }
 .attendance-foot-nav>ul>li{
     float: left;
-    width: 100px;
+    width: 80px;
     text-align: center;
 }
 .attendance-foot-nav>ul>li>a{
     color: #211d1d !important;
+}
+.attendance-foot-nav>ul>li:first-child{
+    text-align: right
 }
 .attendance-foot-nav>ul>li:first-child::before{
     display: none;
 }
 .attendance-foot-nav>ul>li:before{
     content: "/";
-    margin-right: 20px;
+    margin-right: 10px;
     color: grey;
+}
+.attendance-foot-phone{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.attendance-foot-phone>div:first-child{
+    padding-right: 15px;
+}
+.attendance-foot-phone>div:last-child{
+    margin-left: 20px;
+    width: 500px;
+}
+.attendance-foot-phone>div a{
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+.attendance-foot-copy{
+    height:35px;
+    line-height: 35px;
+    text-align: center;
+    background: #d2d0d0;
+}
+.attendance-leave{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.attendance-leave>div{
+    width: 500px;
+    text-align: center;
+}
+.attendance-leave h3{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.attendance-leave nz-form-label{
+    width: 120px;
+    text-align: right;
+    margin-right:10px;
+}
+.attendance-account{
+    display: flex;
+    justify-content: space-between;
 }
