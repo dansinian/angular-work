@@ -15,6 +15,9 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './common/login.component';
 import { AppService } from './app.service';
 import { ErrorComponent} from './common/error.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './common/header.component';
+import { FooterComponent } from './common/footer.component';
 
 registerLocaleData(en);
 
@@ -24,7 +27,9 @@ registerLocaleData(en);
     AccountComponent,
     HomeComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,8 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [AppService, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]

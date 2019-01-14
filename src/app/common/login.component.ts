@@ -16,11 +16,10 @@ export class LoginComponent implements OnInit {
     password;
     type;
     basePath;
-    route: Router;
     locationHref = true;
 
     validateForm: FormGroup;
-    constructor(private fb: FormBuilder, private el: ElementRef, private httpClient: HttpClient, private appService: AppService) {
+    constructor(private fb: FormBuilder, private el: ElementRef, private httpClient: HttpClient, private appService: AppService, private route: Router) {
         this.basePath = this.appService.getBasePath();
     }
   

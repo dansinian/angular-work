@@ -6,13 +6,10 @@ import { LoginComponent } from '../common/login.component';
 
 const AdminRoutes: Routes = [
     
-    { path: '', 
-        children: [
-          { path: 'login', component: LoginComponent },
-        ]
-    },
+    { path: '', redirectTo: '/student', pathMatch: 'full'},
+    { path: 'login', component: LoginComponent },
     { path: 'student', component: StudentComponent },
-    { path: 'student', component: TeacherComponent },
+    { path: 'teacher', component: TeacherComponent },
 ];
 
 @NgModule({
