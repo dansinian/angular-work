@@ -2,6 +2,8 @@
 a{
     color: #000 !important;
 }
+.hide{ display: none; }
+.show{ display: block; }
 *{ padding: 0; margin: 0; }
 /* login */
 .attendance-login{
@@ -137,12 +139,59 @@ a{
     font-size: 18px;
     font-weight: bolder;
 }
-.attendance-leave nz-form-label{
+.attendance-leave nz-form-label, .info-show nz-form-label{
     width: 120px;
     text-align: right;
     margin-right:10px;
 }
 .attendance-account{
+    width: 75%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+.attendance-account h3{
+    height: 35px;
+    line-height: 35px;
+    padding-left: 20px;
+    border-left: 10px solid red;
+    margin-bottom: 40px;
+}
+.other-info{ margin-left: 20px; width: 60%}
+.account-info{
+    width: 30%;
+    border-right: 1px solid #eee;
+}
+.other-info-jk>ul{
+    list-style: none;
+    height: 35px;
+    line-height: 35px;
+    margin-top: -15px;
+    border-bottom: 2px solid #ccc;
+}
+.other-info-jk>ul>li{
+    cursor: pointer;
+    float: left;
+    width: 120px;
+    text-align: center;
+}
+.other-info-jk>ul>li:hover{
+    border-bottom: 5px solid #0AA679;
+    margin-top:-4px;
+    color: #0AA679 !important;
+}
+.other-info-jk>ul .active{
+    border-bottom: 5px solid #0AA679;
+    margin-top:-4px;
+    color: #0AA679 !important;
+}
+.infojk{
+    margin: 50px;
+}
+#infojk-result{
+    width: 500px;
+    height: 400px;
+}
+.info-show ul{ list-style: none; }
+.info-show ul li>i{
+    margin-right:8px;
 }

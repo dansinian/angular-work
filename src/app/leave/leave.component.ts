@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-leave',
@@ -7,20 +6,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class LeaveComponent implements OnInit {
 
-  validateForm: FormGroup;
-  constructor(private fb: FormBuilder) { }
+  constructor() { }
 
   ngOnInit() {
-    this.validateForm = this.fb.group({
-      studentID        : [ null ],
-      //applicationTime  : [ null ],
-      startTime        : [ null ],
-      endTime          : [ null ],
-      leaveDay         : [ null ],
-      //guideTeacher     : [ null ],
-      //courseTeacher    : [ null ]
-      //appleStatus      : [ null ]
-    });
+    
   }
 
 }
