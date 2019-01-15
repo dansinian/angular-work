@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './common/header.component';
 import { FooterComponent } from './common/footer.component';
 import { LeaveComponent } from './leave/leave.component';
+import { DetailComponent } from './detail/detail.component';
 import { EcharService } from './common/echar.service';
 
 registerLocaleData(en);
@@ -38,7 +39,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     ErrorComponent,
     HeaderComponent,
     FooterComponent,
-    LeaveComponent
+    LeaveComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

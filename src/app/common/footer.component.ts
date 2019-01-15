@@ -12,9 +12,9 @@ export class FooterComponent implements OnInit {
   
 
   ngOnInit() {
-    console.log($(window).height());
-      
+    
   }
+
   scoll() {
     window.scroll(0, 0);
   }
