@@ -1,5 +1,143 @@
-<app-header></app-header>
-<div class="">
-  请假单子，考勤记录，课表显示
+<div class="attendance-stu-show" *ngIf="user == 'student'">
+  <div class="stu-record">
+      <h4>出勤记录</h4>
+      <ul>
+        <li><i style="background: green;"></i>迟到</li>
+        <li><i style="background: red;"></i>旷课</li>
+        <li><i style="background: #2EB2D6;"></i>请假</li>
+        <li><i style="background: #0AA679;"></i>正常</li>
+        <li><i style="background: #f15d06;"></i>放假</li>
+      </ul>
+      <table>
+        <thead style="background: #eee;">
+          <tr height="70">
+            <th width="120" rowspan="2">周</th>
+            <th colspan="7">星期</th>
+            <th colspan="4">考勤统计</th>
+          </tr>
+          <tr height="50">
+              <th>星期日</th>
+              <th>星期一</th>
+              <th>星期二</th>
+              <th>星期三</th>
+              <th>星期四</th>
+              <th>星期五</th>
+              <th>星期六</th>
+              <th>迟到</th>
+              <th>旷课</th>
+              <th>请假</th>
+              <th>正常</th>
+          </tr>
+         
+        </thead>
+        <tbody>
+          <tr height="40" *ngFor="let i of list">
+            <th>第{{i}}周</th>
+            <td style="background: #f15d06; opacity: 0.6;"></td>
+            <td style="background: #0AA679; opacity: 0.6;"></td>
+            <td style="background: #0AA679; opacity: 0.6;"></td>
+            <td style="background: #0AA679; opacity: 0.6;"></td>
+            <td style="background: #0AA679; opacity: 0.6;"></td>
+            <td style="background: #0AA679; opacity: 0.6;"></td>
+            <td style="background: #f15d06; opacity: 0.6;"></td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>5</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="stu-statistic">
+    <h4>月出勤统计</h4>
+    <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+        <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
+    </div>
+    <div id="lineChart">
+      折线图显示月考勤状况
+    </div>
+  </div>
 </div>
+
+<div style="margin: 0 auto; width: 75%;" *ngIf="user == 'teacher'">
+    <div class="stu-record" *ngIf="user == 'teacher'">
+        <h4>出勤记录</h4>
+        <div class="">
+            <nz-form-item nzFlex>
+              <nz-form-label>选择班级</nz-form-label>
+              <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+              </nz-select>
+            </nz-form-item>
+            <nz-form-item nzFlex>
+              <nz-form-label>选择学生</nz-form-label>
+              <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+              </nz-select>
+            </nz-form-item>
+        </div>
+        <table>
+          <thead>
+              <tr>
+                <th rowspan="3">周</th>
+                <th colspan="20" height="50">星期</th>
+                <th colspan="4" rowspan="2">考勤统计</th>
+              </tr>
+              <tr height="50">
+                  <th colspan="4">星期一</th>
+                  <th colspan="4">星期二</th>
+                  <th colspan="4">星期三</th>
+                  <th colspan="4">星期四</th>
+                  <th colspan="4">星期五</th>
+              </tr>
+              <tr>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+                  <th>迟到</th>
+                  <th>旷课</th>
+                  <th>请假</th>
+                  <th>正常</th>
+              </tr>
+          </thead>
+          <tbody>
+  
+          </tbody>
+        </table>
+    </div>
+
+    <div style="display: flex;justify-content: flex-start;">
+      <div>
+          <h4>月出勤统计</h4>
+          <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+              <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
+          </div>
+      </div>
+      <div id="lineChart">
+        折线图显示月考勤状况
+      </div>
+    </div>
+</div>
+
 <app-footer></app-footer>

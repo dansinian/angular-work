@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
     }
   
     ngOnInit(): void {
+        localStorage.setItem("user", "teacher");
         this.validateForm = this.fb.group({
             account: [ null ],
             password: [ null ],
@@ -33,6 +34,8 @@ export class LoginComponent implements OnInit {
         if (window.location.href.indexOf('admin') >= 0) {
             this.locationHref = false;
         }
+
+        $(".header").hide();
     }
 
     getType (value): void {

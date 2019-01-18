@@ -5,8 +5,7 @@ import { EcharService } from '../common/echar.service';
 declare var $: any;
 @Component({
   selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css']
+  templateUrl: './account.component.html'
 })
 export class AccountComponent implements OnInit {
 
