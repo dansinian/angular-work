@@ -19,8 +19,13 @@
         </tr>
       </tbody>
     </nz-table>
-    <button nz-button nzType="primary" (click)="updateApply('201901011012')">修改信息</button>
-    <button nz-button (click)="noticeTeach('201901011012')">通知导员</button>
+    <div *ngIf="user == 'student'">
+      <button nz-button nzType="primary" (click)="updateApply('201901011012')">修改信息</button>
+      <button nz-button (click)="noticeTeach('201901011012')">通知导员</button>
+    </div>
+    <div *ngIf="user == 'teacher'">
+      <button nz-button nzType="primary" (click)="updateApply('201901011012')">批准请假</button>
+    </div>
   </div>
   <div class="apply-all">
       <ul>

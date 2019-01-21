@@ -11,6 +11,7 @@ declare var $: any;
 })
 export class DetailComponent implements OnInit {
   basePath;
+  user;
   isVisibleUpdate = false; //Ä£Ì¬¿ò
   isVisiblenotice = false; //Ä£Ì¬¿ò
 
@@ -19,6 +20,7 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user = localStorage.getItem("user");
     $(".attendance-nav ul li").removeClass('active');
     $(".attendance-nav ul li").eq(2).addClass('active');
   }

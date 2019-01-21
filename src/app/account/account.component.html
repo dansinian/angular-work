@@ -20,7 +20,7 @@
           <h3>其他信息</h3>
           <ul id="info-jk-tab">
             <li class="active" aid="1">课程安排</li>
-            <li aid="2">考勤统计</li>
+            <li aid="2" *ngIf="user == 'student'">考勤统计</li>
             <li aid="3">修改密码</li>
             <li aid="4">近期安排</li>
           </ul>
@@ -46,7 +46,7 @@
                   </tbody>
                 </nz-table>
               </div>
-              <div class="infojk hide" id="person2">
+              <div class="infojk hide" id="person2" *ngIf="user == 'student'">
                 <h4>第13周考勤统计结果</h4>
                 <div id="infojk-result"></div>
               </div>

@@ -62,23 +62,34 @@
 <div style="margin: 0 auto; width: 75%;" *ngIf="user == 'teacher'">
     <div class="stu-record" *ngIf="user == 'teacher'">
         <h4>出勤记录</h4>
-        <div class="">
-            <nz-form-item nzFlex>
-              <nz-form-label>选择班级</nz-form-label>
-              <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-              </nz-select>
-            </nz-form-item>
-            <nz-form-item nzFlex>
-              <nz-form-label>选择学生</nz-form-label>
-              <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-              </nz-select>
-            </nz-form-item>
+        <div class="attend-record">
+            <div class="record-from">
+              <nz-form-item nzFlex>
+                <nz-form-label>选择班级</nz-form-label>
+                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                </nz-select>
+              </nz-form-item>
+              <nz-form-item nzFlex>
+                <nz-form-label>选择学生</nz-form-label>
+                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                </nz-select>
+              </nz-form-item>
+              <nz-form-item nzFlex>
+                <nz-form-label>选择课程</nz-form-label>
+                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                </nz-select>
+              </nz-form-item>
+            </div>
+            <button nz-button nzType="primary">查询结果</button>
         </div>
         <table>
           <thead>
@@ -122,12 +133,38 @@
               </tr>
           </thead>
           <tbody>
-  
+            <tr height="40" *ngFor="let i of list">
+              <th>第{{i}}周</th>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+              <td>0</td>
+              <td>0</td>
+              <td>0</td>
+              <td>5</td>
+            </tr>
           </tbody>
         </table>
     </div>
 
-    <div style="display: flex;justify-content: flex-start;">
+    <div class="teacher-month">
       <div>
           <h4>月出勤统计</h4>
           <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">

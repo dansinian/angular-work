@@ -6,7 +6,7 @@ import { LoginComponent } from '../common/login.component';
 
 const AdminRoutes: Routes = [
     
-    { path: '', redirectTo: '/student', pathMatch: 'full'},
+    { path: '', redirectTo: '/login', pathMatch: 'full'},
     { path: 'login', component: LoginComponent },
     { path: 'student', component: StudentComponent },
     { path: 'teacher', component: TeacherComponent },
