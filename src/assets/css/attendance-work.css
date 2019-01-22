@@ -237,6 +237,26 @@ a{
     margin-top: 40px;
     margin-left: 30px;
 }
+.attend-record{
+    display: flex;
+    justify-content: flex-start;
+}
+.record-from{
+    width: 80%;
+}
+.attend-record>button{
+    line-height: 100%;
+}
+.stu-record>table{
+    margin-bottom: 20px;
+}
+.teacher-month{
+    display: flex;
+    justify-content: flex-start;
+}
+.teacher-month h4{
+    margin-bottom: 20px;
+}
 /* .apply-detail th, .apply-detail td{
     text-align: center;
 } */

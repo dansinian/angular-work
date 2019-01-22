@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
         if (window.location.href.indexOf('admin') >= 0) {
             this.locationHref = false;
         }
-
         $(".header").hide();
     }
 

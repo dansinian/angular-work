@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { StudentComponent } from './student/student.component';
 import { TeacherComponent } from './teacher/teacher.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { LoginComponent } from 'src/app/common/login.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,7 @@ import { AdminRoutingModule } from './admin-routing.module';
     RouterModule
   ],
   declarations: [
+      LoginComponent,
       StudentComponent,
       TeacherComponent
   ]
