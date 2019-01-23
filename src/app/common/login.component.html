@@ -1,5 +1,5 @@
 <div class="attendance-login">
-    <div class="login-lk" *ngIf="locationHref">
+    <div class="login-lk">
         <h3>学生考勤管理系统</h3>
         <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
             <nz-form-item>
@@ -22,31 +22,6 @@
                         <label nz-radio nzValue="teacher" (click)="getType('teacher')">老师</label>
                         <label nz-radio nzValue="student" (click)="getType('student')">学生</label>
                     </nz-radio-group>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item nz-row style="margin-bottom:8px;">
-                <nz-form-control [nzSpan]="14" [nzOffset]="6">
-                    <button nz-button nzType="primary">登录</button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
-    </div>
-
-    <div class="login-lk" *ngIf="!locationHref">
-        <h3>学生考勤管理系统后台</h3>
-        <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
-            <nz-form-item>
-                <nz-form-label [nzSm]="8" [nzXs]="24" nzRequired nzFor="account">管理员账号</nz-form-label>
-                <nz-form-control [nzSm]="12" [nzXs]="24">
-                    <input nz-input formControlName="account" id="account" placeholder="管理员账号">
-                    <nz-form-explain *ngIf="validateForm.get('account').dirty && validateForm.get('account').errors">Please input your username!</nz-form-explain>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="8" [nzXs]="24" nzFor="password" nzRequired>密码</nz-form-label>
-                <nz-form-control [nzSm]="12" [nzXs]="24">
-                    <input nz-input type="password" id="password" formControlName="password" placeholder="密码">
-                    <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">Please input your password!</nz-form-explain>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item nz-row style="margin-bottom:8px;">

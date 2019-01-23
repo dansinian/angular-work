@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     password;
     type;
     basePath;
-    locationHref = true;
+    //locationHref = true;
 
     validateForm: FormGroup;
     constructor(private fb: FormBuilder, private el: ElementRef, private httpClient: HttpClient, private appService: AppService, private route: Router) {
@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
             type: [ null],
             remember: [ true ]
         });
-        if (window.location.href.indexOf('admin') >= 0) {
-            this.locationHref = false;
-        }
-        $(".header").hide();
+        // if (window.location.href.indexOf('admin') >= 0) {
+        //     this.locationHref = false;
+        // }
+        //$(".header").hide();
     }
 
     getType (value): void {
@@ -50,10 +50,10 @@ export class LoginComponent implements OnInit {
             "password": this.password,
             "type": this.type
         };
-        if (!this.locationHref) {
-            console.log('admin');
-            data.type = 'admin';
-        }
+        // if (!this.locationHref) {
+        //     console.log('admin');
+        //     data.type = 'admin';
+        // }
         console.log(data);
        // const Params = new HttpParams().set('data', data);
         this.httpClient.post(this.basePath + '/user/loginUser', {"data": data}).subscribe(data => {
