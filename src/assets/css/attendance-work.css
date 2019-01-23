@@ -282,19 +282,64 @@ a{
 /* 系统后台 */
 .navigation{
     height: 100%;
-    width: 300px;
-    background: #717175f2;
+    width: 200px;
+    background: #323e4a;
 }
-.navigation>div:first-child{
+.navigation>h4{
     height: 90px;
     line-height: 90px;
-    text-align: center;
-    border-bottom: 2px solid #eee;
-    
+    text-align: center;   
+}
+.navigation>h4 span{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    background: #8297ab;
+    padding: 5px 10px 35px 10px;
+    border-radius: 5px;
+    color: #fff !important;
+}
+.admin{
+    margin: 35px;
+}
+.add{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+.add label{
+    margin-right: 15px;
+}
+.add input{
+    margin-right: 30px;
+}
+.add button{
+    margin-right: 30px;
 }
 /* .navigation>h4{
  
 } */
-.navigation>.nav-list{
+/* .navigation>.nav-list{
     height: 85%;
+} */
+.navigation>.nav-list li{
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #7d7979;
+}
+.nav-list li a{
+    color: #fff !important;
+}
+.nav-list li.active{
+    background: #ccc;
+}
+.nav-list li.active a{
+    color: #000 !important;
+}
+.admin-student{
+    display: flex;
+    justify-content: flex-start;
 }
