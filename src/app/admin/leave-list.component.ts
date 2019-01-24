@@ -3,10 +3,10 @@ import { NzModalService } from 'ng-zorro-antd';
 
 declare var $: any;
 @Component({
-  selector: 'app-course',
-  templateUrl: './course.component.html',
+  selector: 'app-leave-list',
+  templateUrl: './leave-list.component.html'
 })
-export class CourseComponent implements OnInit {
+export class LeaveListComponent implements OnInit {
   isVisibleEdit = false;
   isVisibleAdd = false;
 
@@ -14,7 +14,7 @@ export class CourseComponent implements OnInit {
 
   ngOnInit() {
     $(".nav-list ul li").removeClass("active");
-    $(".nav-list ul li").eq(2).addClass("active");
+    $(".nav-list ul li").eq(3).addClass("active");
   }
 
    //编辑信息

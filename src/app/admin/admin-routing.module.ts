@@ -4,6 +4,8 @@ import { StudentComponent } from './student.component';
 import { TeacherComponent } from './teacher.component';
 import { LoginComponent } from './login.component';
 import { CourseComponent } from './course.component';
+import { LeaveListComponent } from './leave-list.component';
+import { CourseArrangementComponent } from './course-arrangement.component';
 
 const AdminRoutes: Routes = [
     
@@ -11,7 +13,9 @@ const AdminRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'student', component: StudentComponent },
     { path: 'teacher', component: TeacherComponent },
-    { path:  'course', component: CourseComponent },
+    { path: 'course', component: CourseComponent },
+    { path: 'leave-list', component: LeaveListComponent },
+    { path: 'course-arrangement', component: CourseArrangementComponent },
 ];
 
 @NgModule({

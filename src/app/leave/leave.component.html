@@ -4,19 +4,11 @@
         <h3>新建请假流程</h3>
         <nz-form-item nzFlex>
           <nz-form-label>请假开始时间</nz-form-label>
-          <nz-date-picker [(ngModel)]="date" placeholder="请选择时间" nz-name="startTime"></nz-date-picker>
-          <nz-time-picker [(ngModel)]="time" [nzAddOn]="addOnTemplate" #timePicker></nz-time-picker>
-          <ng-template #addOnTemplate>
-            <button nz-button nzSize="small" nzType="primary" (click)="timePicker.close()">Ok</button>
-          </ng-template>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假结束时间</nz-form-label>
-          <nz-date-picker [(ngModel)]="date" placeholder="请选择时间" nz-name="endTime"></nz-date-picker>
-          <nz-time-picker [(ngModel)]="time" [nzAddOn]="addOnTemplate" #timePicker></nz-time-picker>
-          <ng-template #addOnTemplate>
-            <button nz-button nzSize="small" nzType="primary" (click)="timePicker.close()">Ok</button>
-          </ng-template>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假天数</nz-form-label>

@@ -10,6 +10,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './navigation.component';
 import { CourseComponent } from './course.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
+import { LeaveListComponent } from './leave-list.component';
+import { CourseArrangementComponent } from './course-arrangement.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
       StudentComponent,
       TeacherComponent,
       NavigationComponent,
-      CourseComponent
+      CourseComponent,
+      LeaveListComponent,
+      CourseArrangementComponent
   ]
 })
 export class AdminModule { }

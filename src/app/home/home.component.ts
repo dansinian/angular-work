@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.user = localStorage.getItem('user');
-    this.list = ['Ò»', '¶ş', 'Èı' ,'ËÄ' ,'Îå' ,'Áù', 'Æß', '°Ë', '¾Å', 'Ê®', 'Ê®Ò»', 'Ê®¶ş', 'Ê®Èı', 'Ê®ËÄ', 'Ê®Îå', 'Ê®Áù']
+    this.list = ['ä¸€', 'äºŒ', 'ä¸‰' ,'å››' ,'äº”' ,'å…­', 'ä¸ƒ', 'å…«', 'ä¹', 'å', 'åä¸€', 'åäºŒ', 'åä¸‰', 'åå››', 'åäº”', 'åå…­']
 
     //this.echart.getMonth('lineChart');
 

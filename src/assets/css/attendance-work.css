@@ -1,4 +1,4 @@
-/* 公共 */
+/* 鍏叡 */
 a{
     color: #000 !important;
 }
@@ -12,8 +12,8 @@ a{
     background: -webkit-linear-gradient(#ccc, #232325f2); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(#ccc, #232325f2); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(#ccc, #232325f2); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#ccc, #232325f2); /* 标准的语法（必须放在最后） */
-    padding-top: 13%;
+    background: linear-gradient(#ccc, #232325f2); /* 鏍囧噯鐨勮娉曪紙蹇呴』鏀惧湪鏈�鍚庯級 */
+    padding-top: 10%;
     /* background: #eee; */
 }
 .attendance-login .login-lk{
@@ -43,7 +43,7 @@ a{
     background: -webkit-linear-gradient(#ccc, #232325f2); /* Safari 5.1 - 6.0 */
     background: -o-linear-gradient(#ccc, #232325f2); /* Opera 11.1 - 12.0 */
     background: -moz-linear-gradient(#ccc, #232325f2); /* Firefox 3.6 - 15 */
-    background: linear-gradient(#ccc, #232325f2); /* 标准的语法（必须放在最后） */
+    background: linear-gradient(#ccc, #232325f2); /* 鏍囧噯鐨勮娉曪紙蹇呴』鏀惧湪鏈�鍚庯級 */
 }
 /* system header */
 .header, .footer{
@@ -279,7 +279,7 @@ a{
 } */
 
 
-/* 系统后台 */
+/* 绯荤粺鍚庡彴 */
 .navigation{
     height: 100%;
     width: 200px;
@@ -300,7 +300,8 @@ a{
     color: #fff !important;
 }
 .admin{
-    margin: 35px;
+    margin: 45px;
+    width: 100%;
 }
 .add{
     display: flex;
@@ -339,7 +340,16 @@ a{
 .nav-list li.active a{
     color: #000 !important;
 }
-.admin-student{
+.admin-student,.admin-teacher{
     display: flex;
     justify-content: flex-start;
+}
+.admin-table td button:first-child{
+    margin-right: 15px;
+}
+.admin-edit tr>td:first-child{
+    text-align: right;
+}
+.admin-edit tr>td:last-child{
+    padding-left: 50px;
 }
