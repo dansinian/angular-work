@@ -30,14 +30,23 @@ a{
     line-height: 100px;
     border-bottom: 2px solid rgb(156, 147, 147);
 }
-.login-lk .login-form{
-    margin:  20px 50px;
+.login-form{
+    padding: 20px 0 40px 0;
+}
+.login-form td:first-child{
+    width: 100px;
+    text-align: right;
+}
+.login-form tr{
+    height: 60px;
+    line-height: 60px;
+}
+.login-form td:last-child{
+    width: 250px;
+    padding-left: 20px;
 }
 .admin-lk{
     padding-bottom: 50px;
-}
-.admin-lk form>div{
-    margin: 30px 0;
 }
 .admin-login{
     background: -webkit-linear-gradient(#ccc, #232325f2); /* Safari 5.1 - 6.0 */
