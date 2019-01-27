@@ -5,7 +5,7 @@ import { NzModalService } from 'ng-zorro-antd';
 export class AppService {
     constructor(private modalService: NzModalService) { }
     getBasePath() {
-        const BasePath = '';
+        const BasePath = 'http://127.0.0.1:8080';
         return BasePath;
     }
     
