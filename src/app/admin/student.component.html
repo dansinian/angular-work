@@ -29,6 +29,7 @@
               <th>导员名字</th>
               <th>登录密码</th>
               <th>考勤状态</th>
+              <th>个人计划</th>
               <th>操作</th>
             </tr>
           </thead>
@@ -46,8 +47,9 @@
               <td>刘洁琳</td>
               <td>123456</td>
               <td>0</td>
+              <td>1111111111111111111,2222222222222222222222,333333333333333333333333</td>
               <td>
-                <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo()"><i nz-icon type="edit" theme="outline"></i></button>
+                <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo('ID')"><i nz-icon type="edit" theme="outline"></i></button>
                 <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm()"><i nz-icon type="delete" theme="outline"></i></button>
               </td>
             </tr>

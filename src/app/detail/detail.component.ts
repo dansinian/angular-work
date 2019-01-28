@@ -61,7 +61,7 @@ export class DetailComponent implements OnInit {
       this.appService.succcess();
 
     },error => {
-      this.appService.error();
+      this.appService.error("");
         //this.route.navigate(['/error'], {queryParams: {'msg': 'http«Î«Û ß∞‹', 'title': ''}});
     }
     );  

@@ -6,17 +6,17 @@
             <div class="form-group">
                 <label for="inputPassword" class="col-sm-4 control-label">管理员账户：</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" placeholder="请输入账户">
+                    <input type="text" class="form-control" [(ngModel)]="user.account" name="account" placeholder="请输入账户">
                 </div>
             </div>
             <div class="form-group">
                 <label for="inputPassword" class="col-sm-4 control-label">管理员密码：</label>
                 <div class="col-sm-6">
-                    <input type="password" class="form-control" id="inputPassword"  placeholder="请输入密码">
+                    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="请输入密码">
                 </div>
             </div>
         </form>
-        <button type="button" class="btn btn-success">登录系统</button>
+        <button type="button" class="btn btn-success" (click)="loginAdmin()">登录系统</button>
     </div>
   </div>
 </div>

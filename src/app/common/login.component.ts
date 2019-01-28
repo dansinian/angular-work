@@ -2,7 +2,7 @@ import {Component, OnInit, ElementRef} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
-import { User } from './user';
+import { User } from '../entity/user';
 
 
 
@@ -28,31 +28,29 @@ export class LoginComponent implements OnInit {
 
     // 登录账户
     login(): void {
-        let data = {
-            "account": this.user.account,
-            "password": this.user.password,
-            "type": this.user.type
-        };
-   const Params = new HttpParams().set('data', JSON.stringify(data));
-     // let headers = new Headers();
-      //headers.set('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-      console.log({"data": data});
-        this.httpClient.post(this.basePath + '/user/loginUser', Params ).subscribe(data => {
-            console.log(data);   
-
-            if (data['msg'] == '' && data['status'] == "200") {
-                this.user.flagLogin = false;
-                this.route.navigate(['/home'],{queryParams: {"type": this.user.type}}); 
-            }
-
-        }, error => {
-            this.route.navigate(['/error'], {queryParams: {'msg': 'http请求失败', 'title': ''}});
-        });
+        if ((this.user.account == null || this.user.account == "") && (this.user.password == null || this.user.password == "")) {
+            this.appService.info("账户和密码都不能为空，请检查重新登录！");
+        } else {
+            let data = {
+                "account": this.user.account,
+                "password": this.user.password,
+                "type": this.user.type
+            };
+            const Params = new HttpParams().set('data', JSON.stringify(data));
+            this.httpClient.post(this.basePath + '/user/loginUser', Params ).subscribe(data => {
+                if (data['msg'] == '' && data['status'] == "200") {
+                    this.user.flagLogin = false;
+                    this.route.navigate(['/home'],{queryParams: {"type": this.user.type}}); 
+                } else {
+                    this.appService.info(data['msg']);
+                }
+    
+            }, error => {
+                this.appService.error("登录出错，请检查！");
+                //this.route.navigate(['/error'], {queryParams: {'msg': 'http请求失败', 'title': ''}});
+            });
+        }
         
-    //     alert(this.user.account);
-    //    // const accountStr: string = JSON.stringify(this.user);
-    //     sessionStorage.setItem( 'account', "2511150329" );
-    //     this.route.navigateByUrl('/home'); 
     }
 
 

@@ -6,10 +6,11 @@ import { LoginComponent } from './common/login.component';
 import { LeaveComponent } from 'src/app/leave/leave.component';
 import { AccountComponent } from 'src/app/account/account.component';
 import { DetailComponent } from 'src/app/detail/detail.component';
+import { LoginGuardService } from './common/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canDeactivate: [] },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
   { path: 'home', component: HomeComponent, canActivate: [] },
   { path: 'leave', component: LeaveComponent },
   { path: 'detail', component: DetailComponent},
@@ -21,6 +22,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: []
+  providers: [LoginGuardService]
 })
 export class AppRoutingModule { }

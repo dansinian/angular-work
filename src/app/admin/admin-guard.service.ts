@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { User } from './user';
+import { User } from '../entity/user';
 
-@Injectable()
-export class LoginGuardGuard implements CanActivate {
-  constructor(private route: Router, private user: User){}
-
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuardService implements CanActivate {
+  constructor(private user: User, private route: Router){}
   canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     var path = next.routeConfig.path;  
     // nextRoute: 设置需要路由守卫的路由集合
@@ -34,7 +35,6 @@ export class LoginGuardGuard implements CanActivate {
         return false;
       }
     }
-
-
   }
 }
+
