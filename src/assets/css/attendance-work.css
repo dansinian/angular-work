@@ -226,8 +226,8 @@ a{
     justify-content: space-around;
 }
 .attendance-stu-show{
-    display: flex;
-    justify-content: center;
+    margin: 0 auto;
+    width: 75%;
 }
 .apply-detail button{
     margin: 30px 40px 0 0;
@@ -235,11 +235,16 @@ a{
 .apply-detail h4{
     margin: 15px 0;
 }
-.attendance-stu-show>.stu-record ul{ list-style: none; }
-.attendance-stu-show>.stu-record ul li{
-    float: left;
-    margin: 10px 20px;
+.stu-record>h4{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
 }
+.attendance-stu-show>.stu-record ul{ 
+    list-style: none;
+    display: flex;
+}
+.attendance-stu-show>.stu-record ul li{ margin: 10px 20px; }
 .stu-record ul li>i{
     display: inline-block;
     width: 15px;
@@ -251,17 +256,14 @@ a{
 .stu-record table, .stu-record th, .stu-record td{
     border: 1px solid #ccc;
     text-align: center;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 #lineChart{
     width: 700px;
     height: 400px;
+    margin-left: 50px;
 }
 .stu-statistic{
-    border-left: 1px solid #eee;
-    padding-left: 30px;
-    margin-top: 40px;
-    margin-left: 30px;
 }
 .attend-record{
     display: flex;
@@ -276,7 +278,7 @@ a{
 .stu-record>table{
     margin-bottom: 20px;
 }
-.teacher-month{
+.teacher-month, .stu-statistic{
     display: flex;
     justify-content: flex-start;
 }

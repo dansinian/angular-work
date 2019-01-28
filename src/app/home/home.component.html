@@ -50,9 +50,11 @@
       </table>
   </div>
   <div class="stu-statistic">
-    <h4>月出勤统计</h4>
-    <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
-        <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
+    <div>
+      <h4>月出勤统计</h4>
+      <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+          <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
+      </div>
     </div>
     <div id="lineChart">
       折线图显示月考勤状况

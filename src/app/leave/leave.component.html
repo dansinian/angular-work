@@ -4,7 +4,7 @@
         <h3>新建请假流程</h3>
         <nz-form-item nzFlex>
           <nz-form-label>请假开始时间</nz-form-label>
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="startTime"></nz-date-picker>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假结束时间</nz-form-label>
@@ -37,7 +37,7 @@
           <nz-form-label>请假原因</nz-form-label>
           <textarea style="width: 60%" rows="3" nz-input [(ngModel)]="inputValue"></textarea>
         </nz-form-item>
-        <button nz-button nzType="primary">提交</button>
+        <button nz-button nzType="primary" (click)="onSubmit()">提交</button>
     </div>
 </div>
 <app-footer></app-footer>

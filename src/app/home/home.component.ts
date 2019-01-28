@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EcharService } from '../common/echar.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 declare var $: any;
@@ -10,7 +11,7 @@ declare var $: any;
 export class HomeComponent implements OnInit {
   list;
   user;
-  constructor(private echart: EcharService) { }
+  constructor(private echart: EcharService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.user = localStorage.getItem('user');
@@ -20,6 +21,11 @@ export class HomeComponent implements OnInit {
 
     $(".attendance-nav ul li").removeClass('active');
     $(".attendance-nav ul li").eq(0).addClass('active');
+
+    // this.activatedRoute.queryParams.subscribe(params => {
+    //   const appName = params['appName'];
+     
+    // });
 
   }
 

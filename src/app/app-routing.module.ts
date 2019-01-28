@@ -10,7 +10,7 @@ import { LoginGuardService } from './common/login-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [LoginGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [] },
   { path: 'home', component: HomeComponent, canActivate: [] },
   { path: 'leave', component: LeaveComponent },
   { path: 'detail', component: DetailComponent},
@@ -22,6 +22,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [LoginGuardService]
+  providers: []
 })
 export class AppRoutingModule { }

@@ -11,7 +11,7 @@ import { AdminGuardService } from './admin-guard.service';
 const AdminRoutes: Routes = [
     
     { path: '', redirectTo: '/admin/login', pathMatch: 'full'},
-    { path: 'login', component: LoginComponent, canActivate: [AdminGuardService] },
+    { path: 'login', component: LoginComponent, canActivate: [] },
     { path: 'student', component: StudentComponent },
     { path: 'teacher', component: TeacherComponent },
     { path: 'course', component: CourseComponent },
@@ -24,6 +24,6 @@ const AdminRoutes: Routes = [
     RouterModule.forChild(AdminRoutes)
   ],
   declarations: [],
-  providers: [AdminGuardService]
+  providers: []
 })
 export class AdminRoutingModule { }

@@ -14,6 +14,7 @@ declare var $: any;
 export class LoginComponent implements OnInit {
     user: User;
     basePath;
+    type;
     //locationHref = true;
 
     constructor(private el: ElementRef, private httpClient: HttpClient, private appService: AppService, private route: Router) {
@@ -21,8 +22,7 @@ export class LoginComponent implements OnInit {
     }
   
     ngOnInit(): void {
-        this.user = {account: "", password: "", type: "student", flagLogin: true};
-        localStorage.setItem("user", "teacher");
+        this.user = {account: "", password: "", type: "", flagLogin: true};
     }
     
 
@@ -31,11 +31,13 @@ export class LoginComponent implements OnInit {
         if ((this.user.account == null || this.user.account == "") && (this.user.password == null || this.user.password == "")) {
             this.appService.info("账户和密码都不能为空，请检查重新登录！");
         } else {
+            this.user.type = this.type;
             let data = {
                 "account": this.user.account,
                 "password": this.user.password,
                 "type": this.user.type
             };
+            localStorage.setItem("user", this.type);
             const Params = new HttpParams().set('data', JSON.stringify(data));
             this.httpClient.post(this.basePath + '/user/loginUser', Params ).subscribe(data => {
                 if (data['msg'] == '' && data['status'] == "200") {

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   loginAdmin() {
      if ((this.user.account == null || this.user.account == '') && (this.user.password == null || this.user.password == '')) {
-        this.appService.info("ÕË»§ºÍÃÜÂë¶¼²»ÄÜÎª¿Õ£¬Çë¼ì²éÖØĞÂµÇÂ¼£¡");
+        this.appService.info("è´¦æˆ·å’Œå¯†ç éƒ½ä¸èƒ½ä¸ºç©ºï¼Œè¯·æ£€æŸ¥é‡æ–°ç™»å½•ï¼");
      } else {
        let data = { "account": this.user.account, "password": this.user.password, "type": this.user.type};
        const Params = new HttpParams().set('data', JSON.stringify(data));
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
               this.route.navigate(['/admin/student']);
           }
        }, error => {
-          this.appService.error("Äã²»ÊÇ¸ÃÏµÍ³µÄ¹ÜÀíÔ±£¡");
+          this.appService.error("ä½ ä¸æ˜¯è¯¥ç³»ç»Ÿçš„ç®¡ç†å‘˜ï¼");
        });
      }
   }
