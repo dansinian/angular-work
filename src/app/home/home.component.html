@@ -1,39 +1,39 @@
 <app-header></app-header>
 <div class="attendance-stu-show" *ngIf="user == 'student'">
   <div class="stu-record">
-      <h4>³öÇÚ¼ÇÂ¼</h4>
+      <h4>å‡ºå‹¤è®°å½•</h4>
       <ul>
-        <li><i style="background: green;"></i>³Ùµ½</li>
-        <li><i style="background: red;"></i>¿õ¿Î</li>
-        <li><i style="background: #2EB2D6;"></i>Çë¼Ù</li>
-        <li><i style="background: #0AA679;"></i>Õý³£</li>
-        <li><i style="background: #f15d06;"></i>·Å¼Ù</li>
+        <li><i style="background: green;"></i>è¿Ÿåˆ°</li>
+        <li><i style="background: red;"></i>æ—·è¯¾</li>
+        <li><i style="background: #2EB2D6;"></i>è¯·å‡</li>
+        <li><i style="background: #0AA679;"></i>æ­£å¸¸</li>
+        <li><i style="background: #f15d06;"></i>æ”¾å‡</li>
       </ul>
       <table>
         <thead style="background: #eee;">
           <tr height="70">
-            <th width="120" rowspan="2">ÖÜ</th>
-            <th colspan="7">ÐÇÆÚ</th>
-            <th colspan="4">¿¼ÇÚÍ³¼Æ</th>
+            <th width="120" rowspan="2">å‘¨</th>
+            <th colspan="7">æ˜ŸæœŸ</th>
+            <th colspan="4">è€ƒå‹¤ç»Ÿè®¡</th>
           </tr>
           <tr height="50">
-              <th>ÐÇÆÚÈÕ</th>
-              <th>ÐÇÆÚÒ»</th>
-              <th>ÐÇÆÚ¶þ</th>
-              <th>ÐÇÆÚÈý</th>
-              <th>ÐÇÆÚËÄ</th>
-              <th>ÐÇÆÚÎå</th>
-              <th>ÐÇÆÚÁù</th>
-              <th>³Ùµ½</th>
-              <th>¿õ¿Î</th>
-              <th>Çë¼Ù</th>
-              <th>Õý³£</th>
+              <th>æ˜ŸæœŸæ—¥</th>
+              <th>æ˜ŸæœŸä¸€</th>
+              <th>æ˜ŸæœŸäºŒ</th>
+              <th>æ˜ŸæœŸä¸‰</th>
+              <th>æ˜ŸæœŸå››</th>
+              <th>æ˜ŸæœŸäº”</th>
+              <th>æ˜ŸæœŸå…­</th>
+              <th>è¿Ÿåˆ°</th>
+              <th>æ—·è¯¾</th>
+              <th>è¯·å‡</th>
+              <th>æ­£å¸¸</th>
           </tr>
          
         </thead>
         <tbody>
           <tr height="40" *ngFor="let i of list">
-            <th>µÚ{{i}}ÖÜ</th>
+            <th>ç¬¬{{i}}å‘¨</th>
             <td style="background: #f15d06; opacity: 0.6;"></td>
             <td style="background: #0AA679; opacity: 0.6;"></td>
             <td style="background: #0AA679; opacity: 0.6;"></td>
@@ -50,23 +50,23 @@
       </table>
   </div>
   <div class="stu-statistic">
-    <h4>ÔÂ³öÇÚÍ³¼Æ</h4>
+    <h4>æœˆå‡ºå‹¤ç»Ÿè®¡</h4>
     <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
         <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
     </div>
     <div id="lineChart">
-      ÕÛÏßÍ¼ÏÔÊ¾ÔÂ¿¼ÇÚ×´¿ö
+      æŠ˜çº¿å›¾æ˜¾ç¤ºæœˆè€ƒå‹¤çŠ¶å†µ
     </div>
   </div>
 </div>
 
 <div style="margin: 0 auto; width: 75%;" *ngIf="user == 'teacher'">
     <div class="stu-record" *ngIf="user == 'teacher'">
-        <h4>³öÇÚ¼ÇÂ¼</h4>
+        <h4>å‡ºå‹¤è®°å½•</h4>
         <div class="attend-record">
             <div class="record-from">
               <nz-form-item nzFlex>
-                <nz-form-label>Ñ¡Ôñ°à¼¶</nz-form-label>
+                <nz-form-label>é€‰æ‹©ç­çº§</nz-form-label>
                 <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
                   <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                   <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -74,7 +74,7 @@
                 </nz-select>
               </nz-form-item>
               <nz-form-item nzFlex>
-                <nz-form-label>Ñ¡ÔñÑ§Éú</nz-form-label>
+                <nz-form-label>é€‰æ‹©å­¦ç”Ÿ</nz-form-label>
                 <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
                   <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                   <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -82,7 +82,7 @@
                 </nz-select>
               </nz-form-item>
               <nz-form-item nzFlex>
-                <nz-form-label>Ñ¡Ôñ¿Î³Ì</nz-form-label>
+                <nz-form-label>é€‰æ‹©è¯¾ç¨‹</nz-form-label>
                 <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
                   <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
                   <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
@@ -90,52 +90,52 @@
                 </nz-select>
               </nz-form-item>
             </div>
-            <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>²éÑ¯½á¹û</button>
+            <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>æŸ¥è¯¢ç»“æžœ</button>
         </div>
         <table>
           <thead>
               <tr>
-                <th rowspan="3">ÖÜ</th>
-                <th colspan="20" height="50">ÐÇÆÚ</th>
-                <th colspan="4" rowspan="2">¿¼ÇÚÍ³¼Æ</th>
+                <th rowspan="3">å‘¨</th>
+                <th colspan="20" height="50">æ˜ŸæœŸ</th>
+                <th colspan="4" rowspan="2">è€ƒå‹¤ç»Ÿè®¡</th>
               </tr>
               <tr height="50">
-                  <th colspan="4">ÐÇÆÚÒ»</th>
-                  <th colspan="4">ÐÇÆÚ¶þ</th>
-                  <th colspan="4">ÐÇÆÚÈý</th>
-                  <th colspan="4">ÐÇÆÚËÄ</th>
-                  <th colspan="4">ÐÇÆÚÎå</th>
+                  <th colspan="4">æ˜ŸæœŸä¸€</th>
+                  <th colspan="4">æ˜ŸæœŸäºŒ</th>
+                  <th colspan="4">æ˜ŸæœŸä¸‰</th>
+                  <th colspan="4">æ˜ŸæœŸå››</th>
+                  <th colspan="4">æ˜ŸæœŸäº”</th>
               </tr>
               <tr>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
-                  <th>³Ùµ½</th>
-                  <th>¿õ¿Î</th>
-                  <th>Çë¼Ù</th>
-                  <th>Õý³£</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
+                  <th>è¿Ÿåˆ°</th>
+                  <th>æ—·è¯¾</th>
+                  <th>è¯·å‡</th>
+                  <th>æ­£å¸¸</th>
               </tr>
           </thead>
           <tbody>
             <tr height="40" *ngFor="let i of list">
-              <th>µÚ{{i}}ÖÜ</th>
+              <th>ç¬¬{{i}}å‘¨</th>
               <td>0</td>
               <td>0</td>
               <td>0</td>
@@ -167,13 +167,13 @@
 
     <div class="teacher-month">
       <div>
-          <h4>ÔÂ³öÇÚÍ³¼Æ</h4>
+          <h4>æœˆå‡ºå‹¤ç»Ÿè®¡</h4>
           <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
               <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
           </div>
       </div>
       <div id="lineChart">
-        ÕÛÏßÍ¼ÏÔÊ¾ÔÂ¿¼ÇÚ×´¿ö
+        æŠ˜çº¿å›¾æ˜¾ç¤ºæœˆè€ƒå‹¤çŠ¶å†µ
       </div>
     </div>
 </div>
