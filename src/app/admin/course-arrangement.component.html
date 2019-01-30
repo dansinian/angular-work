@@ -42,15 +42,19 @@
         <table>
           <tr>
             <td width="150"><nz-form-label>课程安排编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程安排编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程安排编号" [(ngModel)]="arragent.id" disabled></td>
           </tr>
           <tr>
             <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker></td>
+            <td><nz-range-picker [(ngModel)]="carmTime"  nzShowTime></nz-range-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程编号" [(ngModel)]="arragent.courId"></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>课程名称</nz-form-label></td>
+            <td><input nz-input placeholder="课程名称" [(ngModel)]="arragent.courName"></td>
           </tr>
         </table>
       </div>
@@ -61,15 +65,19 @@
         <table>
           <tr>
             <td width="150"><nz-form-label>课程安排编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程安排编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程安排编号" [(ngModel)]="arragent.id"></td>
           </tr>
           <tr>
             <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)" nzShowTime></nz-range-picker></td>
+            <td><nz-range-picker [(ngModel)]="carmTime"  nzShowTime></nz-range-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程编号" [(ngModel)]="arragent.courId"></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>课程名称</nz-form-label></td>
+            <td><input nz-input placeholder="课程名称" [(ngModel)]="arragent.courName"></td>
           </tr>
         </table>
       </div>

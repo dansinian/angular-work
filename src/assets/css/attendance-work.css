@@ -364,3 +364,10 @@ a{
 .admin-edit tr>td:last-child{
     padding-left: 50px;
 }
+.student-table{
+    max-width: 1100px;
+    overflow: auto;
+}
+.tableOver{
+    max-width: 200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+}

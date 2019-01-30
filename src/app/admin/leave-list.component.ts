@@ -7,10 +7,16 @@ declare var $: any;
   templateUrl: './leave-list.component.html'
 })
 export class LeaveListComponent implements OnInit {
+  basePath;
   isVisibleEdit = false;
   isVisibleAdd = false;
+  leave: Leave;
+  sendData;
 
-  constructor(private modalService: NzModalService) { }
+  constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
+    this.basePath = this.appService.getBasePath();
+    this.leave = {id: '',stuId: '', stuName: '',startTime: '',guideTea: '',applicationTime: '',endTime: '',day: '', courTea: '',status: '',reason: ''};
+  }
 
   ngOnInit() {
     $(".nav-list ul li").removeClass("active");
@@ -34,7 +40,32 @@ export class LeaveListComponent implements OnInit {
 
   //添加内容
   handleAdd() {
-    this.isVisibleAdd = false;
+    this.sendData = {
+      "leaveId": this.leave.id,
+      "StuId": this.leave.stuId,
+      "applicationTime": this.appService.getDate(this.leave.applicationTime),
+      "startTime": this.appService.getDate(this.leave.startTime),
+      "endTime": this.appService.getDate(this.leave.endTime),
+      "leaveDay": this.leave.day,
+      "approvalTea": this.leave.guideTea,
+      "leaveCourseTea": this.leave.courTea
+    };
+    console.log(this.sendData);
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/leave/createLeave', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['msg'] == '200') {
+          this.appService.info(data['msg']);
+          this.isVisibleAdd = false;
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+      this.leave = {id: '',stuId: '', stuName: '',startTime: '',guideTea: '',applicationTime: '',endTime: '',day: '', courTea: '',status: '',reason: ''};
+    }, error => {
+      this.appService.error("请检查代码！");
+    });
   }
 
   //删除确认

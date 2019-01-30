@@ -8,7 +8,7 @@ export class AppService {
     constructor(private modalService: NzModalService, private datePipe: DatePipe) { }
 
     //sub = new Subject<any>();
-    //输入时间格式
+    //杈撳叆鏃堕棿鏍煎紡
     getDate(date) {
         return this.datePipe.transform(date, "yyyy-MM-dd HH:mm:ss'");
     }
@@ -20,9 +20,7 @@ export class AppService {
     
     info(message): void {
         this.modalService.info({
-          nzTitle: 'This is a notification message',
-          nzContent: message,
-          nzOnOk: () => console.log('Info OK')
+          nzContent: message
         });
     }
 

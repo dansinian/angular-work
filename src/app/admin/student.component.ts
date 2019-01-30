@@ -15,23 +15,26 @@ export class StudentComponent implements OnInit {
   basePath;
   studentList = [];
   student: Student;
+  sendData;
 
   constructor(private appService: AppService, private modalService: NzModalService, private httpClient: HttpClient) { 
     this.basePath = this.appService.getBasePath();
-    this.student = {id: '', name: '', identity: '', phone: '', class: '', major: '', department: '', guide: '', schedule: ''};
+    this.student = {id: '', name: '', identity: '', password: '123456', phone: '', class: '', major: '', department: '', guideName: '', schedule: '', gender: '', flag: '1'};
   }
 
   ngOnInit() {
       $(".nav-list ul li").removeClass("active");
       $(".nav-list ul li").eq(0).addClass("active");
-      this.httpClient.get(this.basePath + 'student/selectStudent').subscribe(data => {
+      const Params = new HttpParams().set("data","");
+      this.httpClient.post(this.basePath + '/student/selectStudent', Params).subscribe(data => {
+        console.log(data);
           if (data['msg'] == '' && data['status'] == '200') {
 
           } else{
             this.appService.info(data['msg']);
           }
       }, error => {
-
+          this.appService.error("查询出错");
       })
   }
 
@@ -63,16 +66,65 @@ export class StudentComponent implements OnInit {
 
   //添加内容
   handleAdd() {
+    this.sendData = {
+      'studentId': this.student.id,
+      'studentName': this.student.name,
+      'studentGender': this.student.gender,
+      'studentIdentity': this.student.identity,
+      'studentPhone': this.student.phone,
+      'studentClass': this.student.class,
+      'studentMajor': this.student.major,
+      'studentDepartment': this.student.department,
+      'teacherName': this.student.guideName,
+      'studentPassword': this.student.password,
+      'studentFlag': this.student.flag,
+      'schedule': this.student.schedule,
+    };
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/student/createStudent', Params).subscribe(data => {
+        if (data != null || data != '') {
+          if (data['status'] == '200') {
+            this.appService.info(data['msg']);
+          } else {
+            this.appService.info(data['msg']);
+          }
+        }
+    }, error => {
+        this.appService.error("请检查代码！");
+    });
+
+    this.student = {id: '', name: '', identity: '', password: '123456', phone: '', class: '', major: '', department: '', guideName: '', schedule: '', gender: '', flag: '1'};
+
+
     this.isVisibleAdd = false;
   }
 
   //删除确认
   deleteConfirm() {
+    let id="2511150442";
+    this.sendData = {"studentId" : id };
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+
     this.modalService.confirm({
       nzTitle     : '你确定删除此条信息？',
       nzOkText    : '是',
       nzOkType    : 'danger',
-      nzOnOk      : () => console.log('OK'),
+      nzOnOk      : () => {
+        this.httpClient.post(this.basePath + '/student/deleteStudent', Params).subscribe(data => {
+          console.log(data);
+          if (data != null && data != '') {
+            if (data['status'] == '200') {
+              this.appService.info("删除成功!");
+              this.isVisibleAdd = false;
+            } else {
+              this.appService.info("删除失败");
+            }
+          }
+        }, error => {
+          this.appService.error("未删除！");
+        });
+
+      },
       nzCancelText: '取消',
       nzOnCancel  : () => {}
     });

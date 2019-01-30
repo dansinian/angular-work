@@ -1,6 +1,10 @@
 export class Teacher {
-    public  account: String;
+    public  id: String;
+    public name: String;
+    public gender: String;
+    public department: String;
+    public phone: String;
+    public flag: String;
+    public class: String;
     public  password: String;
-    public  type: String;
-    public  flagLogin: Boolean;
 }

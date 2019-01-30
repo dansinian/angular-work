@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Course } from '../entity/course';
+import { AppService } from 'src/app/app.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -7,10 +11,16 @@ declare var $: any;
   templateUrl: './course.component.html',
 })
 export class CourseComponent implements OnInit {
+  basePath;
   isVisibleEdit = false;
   isVisibleAdd = false;
+  course: Course;
+  sendData;
 
-  constructor(private modalService: NzModalService) { }
+  constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) { 
+    this.basePath = this.appService.getBasePath();
+    this.course = {id: '', name: '', teaName: '', class: '', major: '', department: ''};
+  }
 
   ngOnInit() {
     $(".nav-list ul li").removeClass("active");
@@ -34,7 +44,31 @@ export class CourseComponent implements OnInit {
 
   //添加内容
   handleAdd() {
-    this.isVisibleAdd = false;
+    this.sendData = {
+      "courseId" : this.course.id,
+      "courseName" : this.course.name,
+      "teaName" : this.course.teaName,
+      "courseClass" : this.course.class,
+      "courseMajor" : this.course.major,
+      "courseDepartment" : this.course.department
+    };
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/course/createCourse', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+          this.isVisibleAdd = false;
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+    }, error => {
+      this.appService.error("请检查代码！");
+    });
+    this.course = {id: '', name: '', teaName: '', class: '', major: '', department: ''};
+
+    
   }
 
   //删除确认

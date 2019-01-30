@@ -11,7 +11,7 @@
           <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>查询</button>
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
-        <div class="admin-table student-table">
+        <div class="admin-table teacher-table">
           <nz-table #borderedTable nzBordered [nzData]="dataSet">
             <thead>
               <tr>
@@ -114,41 +114,41 @@
         <table>
           <tr>
             <td width="150"><nz-form-label>教师编号</nz-form-label></td>
-            <td><input nz-input placeholder="教师编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id"></td>
           </tr>
           <tr>
             <td><nz-form-label>姓名</nz-form-label></td>
-            <td><input nz-input placeholder="姓名" nz-name="studentID"></td>
+            <td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
           </tr>
           <tr>
             <td><nz-form-label>性别</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="radioValue">
-                <label nz-radio nzValue="A">男</label>
-                <label nz-radio nzValue="B">女</label>
+            <td><nz-radio-group [(ngModel)]="teacher.gender">
+                <label nz-radio nzValue="男">男</label>
+                <label nz-radio nzValue="女">女</label>
               </nz-radio-group></td>
           </tr>
           <tr>
             <td><nz-form-label>学院名称</nz-form-label></td>
-            <td><input nz-input placeholder="学院名称" nz-name="studentID"></td>
+            <td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
           </tr>
           <tr>
             <td><nz-form-label>联系方式</nz-form-label></td>
-            <td><input nz-input placeholder="联系方式" nz-name="studentID"></td>
+            <td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
           </tr>
           <tr>
             <td><nz-form-label>教师职责</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="radioValue">
+            <td><nz-radio-group [(ngModel)]="teacher.flag">
                 <label nz-radio nzValue="teacher">老师</label>
                 <label nz-radio nzValue="guide">导员</label>
               </nz-radio-group></td>
           </tr>
           <tr>
             <td><nz-form-label>密码</nz-form-label></td>
-            <td><input nz-input placeholder="密码" nz-type="passowrd"></td>
+            <td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
           </tr>
           <tr>
             <td><nz-form-label>所带班级</nz-form-label></td>
-            <td><textarea  rows="3" nz-input [(ngModel)]="inputValue"></textarea></td>
+            <td><textarea  rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea></td>
           </tr>
         </table>
       </div>

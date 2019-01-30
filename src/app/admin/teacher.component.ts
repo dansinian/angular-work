@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { AppService } from 'src/app/app.service';
+import { Teacher } from '../entity/teacher';
 
 declare var $: any;
 @Component({
@@ -9,8 +12,14 @@ declare var $: any;
 export class TeacherComponent implements OnInit {
   isVisibleEdit = false;
   isVisibleAdd = false;
+  basePath;
+  sendData;
+  teacher: Teacher;
 
-  constructor(private modalService: NzModalService) { }
+  constructor(private modalService: NzModalService, private httpClient: HttpClient, private appService: AppService) {
+    this.basePath = this.appService.getBasePath();
+    this.teacher = {id: '',name: '',password: '123456', flag: '', gender: '', department: '', phone: '', class: ''};
+  }
 
   ngOnInit() {
     $(".nav-list ul li").removeClass("active");
@@ -34,7 +43,33 @@ export class TeacherComponent implements OnInit {
 
   //添加内容
   handleAdd() {
-    this.isVisibleAdd = false;
+    this.sendData = {
+      "teacherId": this.teacher.id,
+      "teacherName": this.teacher.name,
+      "teacherGender": this.teacher.gender,
+      "teacherDepartment": this.teacher.department,
+      "teacherPhone": this.teacher.phone,
+      "teacherClass": this.teacher.class,
+      "teacherPassword": this.teacher.password,
+      "teacherFlag": this.teacher.flag,
+    };
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/teacher/createTeacher', Params).subscribe(data =>{
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+          this.isVisibleAdd = false;
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+
+    }, error => {
+      this.appService.error("代码出错，请检查！");
+    });
+    this.teacher = {id: '',name: '',password: '123456', flag: '', gender: '', department: '', phone: '', class: ''};
+    
   }
 
   //删除确认

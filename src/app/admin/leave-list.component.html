@@ -102,42 +102,43 @@
         <table>
           <tr>
             <td width="150"><nz-form-label>请假信息编号</nz-form-label></td>
-            <td><input nz-input placeholder="请假信息编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="请假信息编号" [(ngModel)]="leave.id"></td>
           </tr>
           <tr>
             <td><nz-form-label>请假人学号</nz-form-label></td>
-            <td><input nz-input placeholder="请假人学号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="请假人学号" [(ngModel)]="leave.stuId"></td>
           </tr>
           <tr>
             <td><nz-form-label>请假人</nz-form-label></td>
-            <td><input nz-input placeholder="请假人" nz-name="studentID"></td>
+            <td><input nz-input placeholder="请假人" [(ngModel)]="leave.stuName"></td>
           </tr>
           <tr>
             <td><nz-form-label>申请请假时间</nz-form-label></td>
-            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker></td>
+            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="leave.applicationTime"></nz-date-picker></td>
           </tr>
            <tr>
             <td><nz-form-label>请假开始时间</nz-form-label></td>
-            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker></td>
+            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="leave.startTime"></nz-date-picker></td>
           </tr>
            <tr>
             <td><nz-form-label>请假结束时间</nz-form-label></td>
-            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker></td>
+            <td><nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="leave.endTime"></nz-date-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>请假天数</nz-form-label></td>
-            <td><nz-input-number [(ngModel)]="demoValue" [nzMin]="0" [nzMax]="10" [nzStep]="0.25" [nzPlaceHolder]="'Digital'"></nz-input-number></td>
+            <td><nz-input-number [(ngModel)]="leave.day" [nzMin]="0" [nzMax]="10" [nzStep]="0.25" [nzPlaceHolder]="'Digital'"></nz-input-number></td>
           </tr>
           <tr>
             <td><nz-form-label>审批老师姓名</nz-form-label></td>
-            <td><input nz-input placeholder="审批老师姓名"></td>
+            <td><input nz-input placeholder="审批老师姓名" [(ngModel)]="leave.guideTea"></td>
           </tr>
           <tr>
-            <td><nz-form-label>审批状态</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="radioValue">
-                <label nz-radio nzValue="0">未审批</label>
-                <label nz-radio nzValue="1">已审批</label>
-              </nz-radio-group></td>
+            <td><nz-form-label>代课老师</nz-form-label></td>
+            <td><textarea  rows="3" nz-input [(ngModel)]="leave.courTea"></textarea></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>请假原因</nz-form-label></td>
+            <td><textarea  rows="3" nz-input [(ngModel)]="leave.reason"></textarea></td>
           </tr>
         </table>
       </div>

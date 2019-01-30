@@ -81,27 +81,27 @@
         <table>
           <tr>
             <td width="150"><nz-form-label>课程编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程编号" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程编号" [(ngModel)]="course.id"></td>
           </tr>
           <tr>
             <td><nz-form-label>课程名称</nz-form-label></td>
-            <td><input nz-input placeholder="课程名称" nz-name="studentID"></td>
+            <td><input nz-input placeholder="课程名称" [(ngModel)]="course.name"></td>
           </tr>
           <tr>
             <td><nz-form-label>任课老师</nz-form-label></td>
-            <td><input nz-input placeholder="任课老师" nz-name="studentID"></td>
+            <td><input nz-input placeholder="任课老师" [(ngModel)]="course.teaName"></td>
           </tr>
           <tr>
             <td><nz-form-label>上课班级</nz-form-label></td>
-            <td><textarea  rows="3" nz-input [(ngModel)]="inputValue"></textarea></td>
+            <td><textarea  rows="3" nz-input [(ngModel)]="course.class"></textarea></td>
           </tr>
           <tr>
             <td><nz-form-label>所属专业</nz-form-label></td>
-            <td><input nz-input placeholder="所属专业"></td>
+            <td><input nz-input placeholder="所属专业" [(ngModel)]="course.major"></td>
           </tr>
           <tr>
             <td><nz-form-label>所属学院</nz-form-label></td>
-            <td><input nz-input placeholder="所属学院" nz-name="studentID"></td>
+            <td><input nz-input placeholder="所属学院" [(ngModel)]="course.department"></td>
           </tr>
         </table>
       </div>
