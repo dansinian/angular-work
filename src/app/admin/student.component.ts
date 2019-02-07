@@ -13,9 +13,10 @@ export class StudentComponent implements OnInit {
   isVisibleEdit = false;
   isVisibleAdd = false;
   basePath;
-  studentList = [];
+  infoList = [];
   student: Student;
   sendData;
+  searchInfo;
 
   constructor(private appService: AppService, private modalService: NzModalService, private httpClient: HttpClient) { 
     this.basePath = this.appService.getBasePath();
@@ -29,7 +30,23 @@ export class StudentComponent implements OnInit {
       this.httpClient.post(this.basePath + '/student/selectStudent', Params).subscribe(data => {
         console.log(data);
           if (data['msg'] == '' && data['status'] == '200') {
-
+            let studentList = data['students'];
+            for (let item of studentList) {
+              this.infoList.push({
+                "stuId": item.stuId,
+                "stuName": item.stuName,
+                "stuGender": item.stuGender,
+                "stuIdentity": item.stuIdentity,
+                "stuPhone": item.stuPhone,
+                "stuClass": item.stuClass,
+                "stuMajor": item.stuMajor,
+                "stuDepartment": item.stuDepartment,
+                "teaName": item.teaName,
+                "stuPassword": item.stuPassword,
+                "stuFlag": item.stuFlag,
+                "schedule": item.schedule
+              });
+            }
           } else{
             this.appService.info(data['msg']);
           }
@@ -38,19 +55,56 @@ export class StudentComponent implements OnInit {
       })
   }
 
-  //编辑信息
-  editInfo(ID) {
-      this.isVisibleEdit = true; //弹框显示
-      const Params = new HttpParams().set('data', JSON.stringify(ID));
-      this.httpClient.post(this.basePath + 'student/selectStudent', Params).subscribe(data => {
-        if (data != null) {
-          if (data['msg'] == '') {
-
+  getSearch() {
+    this.sendData = {"content": this.searchInfo};
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/student/selectStudent', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        this.infoList = [];
+        if (data['status'] == '200') {
+          let studentList = data['students'];
+          for (let item of studentList) {
+            this.infoList.push({
+              "stuId": item.stuId,
+              "stuName": item.stuName,
+              "stuGender": item.stuGender,
+              "stuIdentity": item.stuIdentity,
+              "stuPhone": item.stuPhone,
+              "stuClass": item.stuClass,
+              "stuMajor": item.stuMajor,
+              "stuDepartment": item.stuDepartment,
+              "teaName": item.teaName,
+              "stuPassword": item.stuPassword,
+              "stuFlag": item.stuFlag,
+              "schedule": item.schedule
+            });
           }
+        } else {  
+          this.appService.info(data['msg']);
         }
-      },error => {
+      }
+    }, error => {
 
-      })
+    });
+  }
+
+  //编辑信息
+  editInfo(item) {
+    this.student.id = item.stuId;
+    this.student.name = item.stuName;
+    this.student.gender = item.stuGender;
+    this.student.identity = item.stuIdentity;
+    this.student.phone = item.stuPhone;
+    this.student.class = item.stuClass;
+    this.student.major = item.stuMajor;
+    this.student.department = item.stuDepartment;
+    this.student.guideName = item.teaName;
+    this.student.password = item.stuPassword;
+    this.student.flag = item.stuFlag;
+    this.student.schedule = item.schedule;
+
+    this.isVisibleEdit = true; //弹框显示
   }
 
   //添加信息
@@ -61,7 +115,34 @@ export class StudentComponent implements OnInit {
 
   //修改内容
   handleEdit() {
-    this.isVisibleEdit = false;
+    this.sendData = {
+      'studentId': this.student.id,
+      'studentName': this.student.name,
+      'studentGender': this.student.gender,
+      'studentIdentity': this.student.identity,
+      'studentPhone': this.student.phone,
+      'studentClass': this.student.class,
+      'studentMajor': this.student.major,
+      'studentDepartment': this.student.department,
+      'teacherName': this.student.guideName,
+      'studentPassword': this.student.password,
+      'studentFlag': this.student.flag,
+      'schedule': this.student.schedule,
+    };
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/student/updateStudent', Params).subscribe(data => {
+        if (data != null || data != '') {
+          if (data['status'] == '200') {
+            this.appService.info(data['msg']);
+            this.isVisibleEdit = false;
+            location.reload(true);
+          } else {
+            this.appService.info(data['msg']);
+          }
+        }
+    }, error => {
+        this.appService.error("请检查代码！");
+    });
   }
 
   //添加内容
@@ -85,6 +166,8 @@ export class StudentComponent implements OnInit {
         if (data != null || data != '') {
           if (data['status'] == '200') {
             this.appService.info(data['msg']);
+            this.isVisibleAdd = false;
+            location.reload(true);
           } else {
             this.appService.info(data['msg']);
           }
@@ -93,18 +176,13 @@ export class StudentComponent implements OnInit {
         this.appService.error("请检查代码！");
     });
 
-    this.student = {id: '', name: '', identity: '', password: '123456', phone: '', class: '', major: '', department: '', guideName: '', schedule: '', gender: '', flag: '1'};
-
-
-    this.isVisibleAdd = false;
+    this.student = {id: '', name: '', identity: '', password: '123456', phone: '', class: '', major: '', department: '', guideName: '', schedule: '', gender: '', flag: '1'}; 
   }
 
   //删除确认
-  deleteConfirm() {
-    let id="2511150442";
-    this.sendData = {"studentId" : id };
+  deleteConfirm(ID) {
+    this.sendData = {"courseID" : ID };
     const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
-
     this.modalService.confirm({
       nzTitle     : '你确定删除此条信息？',
       nzOkText    : '是',
@@ -114,10 +192,11 @@ export class StudentComponent implements OnInit {
           console.log(data);
           if (data != null && data != '') {
             if (data['status'] == '200') {
-              this.appService.info("删除成功!");
+              this.appService.info(data['msg']);
               this.isVisibleAdd = false;
+              location.reload(true);
             } else {
-              this.appService.info("删除失败");
+              this.appService.info(data['msg']);
             }
           }
         }, error => {

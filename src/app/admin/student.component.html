@@ -3,14 +3,10 @@
   <div class="admin">
       <div class="add student-add">
         <div class="admin-search">
-          <label>专业：</label>
-          <input style="width:200px;" nz-input placeholder="学号" nz-name="studentID">
-          <label>班级：</label>
-          <input style="width:200px;" nz-input placeholder="学号" nz-name="studentID">
-          <label>学生信息：</label>
-          <input style="width:200px;" nz-input placeholder="学号" nz-name="studentID">
+          <!-- <label>学生信息：</label> -->
+          <input style="width:260px;" nz-input placeholder="请输入姓名(专业、学号)等关键字搜索" [(ngModel)]="searchInfo">
         </div>
-        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>查询</button>
+        <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i>查询</button>
         <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
       </div>
       <div class="admin-table student-table">
@@ -34,23 +30,23 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td nzLeft="0px">1</td>
-              <td nzLeft="10px">2511150329</td>
-              <td>苏丹丹</td>
-              <td>女</td>
-              <td>62282719960817372x</td>
-              <td>15771776539</td>
-              <td>1503</td>
-              <td>软件工程</td>
-              <td>信息工程学院</td>
-              <td>刘洁琳</td>
-              <td>123456</td>
-              <td>0</td>
-              <td class="tableOver" title="显示信息">1111111111111111111,2222222222222222222222,333333333333333333333333</td>
+            <tr *ngFor="let item of infoList; index as i">
+              <td nzLeft="0px">{{i+1}}</td>
+              <td nzLeft="10px">{{item.stuId}}</td>
+              <td>{{item.stuName}}</td>
+              <td>{{item.stuGender}}</td>
+              <td>{{item.stuIdentity}}</td>
+              <td>{{item.stuPhone}}</td>
+              <td>{{item.stuClass}}</td>
+              <td>{{item.stuMajor}}</td>
+              <td>{{item.stuDepartment}}</td>
+              <td>{{item.teaName}}</td>
+              <td>{{item.stuPassword}}</td>
+              <td>{{item.stuFlag}}</td>
+              <td class="tableOver" title="{{item.schedule}}">{{item.schedule}}</td>
               <td nzRight="0px">
-                <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo('ID')"><i nz-icon type="edit" theme="outline"></i></button>
-                <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm()"><i nz-icon type="delete" theme="outline"></i></button>
+                <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
+                <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.stuId)"><i nz-icon type="delete" theme="outline"></i></button>
               </td>
             </tr>
           </tbody>
@@ -61,59 +57,63 @@
 
 <nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()" (nzOnOk)="handleEdit()">
     <div class="admin-edit">
-      <table>
-        <tr>
-          <td width="150"><nz-form-label>学号</nz-form-label></td>
-          <td><input nz-input placeholder="学号" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>姓名</nz-form-label></td>
-          <td><input nz-input placeholder="姓名" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>性别</nz-form-label></td>
-          <td><nz-radio-group [(ngModel)]="radioValue">
-              <label nz-radio nzValue="A">男</label>
-              <label nz-radio nzValue="B">女</label>
-            </nz-radio-group></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>身份证号</nz-form-label></td>
-          <td><input nz-input placeholder="身份证号" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>联系方式</nz-form-label></td>
-          <td><input nz-input placeholder="联系方式" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>班级</nz-form-label></td>
-          <td><input nz-input placeholder="班级（如：1503）" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>专业</nz-form-label></td>
-          <td><input nz-input placeholder="专业" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>学院</nz-form-label></td>
-          <td><input nz-input placeholder="学院" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>导员姓名</nz-form-label></td>
-          <td><input nz-input placeholder="导员姓名" nz-name="studentID"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>密码</nz-form-label></td>
-          <td><input nz-input placeholder="密码" nz-type="passowrd"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>考勤状态</nz-form-label></td>
-          <td><nz-radio-group [(ngModel)]="radioValue">
-              <label nz-radio nzValue="0">旷课</label>
-          <label nz-radio nzValue="1">正常</label>
-          <label nz-radio nzValue="2">请假</label>
-            </nz-radio-group></td>
-        </tr>
-      </table>
+        <table>
+            <tr>
+              <td width="150"><nz-form-label>学号</nz-form-label></td>
+              <td><input nz-input placeholder="学号" [(ngModel)]="student.id" disabled></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>姓名</nz-form-label></td>
+              <td><input nz-input placeholder="姓名" [(ngModel)]="student.name"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>性别</nz-form-label></td>
+              <td><nz-radio-group [(ngModel)]="student.gender">
+                  <label nz-radio nzValue="男">男</label>
+                  <label nz-radio nzValue="女">女</label>
+                </nz-radio-group></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>身份证号</nz-form-label></td>
+              <td><input nz-input placeholder="身份证号" [(ngModel)]="student.identity"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>联系方式</nz-form-label></td>
+              <td><input nz-input placeholder="联系方式" [(ngModel)]="student.phone"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>班级</nz-form-label></td>
+              <td><input nz-input placeholder="班级（如：1503）" [(ngModel)]="student.class"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>专业</nz-form-label></td>
+              <td><input nz-input placeholder="专业" [(ngModel)]="student.major"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>学院</nz-form-label></td>
+              <td><input nz-input placeholder="学院" [(ngModel)]="student.department"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>导员姓名</nz-form-label></td>
+              <td><input nz-input placeholder="导员姓名" [(ngModel)]="student.guideName"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>密码</nz-form-label></td>
+              <td><input nz-input placeholder="密码" [(ngModel)]="student.password"></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>考勤状态</nz-form-label></td>
+              <td><nz-radio-group [(ngModel)]="student.flag">
+                  <label nz-radio nzValue="0">旷课</label>
+                  <label nz-radio nzValue="1">正常</label>
+                  <label nz-radio nzValue="2">请假</label>
+                </nz-radio-group></td>
+            </tr>
+            <tr>
+              <td><nz-form-label>个人计划</nz-form-label></td>
+              <td><textarea rows="3" placeholder="个人计划(每条之间使用英文逗号隔开)" nz-input [(ngModel)]="student.schedule"></textarea></td>
+            </tr>
+          </table>
     </div>
 </nz-modal>
 

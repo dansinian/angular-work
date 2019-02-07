@@ -3,39 +3,36 @@
     <div>
         <h3>新建请假流程</h3>
         <nz-form-item nzFlex>
+          <nz-form-label >学号</nz-form-label>
+          <input style="width:200px;" nz-input placeholder="学号" [(ngModel)]="leave.stuId">
+        </nz-form-item>
+        <nz-form-item nzFlex>
+          <nz-form-label >姓名</nz-form-label>
+          <input style="width:200px;" nz-input placeholder="姓名" [(ngModel)]="leave.stuName">
+        </nz-form-item>
+        <nz-form-item nzFlex>
           <nz-form-label>请假开始时间</nz-form-label>
           <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="startTime"></nz-date-picker>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假结束时间</nz-form-label>
-          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" (ngModelChange)="onChange($event)"  (nzOnOk)="onOk($event)"></nz-date-picker>
+          <nz-date-picker nzShowTime nzFormat="yyyy-MM-dd HH:mm:ss" nzPlaceHolder="选择时间" [(ngModel)]="endTime"></nz-date-picker>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假天数</nz-form-label>
-          <nz-input-number [(ngModel)]="demoValue" [nzMin]="0" [nzMax]="10" [nzStep]="0.1" [nzPlaceHolder]="'Digital'"></nz-input-number>
+          <nz-input-number [(ngModel)]="demoValue" [nzMin]="0" [nzMax]="10" [nzStep]="0.1" [nzPlaceHolder]="'Digital'"  [(ngModel)]="leave.day"></nz-input-number>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>导员</nz-form-label>
-          <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-            <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-            <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-            <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-          </nz-select>
+          <input style="width:200px;" nz-input placeholder="导员" [(ngModel)]="leave.guideTea">
         </nz-form-item>
         <nz-form-item nzFlex>
-          <nz-form-label >学号</nz-form-label>
-          <input style="width:200px;" nz-input placeholder="学号" nz-name="studentID">
-        </nz-form-item>
-        <nz-form-item nzFlex>
-          <nz-form-label>代课老师</nz-form-label>
-          <nz-select [nzMaxMultipleCount]="3" style="width: 60%" nzMode="multiple" nzPlaceHolder="Please select" [(ngModel)]="listOfSelectedValue">
-            <!-- <nz-option *ngFor="let option of listOfOption" [nzLabel]="option.label" [nzValue]="option.value"></nz-option> -->
-            <nz-option></nz-option>
-          </nz-select>
+          <nz-form-label >代课老师</nz-form-label>
+          <textarea style="width: 60%" rows="3" nz-input [(ngModel)]="leave. courTea"></textarea>
         </nz-form-item>
         <nz-form-item nzFlex>
           <nz-form-label>请假原因</nz-form-label>
-          <textarea style="width: 60%" rows="3" nz-input [(ngModel)]="inputValue"></textarea>
+          <textarea style="width: 60%" rows="3" nz-input [(ngModel)]="leave.reason"></textarea>
         </nz-form-item>
         <button nz-button nzType="primary" (click)="onSubmit()">提交</button>
     </div>

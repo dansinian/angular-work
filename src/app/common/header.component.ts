@@ -7,18 +7,16 @@ declare var $: any;
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-  user;
+  name;
+  id;
+  type;
 
   constructor(private route: Router) { }
 
   ngOnInit() {
-    this.user = localStorage.getItem("user");
-
-    // $(".attendance-nav ul li").on('click', function() {
-    //     $(".attendance-nav ul li").removeClass('active');
-    //     $(this).addClass('active');
-    //     console.log(111);
-    // });
+    this.type = localStorage.getItem("type");
+    this.name = localStorage.getItem("name");
+    this.id = localStorage.getItem("id");
   }
 
   drop() {

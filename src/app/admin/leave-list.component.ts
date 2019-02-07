@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Leave } from '../entity/leave';
+import { AppService } from 'src/app/app.service';
+import { Router } from '@angular/router';
+import { error } from '@angular/compiler/src/util';
 
 declare var $: any;
 @Component({
@@ -12,6 +17,8 @@ export class LeaveListComponent implements OnInit {
   isVisibleAdd = false;
   leave: Leave;
   sendData;
+  infoList = [];
+  searchInfo;
 
   constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -21,67 +28,85 @@ export class LeaveListComponent implements OnInit {
   ngOnInit() {
     $(".nav-list ul li").removeClass("active");
     $(".nav-list ul li").eq(3).addClass("active");
-  }
-
-   //编辑信息
-   editInfo() {
-    this.isVisibleEdit = true;
-  }
-
-  //添加信息
-  addInfo() {
-    this.isVisibleAdd = true;
-  }
-
-  //修改内容
-  handleEdit() {
-    this.isVisibleEdit = false;
-  }
-
-  //添加内容
-  handleAdd() {
-    this.sendData = {
-      "leaveId": this.leave.id,
-      "StuId": this.leave.stuId,
-      "applicationTime": this.appService.getDate(this.leave.applicationTime),
-      "startTime": this.appService.getDate(this.leave.startTime),
-      "endTime": this.appService.getDate(this.leave.endTime),
-      "leaveDay": this.leave.day,
-      "approvalTea": this.leave.guideTea,
-      "leaveCourseTea": this.leave.courTea
-    };
-    console.log(this.sendData);
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/leave/createLeave', Params).subscribe(data => {
-      console.log(data);
+    const Params = new HttpParams().set("data","");
+    this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
       if (data != null && data != '') {
-        if (data['msg'] == '200') {
-          this.appService.info(data['msg']);
-          this.isVisibleAdd = false;
+        if (data['status'] == '200') {
+          let leaveList = data['leaves'];
+          for (let item of leaveList) {
+            this.infoList.push({
+              "leaveId": item.leaveId,
+              "stuId": item.stuId,
+              "stuName": item.stuName,
+              "applicationTime": item.applicationTime,
+              "startTime": item.startTime,
+              "endTime": item.endTime,
+              "leaveDay": item.leaveDay,
+              "approvalTea": item.approvalTea,
+              "status": item.status
+            });
+          }
         } else {
           this.appService.info(data['msg']);
         }
       }
-      this.leave = {id: '',stuId: '', stuName: '',startTime: '',guideTea: '',applicationTime: '',endTime: '',day: '', courTea: '',status: '',reason: ''};
     }, error => {
-      this.appService.error("请检查代码！");
+      this.appService.error("查询出错！");
     });
   }
 
+  getSearch() {
+    this.sendData = {"content": this.searchInfo, "type": "student"};
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
+      if (data != null && data != '') {
+        this.infoList = [];
+        if (data['status'] == '200') {
+          let leaveList = data['leaves'];
+          for (let item of leaveList) {
+            this.infoList.push({
+              "leaveId": item.leaveId,
+              "stuId": item.stuId,
+              "stuName": item.stuName,
+              "applicationTime": item.applicationTime,
+              "startTime": item.startTime,
+              "endTime": item.endTime,
+              "leaveDay": item.leaveDay,
+              "approvalTea": item.approvalTea,
+              "status": item.status
+            });
+          }
+        }
+      }
+    }, error => {
+      this.appService.error("查询出错！");
+    });
+  }
+
+  
   //删除确认
-  deleteConfirm() {
+  deleteConfirm(ID) {
+    this.sendData = {"leaveId": ID};
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.modalService.confirm({
       nzTitle     : '你确定删除此条信息？',
       nzOkText    : '是',
       nzOkType    : 'danger',
-      nzOnOk      : () => console.log('OK'),
+      nzOnOk      : () => {
+        this.httpClient.post(this.basePath + '/leave/deleteLeave', Params).subscribe(data => {
+          if (data != null && data != '') {
+            if (data['status'] == '200') {
+              this.appService.succcess(data['msg']);
+              location.reload(true);
+            }
+          }
+        }, error => {
+          this.appService.error("删除出错！");
+        });
+      },
       nzCancelText: '取消',
       nzOnCancel  : () => {}
     });
   }
-
-  //取消模态框
-  cancelEdit() { this.isVisibleEdit = false; }
-  cancelAdd() { this.isVisibleAdd = false; }
 
 }

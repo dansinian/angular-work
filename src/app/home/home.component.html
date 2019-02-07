@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div class="attendance-stu-show" *ngIf="user == 'student'">
+<div class="attendance-stu-show" *ngIf="type == 'student'">
   <div class="stu-record">
       <h4>出勤记录</h4>
       <ul>
@@ -62,8 +62,8 @@
   </div>
 </div>
 
-<div style="margin: 0 auto; width: 75%;" *ngIf="user == 'teacher'">
-    <div class="stu-record" *ngIf="user == 'teacher'">
+<div style="margin: 0 auto; width: 75%;" *ngIf="type == 'teacher'">
+    <div class="stu-record" *ngIf="type == 'teacher'">
         <h4>出勤记录</h4>
         <div class="attend-record">
             <div class="record-from">

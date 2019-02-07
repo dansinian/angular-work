@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Leave } from '../entity/leave';
+import { User } from '../entity/user';
+import { error } from '@angular/compiler/src/util';
 
 
 declare var $: any;
@@ -11,36 +14,221 @@ declare var $: any;
 })
 export class DetailComponent implements OnInit {
   basePath;
-  user;
+  type;
   isVisibleUpdate = false; //模态框
   isVisiblenotice = false; //模态框
+  leaveDetailInfo;
+  sendData;
+  leaveId;
+  leave: Leave;
+  startTime;
+  endTime;
+  infoList = [];
 
-  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router) {
+  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router,
+              private activatedRoute: ActivatedRoute) {
     this.basePath = this.appService.getBasePath();
+    this.leave = {id: '',stuId: '', stuName: '',startTime: '',guideTea: '',applicationTime: '',endTime: '',day: '', courTea: '',status: '',reason: ''};
   }
 
   ngOnInit() {
-    this.user = localStorage.getItem("user");
+    this.type = localStorage.getItem("type");
     $(".attendance-nav ul li").removeClass('active');
     $(".attendance-nav ul li").eq(2).addClass('active');
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.leaveId = params['leaveID'];
+    });
+
+    if (this.type == 'student') {
+      if (this.leaveId == null) {
+        this.sendData = {"content": localStorage.getItem("name"), "type": "student"};
+        const nameParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+        this.httpClient.post(this.basePath + '/leave/selectLeave', nameParams).subscribe(data => {
+          if (data['status'] == '200') {
+            let list = data['leaves'];
+            for (let item of list) {
+              this.infoList.push({
+                "id": item.leaveId,
+                "time": item.applicationTime,
+                "day": item.leaveDay,
+                "reason": item.leaveReason,
+                "status": item.status
+              });
+            }
+            let params = list[0];
+            this.leave.id = params['leaveId'];
+            this.leave.stuId = params['stuId'];
+            this.leave.stuName =  params['stuName'];
+            this.leave.applicationTime =  params['applicationTime'];
+            this.leave.guideTea =  params['approvalTea'];
+            this.leave.endTime =  params['endTime'];
+            this.leave.startTime =  params['startTime'];
+            this.leave.day =  params['leaveDay'];
+            this.leave.status =  params['status'];
+            this.leave.courTea =  params['leavecourseTea'];
+            this.leave.reason =  params['leaveReason'];
+          }
+        }, error => {
+          this.appService.error("出错！");
+        });
+      } else {
+        this.sendData = {"content": this.leaveId};
+        const idParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+        this.httpClient.post(this.basePath +'/leave/selectLeave', idParams).subscribe(data => {
+          if (data != null && data != '') {
+            if (data['status'] == '200') {
+              let params = data['leaves'][0];
+              this.leave.id = params['leaveId'];
+              this.leave.stuId = params['stuId'];
+              this.leave.stuName =  params['stuName'];
+              this.leave.applicationTime =  params['applicationTime'];
+              this.leave.guideTea =  params['approvalTea'];
+              this.leave.endTime =  params['endTime'];
+              this.leave.startTime =  params['startTime'];
+              this.leave.day =  params['leaveDay'];
+              this.leave.status =  params['status'];
+              this.leave.courTea =  params['leavecourseTea'];
+              this.leave.reason =  params['leaveReason'];
+              this.sendData = {"content": this.leave.stuName, "type": "student"};
+              const Params1 = new HttpParams().set("data", JSON.stringify(this.sendData));
+              this.httpClient.post(this.basePath +'/leave/selectLeave', Params1).subscribe(data => {
+                if (data != null && data != '') {
+                  if (data['status'] == '200') {
+                    let list = data['leaves'];
+                    for (let item of list) {
+                      this.infoList.push({
+                        "id": item.leaveId,
+                        "time": item.applicationTime,
+                        "day": item.leaveDay,
+                        "reason": item.leaveReason,
+                        "status": item.status
+                      });
+                    }
+                  }
+                }
+              }, error => {
+              
+              });
+    
+            } else {
+    
+            }
+          }
+        }, error => {
+          //this.route.navigate(['/error']);
+        });
+      }
+    }
+
+    if (this.type == 'teacher') {
+      let flag = localStorage.getItem("flag");
+      if (flag == 'guide') {
+        this.sendData = {"content": localStorage.getItem("name"), "type": "guide"};
+      } else {
+        this.sendData = {"content": localStorage.getItem("name"), "type": "teacher"};
+      }
+      console.log(this.sendData);
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
+        if (data != null && data != '') {
+          if (data['status'] == '200') {
+            let list = data['leaves'];
+            for (let item of list) {
+              this.infoList.push({
+                "id": item.leaveId,
+                "time": item.applicationTime,
+                "day": item.leaveDay,
+                "reason": item.leaveReason,
+                "status": item.status
+              });
+            }
+            let params = list[0];
+            this.leave.id = params['leaveId'];
+            this.leave.stuId = params['stuId'];
+            this.leave.stuName =  params['stuName'];
+            this.leave.applicationTime =  params['applicationTime'];
+            this.leave.guideTea =  params['approvalTea'];
+            this.leave.endTime =  params['endTime'];
+            this.leave.startTime =  params['startTime'];
+            this.leave.day =  params['leaveDay'];
+            this.leave.status =  params['status'];
+            this.leave.courTea =  params['leavecourseTea'];
+            this.leave.reason =  params['leaveReason'];
+          }
+        }
+      }, error => {
+        this.appService.error("出错！");
+      });
+      
+    }
+
+  }
+
+  //切换请假条信息
+  getLeaveInfo(ID) {
+    this.sendData = {"content": ID};
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          let params = data['leaves'][0];
+          this.leave.id = params['leaveId'];
+          this.leave.stuId = params['stuId'];
+          this.leave.stuName =  params['stuName'];
+          this.leave.applicationTime =  params['applicationTime'];
+          this.leave.guideTea =  params['approvalTea'];
+          this.leave.endTime =  params['endTime'];
+          this.leave.startTime =  params['startTime'];
+          this.leave.day =  params['leaveDay'];
+          this.leave.status =  params['status'];
+          this.leave.courTea =  params['leavecourseTea'];
+          this.leave.reason =  params['leaveReason'];
+        }
+      }
+    }, error => {
+
+    });
+  }
+
+  // 批准请假申请
+  agreeApply() {
+    this.sendData = {
+      "leaveId": this.leave.id,
+      "StuId": this.leave.stuId,
+      "StuName": this.leave.stuName,
+      "endTime": this.leave.endTime,
+      "startTime": this.leave.startTime,
+      "applicationTime": this.leave.applicationTime,
+      "leaveDay": this.leave.day,
+      "approvalTea": this.leave.guideTea,
+      "leaveCourseTea": this.leave.courTea,
+      "reason": this.leave.reason,
+      "status": "1",
+      "type": "guide"
+    };
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath +'/leave/updateLeave', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          console.log(data['msg']);
+          this.appService.info("批准成功！");
+          location.reload(true);
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+    }, error => {
+
+    });
   }
 
   //修改请假信息（查询）
-  updateApply(ID) {
+  updateApply() {
+    console.log(this.leave.startTime, this.leave.endTime);
+    this.startTime = this.leave.startTime;
+    this.endTime = this.leave.endTime;
     this.isVisibleUpdate = true;
-
-    // this.httpClient.post(this.basePath + '/leave/select', {"data": "data"}).subscribe(data => {
-
-    //     if (data['msg'] == '') {
-    //         //this.loginGuard.canActivate( true );
-    //     }
-
-    // },
-    // error => {
-    //     this.route.navigate(['/error'], {queryParams: {'msg': 'http请求失败', 'title': ''}});
-    //   }
-    // );  
-
   }
   //模态框取消（取消修改）
   handleCancel() {
@@ -48,20 +236,57 @@ export class DetailComponent implements OnInit {
   }
   //保存修改的信息
   saveUpdateApply() {
-    this.isVisibleUpdate = false;
+    this.leave.applicationTime = this.appService.getDate(new Date());
+    this.leave.startTime = this.appService.getDate(this.startTime);
+    this.leave.endTime = this.appService.getDate(this.endTime);
+    this.sendData = {
+      "leaveId": this.leave.id,
+      "StuId": this.leave.stuId,
+      "StuName": this.leave.stuName,
+      "endTime": this.leave.endTime,
+      "startTime": this.leave.startTime,
+      "applicationTime": this.leave.applicationTime,
+      "leaveDay": this.leave.day,
+      "approvalTea": this.leave.guideTea,
+      "leaveCourseTea": this.leave.courTea,
+      "reason": this.leave.reason,
+      "type": "student"
+    }; 
+    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/leave/updateLeave', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+          location.reload(true);
+          this.isVisibleUpdate = false;
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+    }, error => {
+      this.appService.error("修改不成功");
+    });
   }
 
   //通知老师请假信息
   noticeTeach(ID) {
-    this.httpClient.post(this.basePath + '/leave/select', {"data": "data"}).subscribe(data => {
+    this.sendData = {
+      "studentName": this.leave.stuName,
+      "teacherName": this.leave.guideTea,
+      "teacherPhone": localStorage.getItem("phone")
+    }
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/leave/callTeacher', Params).subscribe(data => {
+      if (data != null && data!= '') {
+        if (data['status'] == '200') {
 
-      if (data['msg'] == '') {
-          //this.loginGuard.canActivate( true );
+        } else {
+          this.appService.info(data['msg']);
+        }
       }
-      this.appService.succcess();
-
     },error => {
-      this.appService.error("");
+      this.appService.error("错误");
         //this.route.navigate(['/error'], {queryParams: {'msg': 'http请求失败', 'title': ''}});
     }
     );  

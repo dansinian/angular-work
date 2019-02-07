@@ -7,6 +7,7 @@ import { CourseComponent } from './course.component';
 import { LeaveListComponent } from './leave-list.component';
 import { CourseArrangementComponent } from './course-arrangement.component';
 import { AdminGuardService } from './admin-guard.service';
+import { AttendanceComponent } from 'src/app/admin/attendance.component';
 
 const AdminRoutes: Routes = [
     
@@ -17,6 +18,7 @@ const AdminRoutes: Routes = [
     { path: 'course', component: CourseComponent },
     { path: 'leave-list', component: LeaveListComponent },
     { path: 'course-arrangement', component: CourseArrangementComponent },
+    { path: 'attendance', component: AttendanceComponent },
 ];
 
 @NgModule({

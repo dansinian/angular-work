@@ -3,17 +3,22 @@
     <div class="attendance-account">
       <div class="account-info">
           <h3>基本信息</h3>
-          <nz-timeline>
+          <nz-timeline *ngIf="type == 'student'">
+            <nz-timeline-item><strong>学号：</strong><label>{{personInfo.stuId}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>姓名：</strong><label>{{personInfo.stuName}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>性别：</strong><label>{{personInfo.stuGender}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>班级：</strong><label>{{personInfo.stuClass}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>专业：</strong><label>{{personInfo.stuMajor}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>学院：</strong><label>{{personInfo.stuDepartment}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>身份证号：</strong><label>{{personInfo.stuIdentity}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>联系方式：</strong><label>{{personInfo.stuPhone}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>导员：</strong><label>{{personInfo.teaName}}</label></nz-timeline-item>
+          </nz-timeline>
+          <nz-timeline *ngIf="type == 'teacher'">
             <nz-timeline-item>
                 <strong>信息描述：</strong>
                 <label>信息</label>
             </nz-timeline-item>
-            <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
-            <nz-timeline-item>Technical testing 2015-09-01</nz-timeline-item>
-            <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
-            <nz-timeline-item>Solve initial network problems 2015-09-01</nz-timeline-item>
-            <nz-timeline-item>Technical testing 2015-09-01</nz-timeline-item>
-            <nz-timeline-item>Network problems being solved 2015-09-01</nz-timeline-item>
           </nz-timeline>
       </div>
       <div class="other-info">
@@ -21,7 +26,7 @@
           <h3>其他信息</h3>
           <ul id="info-jk-tab">
             <li class="active" aid="1">课程安排</li>
-            <li aid="2" *ngIf="user == 'student'">考勤统计</li>
+            <li aid="2" *ngIf="type == 'student'">考勤统计</li>
             <li aid="3">修改密码</li>
             <li aid="4">近期安排</li>
           </ul>
@@ -47,7 +52,7 @@
                   </tbody>
                 </nz-table>
               </div>
-              <div class="infojk hide" id="person2" *ngIf="user == 'student'">
+              <div class="infojk hide" id="person2" *ngIf="type == 'student'">
                 <h4>第13周考勤统计结果</h4>
                 <div id="infojk-result"></div>
               </div>
@@ -70,13 +75,13 @@
               </div>
               <div class="infojk hide" id="person4">
                   <ul>
-                    <li>
+                    <li *ngFor="let item of scheduleInfo; index as i">
                         <!-- <i nz-icon style="color: hotpink;">
                           <svg>
                             <path d="M923 283.6c-13.4-31.1-32.6-58.9-56.9-82.8-24.3-23.8-52.5-42.4-84-55.5-32.5-13.5-66.9-20.3-102.4-20.3-49.3 0-97.4 13.5-139.2 39-10 6.1-19.5 12.8-28.5 20.1-9-7.3-18.5-14-28.5-20.1-41.8-25.5-89.9-39-139.2-39-35.5 0-69.9 6.8-102.4 20.3-31.4 13-59.7 31.7-84 55.5-24.4 23.9-43.5 51.7-56.9 82.8-13.9 32.3-21 66.6-21 101.9 0 33.3 6.8 68 20.3 103.3 11.3 29.5 27.5 60.1 48.2 91 32.8 48.9 77.9 99.9 133.9 151.6 92.8 85.7 184.7 144.9 188.6 147.3l23.7 15.2c10.5 6.7 24 6.7 34.5 0l23.7-15.2c3.9-2.5 95.7-61.6 188.6-147.3 56-51.7 101.1-102.7 133.9-151.6 20.7-30.9 37-61.5 48.2-91 13.5-35.3 20.3-70 20.3-103.3 0.1-35.3-7-69.6-20.9-101.9z" />
                           </svg>
                         </i> -->
-                        <i nz-icon style="font-size: 28px;">
+                        <i nz-icon style="font-size: 20px;">
                             <svg>
                               <path d="M99.096 315.634s-82.58-64.032-82.58-132.13c0-66.064 33.032-165.162 148.646-148.646 83.37 11.91 99.096 165.162 99.096 165.162l-165.162 115.614zM924.906 315.634s82.58-64.032 82.58-132.13c0-66.064-33.032-165.162-148.646-148.646-83.37 11.91-99.096 165.162-99.096 165.162l165.162 115.614z" fill="#6B676E" p-id="1143" />
                               <path d="M1024 561.548c0 264.526-229.23 429.42-512.002 429.42S0 826.076 0 561.548 283.96 66.064 512.002 66.064 1024 297.022 1024 561.548z" fill="#FFEBD2" p-id="1144" />
@@ -89,7 +94,7 @@
                             </svg>
                           </i>
                           <!-- <i nz-icon [type]="'smile'" [theme]="'twotone'"></i> -->
-                        <span>11111111111111111111111111111</span>
+                        <span>{{item.value}}</span>
                     </li>
                   </ul>
               </div>

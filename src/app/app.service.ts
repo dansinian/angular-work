@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { DatePipe } from '@angular/common';
-//import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class AppService {
     constructor(private modalService: NzModalService, private datePipe: DatePipe) { }
 
-    //sub = new Subject<any>();
     //输入时间格式
     getDate(date) {
         return this.datePipe.transform(date, "yyyy-MM-dd HH:mm:ss'");
@@ -24,10 +22,9 @@ export class AppService {
         });
     }
 
-    succcess() {
+    succcess(message): void {
         this.modalService.success({
-            nzTitle: 'This is a success message',
-            nzContent: 'some messages...some messages...'
+            nzContent: message
         });
     }
 

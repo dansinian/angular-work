@@ -42,6 +42,16 @@ export class LoginComponent implements OnInit {
             this.httpClient.post(this.basePath + '/user/loginUser', Params ).subscribe(data => {
                 if (data['msg'] == '' && data['status'] == "200") {
                     this.user.flagLogin = false;
+                    localStorage.setItem("type", data['type']);
+                    if (data['type'] == 'student') {
+                        localStorage.setItem("name", data['student']['stuName']);
+                        localStorage.setItem("id", data['student']['stuId']);
+                    } else {
+                        localStorage.setItem("name", data['teacher']['teaName']);
+                        localStorage.setItem("id", data['teacher']['teaId']);
+                        localStorage.setItem("depart", data['teacher']['teaDepartment']);
+                        localStorage.setItem("flag", data['teacher']['teaFlag']);
+                    }
                     this.route.navigate(['/home'],{queryParams: {"type": this.user.type}}); 
                 } else {
                     this.appService.info(data['msg']);
