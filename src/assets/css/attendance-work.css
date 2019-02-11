@@ -240,6 +240,9 @@ a{
     line-height: 40px;
     padding-left: 20px;
 }
+.stu-record>h4 button{
+    margin-left: 50px;
+}
 .attendance-stu-show>.stu-record ul{ 
     list-style: none;
     display: flex;
@@ -385,5 +388,34 @@ a{
     height: 35px;
     line-height: 35px;
     border-bottom: 1px solid #eee;
+    text-align: center;
+}
+/* 考勤 */
+.check-xawl{
+    width: 80%;
+    margin: 0 auto;
+}
+.check-sta{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.check-btn{
+    padding-left: 20px;
+}
+.check-btn>span{
+    margin: 10px 50px;
+}
+.check-table h5{
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    background: #eee;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+.check-table td, .check-table th{
+    padding: 10px;
+    border: 1px solid #ccc;
     text-align: center;
 }

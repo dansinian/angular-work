@@ -23,6 +23,7 @@ import { FooterComponent } from './common/footer.component';
 import { LeaveComponent } from './leave/leave.component';
 import { DetailComponent } from './detail/detail.component';
 import { EcharService } from './common/echar.service';
+import { CheckComponent } from './check/check.component';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -40,7 +41,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     HeaderComponent,
     FooterComponent,
     LeaveComponent,
-    DetailComponent
+    DetailComponent,
+    CheckComponent
   ],
   imports: [
     BrowserModule,

@@ -4,21 +4,25 @@
       <div class="account-info">
           <h3>基本信息</h3>
           <nz-timeline *ngIf="type == 'student'">
-            <nz-timeline-item><strong>学号：</strong><label>{{personInfo.stuId}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>姓名：</strong><label>{{personInfo.stuName}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>性别：</strong><label>{{personInfo.stuGender}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>班级：</strong><label>{{personInfo.stuClass}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>专业：</strong><label>{{personInfo.stuMajor}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>学院：</strong><label>{{personInfo.stuDepartment}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>身份证号：</strong><label>{{personInfo.stuIdentity}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>联系方式：</strong><label>{{personInfo.stuPhone}}</label></nz-timeline-item>
-            <nz-timeline-item><strong>导员：</strong><label>{{personInfo.teaName}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>学号：</strong><label>{{student.id}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>姓名：</strong><label>{{student.name}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>性别：</strong><label>{{student.gender}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>班级：</strong><label>{{student.class}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>专业：</strong><label>{{student.major}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>学院：</strong><label>{{student.department}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>身份证号：</strong><label>{{student.identity}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>联系方式：</strong><label>{{student.phone}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>导员：</strong><label>{{student.guideName}}</label></nz-timeline-item>
           </nz-timeline>
           <nz-timeline *ngIf="type == 'teacher'">
-            <nz-timeline-item>
-                <strong>信息描述：</strong>
-                <label>信息</label>
-            </nz-timeline-item>
+            <nz-timeline-item><strong>编号：</strong><label>{{teacher.id}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>姓名：</strong><label>{{teacher.name}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>性别：</strong><label>{{teacher.gender}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>联系方式：</strong><label>{{teacher.phone}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>所带班级：</strong><label>{{teacher.class}}</label></nz-timeline-item>
+            <nz-timeline-item><strong>学院：</strong><label>{{teacher.department}}</label></nz-timeline-item>
+            <nz-timeline-item *ngIf="teacher.flag == 'teacher'"><strong>职称：</strong><label>教师</label></nz-timeline-item>
+            <nz-timeline-item *ngIf="teacher.flag == 'guide'"><strong>职称：</strong><label>导员</label></nz-timeline-item>
           </nz-timeline>
       </div>
       <div class="other-info">
@@ -59,18 +63,18 @@
               <div class="infojk hide" id="person3">
                 <nz-form-item nzFlex>
                   <nz-form-label >旧密码</nz-form-label>
-                  <input nz-input placeholder="输入旧密码" >
+                  <input nz-input placeholder="输入旧密码" type="password" [(ngModel)]="oldPassword">
                 </nz-form-item>
                 <nz-form-item nzFlex>
                   <nz-form-label >新密码</nz-form-label>
-                  <input nz-input placeholder="输入新密码" >
+                  <input nz-input placeholder="输入新密码" type="password" [(ngModel)]="newPassword">
                 </nz-form-item>
                 <nz-form-item nzFlex>
                   <nz-form-label >确认新密码</nz-form-label>
-                  <input nz-input placeholder="再输入一遍密码">
+                  <input nz-input placeholder="再输入一遍密码" type="password" [(ngModel)]="repairePassword">
                 </nz-form-item>
                 <div style="text-align: right;width: 100%;">
-                    <button nz-button nzType="primary">修改</button>
+                    <button nz-button nzType="primary" (click)="updatePassword()">修改</button>
                 </div>
               </div>
               <div class="infojk hide" id="person4">

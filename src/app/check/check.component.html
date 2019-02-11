@@ -1,0 +1,53 @@
+<app-header></app-header>
+<div class="check-xawl">
+  <div class="check-btn">
+    <button nz-button nzType="primary" (click)="checkOpen()" id="open">开启签到</button>
+    <span>计时地方</span>
+    <button nz-button nzType="primary" (click)="checkClose()" id="close">关闭签到</button>
+  </div>
+  <div class="check-sta">
+    <div class="check-table check-basic">
+      <h5>全部学生情况</h5>
+      <table>
+        <thead style="background: #eee;">
+          <tr height="70">
+            <th width="50">序号</th>
+            <th width="120">学号</th>
+            <th width="90">姓名</th>
+            <th width="70">旷课</th>
+            <th width="70">正常</th>
+          </tr>
+        </thead>
+        <tr>
+          <td>1</td>
+          <td>2511150329</td>
+          <td>苏丹丹</td>
+          <td>苏丹丹</td>
+          <td>苏丹丹</td>
+        </tr>
+      </table>
+    </div>
+    <div class="check-table check-result">
+        <h5>考勤结果</h5>
+        <table>
+          <thead style="background: #eee;">
+            <tr height="70">
+              <th width="50">序号</th>
+              <th width="120">学号</th>
+              <th width="90">姓名</th>
+              <th width="70">旷课</th>
+              <th width="70">正常</th>
+            </tr>
+          </thead>
+          <tr>
+            <td>1</td>
+            <td>2511150329</td>
+            <td>苏丹丹</td>
+            <td>苏丹丹</td>
+            <td>苏丹丹</td>
+          </tr>
+        </table>
+      </div>
+  </div>
+</div>
+<app-footer></app-footer>

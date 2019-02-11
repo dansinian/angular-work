@@ -51,7 +51,7 @@ export class LeaveComponent implements OnInit {
             localStorage.setItem("phone", data['guidePhone']);
             // this.leave.id = params['leaveId'];
             // this.leave.stuId = params['stuId'];
-            //this.route.navigate(['/detail'], {queryParams: {'leaveID': params['leaveId'],'stuID': params['stuId']} });
+            this.route.navigate(['/detail'], {queryParams: {'leaveID': params['leaveId'],'stuID': params['stuId']} });
         } else {
           this.appservice.info(data['msg']);
         }

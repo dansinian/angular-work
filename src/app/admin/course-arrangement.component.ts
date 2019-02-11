@@ -16,48 +16,92 @@ export class CourseArrangementComponent implements OnInit {
     arragent: CourArragent;
     isVisibleEdit = false;
     isVisibleAdd = false;
-    carmTime;
+    weekList;
+    infoList = [];
+    searchInfo;
 
     constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
       this.basePath = this.appService.getBasePath();
-      this.arragent = {id: '', time: '', courId: '', courName: ''};
+      this.arragent = {id: '', time: '星期一', courId: '', courName: ''};
     }
 
     ngOnInit() {
       $(".nav-list ul li").removeClass("active");
       $(".nav-list ul li").eq(4).addClass("active");
+      this.weekList = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+      const Params = new HttpParams().set("data","");
+      this.httpClient.post(this.basePath + '/arrangement/selectArrangement', Params).subscribe(data => {
+        if (data != null && data != '') {
+          if (data['status'] == '200') {
+            let list = data['Arrangements'];
+            for (let item of list) {
+              this.infoList.push({
+                "carmId": item['carmId'],
+                "carmTime": item['carmTime'],
+                "courseId": item['courseId'],
+                "courseName": item['courseName'],
+              });
+            }
+          }
+        }
+      }, error => {
+
+      });
     }
 
     //编辑信息
-    editInfo() {
-      this.arragent = {id: '2222', time: '2019-01-18 21:42:24 - 2019-01-19 21:42:24', courId: '1234', courName: 'dvdsvdvsdvsd'};
-      
-      
-      this.isVisibleEdit = true;
+    editInfo(item) {
+    this.arragent.id = item.carmId;
+    this.arragent.time = item.carmTime;
+    this.arragent.courId = item.courseId;
+    this.arragent.courName = item.courseName;
+    this.isVisibleEdit = true;
+    }
+
+    //搜索
+    getSearch() {
+      this.sendData = { "content": this.searchInfo };
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/arrangement/selectArrangement', Params).subscribe(data => {
+        if (data != null && data != '') {
+          this.infoList = [];
+          if (data['status'] == '200') {
+            let list = data['Arrangements'];
+            for (let item of list) {
+              this.infoList.push({
+                "carmId": item['carmId'],
+                "carmTime": item['carmTime'],
+                "courseId": item['courseId'],
+                "courseName": item['courseName'],
+              });
+            }
+          }
+        }
+      }, error => {
+
+      });
     }
 
     //添加信息
     addInfo() {
-      
       this.isVisibleAdd = true;
     }
 
     //修改内容
     handleEdit() {
-      this.arragent.time = this.appService.getDate(this.carmTime[0]) + " - " + this.appService.getDate(this.carmTime[1]);
       this.sendData = {
         "arragementId" : this.arragent.id,
         "carmTime" : this.arragent.time,
         "courseId" : this.arragent.courId,
+        "courseName" : this.arragent.courName
       };
-      console.log(this.sendData);
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
       this.httpClient.post(this.basePath + '/arrangement/updateArrangement', Params).subscribe(data => {
-        console.log(data);
         if (data != null && data != '') {
           if (data['status'] == '200') {
             this.appService.info(data['msg']);
-            this.isVisibleAdd = false;
+            this.isVisibleEdit = false;
+            location.reload(true);
           } else {
             this.appService.info(data['msg']);
           }
@@ -69,20 +113,18 @@ export class CourseArrangementComponent implements OnInit {
 
     //添加内容
     handleAdd() {
-      this.arragent.time = this.appService.getDate(this.carmTime[0]) + " - " + this.appService.getDate(this.carmTime[1]);
       this.sendData = {
-        "arragementId" : this.arragent.id,
         "carmTime" : this.arragent.time,
         "courseId" : this.arragent.courId,
+        "courseName" : this.arragent.courName
       };
-      console.log(this.sendData);
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
       this.httpClient.post(this.basePath + '/arrangement/createArrangement', Params).subscribe(data => {
-        console.log(data);
         if (data != null && data != '') {
           if (data['status'] == '200') {
             this.appService.info(data['msg']);
             this.isVisibleAdd = false;
+            location.reload(true);
           } else {
             this.appService.info(data['msg']);
           }
@@ -93,22 +135,20 @@ export class CourseArrangementComponent implements OnInit {
       
     }
     //删除确认
-    deleteConfirm() {
-      let id="11111";
-      this.sendData = {"arragementId" : id };
+    deleteConfirm(ID ) {
+      this.sendData = {"arragementId" : ID};
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
-      
       this.modalService.confirm({
         nzTitle     : '你确定删除此条信息？',
         nzOkText    : '是',
         nzOkType    : 'danger',
         nzOnOk      : () => {
           this.httpClient.post(this.basePath + '/arrangement/deleteArrangement', Params).subscribe(data => {
-            console.log(data);
             if (data != null && data != '') {
               if (data['status'] == '200') {
                 this.appService.info("删除成功!");
                 this.isVisibleAdd = false;
+                location.reload(true);
               } else {
                 this.appService.info("删除失败");
               }

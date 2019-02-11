@@ -4,9 +4,9 @@
         <div class="add student-add">
           <div class="admin-search">
             <label>课程信息：</label>
-            <input style="width:200px;" nz-input placeholder="课程信息：" nz-name="">
+            <input style="width:200px;" nz-input placeholder="请输入课程名称搜索" [(ngModel)]="searchInfo">
           </div>
-          <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>查询</button>
+          <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i>查询</button>
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
         <div class="admin-table student-table">
@@ -17,18 +17,20 @@
                 <th>课程安排编号</th>
                 <th>上课时间</th>
                 <th>课程编号</th>
+                <th>课程名称</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>2511150329</td>
-                <td>2019-02-16 10:00-12:00</td>
-                <td>251115032911</td>
+              <tr *ngFor="let item of infoList; index as i;">
+                <td>{{i+1}}</td>
+                <td>{{item.carmId}}</td>
+                <td>{{item.carmTime}}</td>
+                <td>{{item.courseId}}</td>
+                <td>{{item.courseName}}</td>
                 <td>
-                  <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo()"><i nz-icon type="edit" theme="outline"></i></button>
-                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm()"><i nz-icon type="delete" theme="outline"></i></button>
+                  <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
+                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.carmId)"><i nz-icon type="delete" theme="outline"></i></button>
                 </td>
               </tr>
             </tbody>
@@ -46,7 +48,9 @@
           </tr>
           <tr>
             <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-range-picker [(ngModel)]="carmTime"  nzShowTime></nz-range-picker></td>
+            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.time">
+              <nz-option *ngFor="let item of weekList" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
+            </nz-select></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>
@@ -64,12 +68,10 @@
       <div class="admin-edit">
         <table>
           <tr>
-            <td width="150"><nz-form-label>课程安排编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程安排编号" [(ngModel)]="arragent.id"></td>
-          </tr>
-          <tr>
             <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-range-picker [(ngModel)]="carmTime"  nzShowTime></nz-range-picker></td>
+            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.time">
+              <nz-option *ngFor="let item of weekList" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
+            </nz-select></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>

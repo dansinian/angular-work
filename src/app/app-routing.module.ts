@@ -7,6 +7,7 @@ import { LeaveComponent } from 'src/app/leave/leave.component';
 import { AccountComponent } from 'src/app/account/account.component';
 import { DetailComponent } from 'src/app/detail/detail.component';
 import { LoginGuardService } from './common/login-guard.service';
+import { CheckComponent } from 'src/app/check/check.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'leave', component: LeaveComponent },
   { path: 'detail', component: DetailComponent},
   { path: 'account', component: AccountComponent },
+  { path: 'check', component: CheckComponent},
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   { path: 'error', component: ErrorComponent },
 ];

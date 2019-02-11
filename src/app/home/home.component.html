@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="attendance-stu-show" *ngIf="type == 'student'">
   <div class="stu-record">
-      <h4>出勤记录</h4>
+      <h4>出勤记录 <button nz-button nzType="primary" (click)="getCheck()" id="check">签到按钮</button></h4>
       <ul>
         <li><i style="background: green;"></i>迟到</li>
         <li><i style="background: red;"></i>旷课</li>
@@ -69,30 +69,43 @@
             <div class="record-from">
               <nz-form-item nzFlex>
                 <nz-form-label>选择班级</nz-form-label>
-                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                <nz-select style="width: 60%" nzShowSearch nzAllowClear  [(ngModel)]="classHome" nzPlaceHolder="请选择班级">
+                  <nz-option *ngFor="let item of selectClass" nzLabel="{{item.teaClass}}" nzValue="{{item.teaClass}}"></nz-option>
                 </nz-select>
               </nz-form-item>
               <nz-form-item nzFlex>
                 <nz-form-label>选择学生</nz-form-label>
-                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                <nz-select style="width: 60%" (click)="getChange()" nzShowSearch nzAllowClear id="selectClass" nzPlaceHolder="请选择学生" [(ngModel)]="studentHome">
+                  <nz-option *ngFor="let item of selectStudent" nzLabel="{{item.name}}" nzValue="{{item.studentID}}"></nz-option>
                 </nz-select>
               </nz-form-item>
-              <nz-form-item nzFlex>
+              <nz-form-item nzFlex *ngIf="teacherAttribute == 'teacher'">
                 <nz-form-label>选择课程</nz-form-label>
-                <nz-select style="width: 60%"  nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
-                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                <nz-select style="width: 60%" nzShowSearch nzAllowClear nzPlaceHolder="请选择课程" [(ngModel)]="courseHome">
+                  <nz-option *ngFor="let item of selectCourse" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
                 </nz-select>
               </nz-form-item>
             </div>
-            <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>查询结果</button>
+            <button nz-button nzType="primary" (click)="selectAttendance()"><i nz-icon type="search" theme="outline"></i>查询结果</button>
+            <!-- <div class="select">
+              <p>班级</p>
+              <ul *ngFor="let item of selectClass">
+                <li>{{item.teaClass}}</li>
+              </ul>
+            </div>
+            <div class="select">
+              <p>学生</p>
+              <ul *ngFor="let item of selectClass">
+                <li>{{item.teaClass}}</li>
+              </ul>
+            </div>
+            <div class="select">
+              <p>课程</p>
+              <ul *ngFor="let item of selectCourse">
+                <li>{{item}}</li>
+              </ul>
+            </div> -->
+
         </div>
         <table>
           <thead>
