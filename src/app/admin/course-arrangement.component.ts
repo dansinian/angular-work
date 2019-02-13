@@ -22,7 +22,7 @@ export class CourseArrangementComponent implements OnInit {
 
     constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
       this.basePath = this.appService.getBasePath();
-      this.arragent = {id: '', time: '星期一', courId: '', courName: ''};
+      this.arragent = {id: '', week: '', courId: '', courName: '', start: '', end: ''};
     }
 
     ngOnInit() {
@@ -37,7 +37,9 @@ export class CourseArrangementComponent implements OnInit {
             for (let item of list) {
               this.infoList.push({
                 "carmId": item['carmId'],
-                "carmTime": item['carmTime'],
+                "week": item['week'],
+                "start": item['week'],
+                "end": item['week'],
                 "courseId": item['courseId'],
                 "courseName": item['courseName'],
               });
@@ -52,7 +54,9 @@ export class CourseArrangementComponent implements OnInit {
     //编辑信息
     editInfo(item) {
     this.arragent.id = item.carmId;
-    this.arragent.time = item.carmTime;
+    this.arragent.week = item.carmTime;
+    this.arragent.start = item.carmTime;
+    this.arragent.end = item.carmTime;
     this.arragent.courId = item.courseId;
     this.arragent.courName = item.courseName;
     this.isVisibleEdit = true;
@@ -70,7 +74,9 @@ export class CourseArrangementComponent implements OnInit {
             for (let item of list) {
               this.infoList.push({
                 "carmId": item['carmId'],
-                "carmTime": item['carmTime'],
+                "week": item['week'],
+                "start": item['week'],
+                "end": item['week'],
                 "courseId": item['courseId'],
                 "courseName": item['courseName'],
               });
@@ -91,7 +97,9 @@ export class CourseArrangementComponent implements OnInit {
     handleEdit() {
       this.sendData = {
         "arragementId" : this.arragent.id,
-        "carmTime" : this.arragent.time,
+        "courseWeek" : this.arragent.week,
+        "srartTime" : this.arragent.start,
+        "endTime" : this.arragent.end,
         "courseId" : this.arragent.courId,
         "courseName" : this.arragent.courName
       };
@@ -114,7 +122,9 @@ export class CourseArrangementComponent implements OnInit {
     //添加内容
     handleAdd() {
       this.sendData = {
-        "carmTime" : this.arragent.time,
+        "carmTime" : this.arragent.week,
+        "srartTime" : this.arragent.start,
+        "endTime" : this.arragent.end,
         "courseId" : this.arragent.courId,
         "courseName" : this.arragent.courName
       };

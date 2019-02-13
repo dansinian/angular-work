@@ -13,21 +13,28 @@
           <nz-table #borderedTable nzBordered [nzData]="dataSet">
             <thead>
               <tr>
-                <th width="10">序号</th>
-                <th>课程安排编号</th>
-                <th>上课时间</th>
-                <th>课程编号</th>
-                <th>课程名称</th>
-                <th>操作</th>
+                <th width="10" rowspan="2">序号</th>
+                <th rowspan="2">课程安排编号</th>
+                <th rowspan="2">课程编号</th>
+                <th rowspan="2">课程名称</th>
+                <th colspan="3">上课时间</th>
+                <th rowspan="2">操作</th>
+              </tr>
+              <tr>
+                <th>星期</th>
+                <th>开始时间</th>
+                <th>开始时间</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of infoList; index as i;">
                 <td>{{i+1}}</td>
                 <td>{{item.carmId}}</td>
-                <td>{{item.carmTime}}</td>
                 <td>{{item.courseId}}</td>
                 <td>{{item.courseName}}</td>
+                <td>{{item.week}}</td>
+                <td>{{item.start}}</td>
+                <td>{{item.end}}</td>
                 <td>
                   <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
                   <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.carmId)"><i nz-icon type="delete" theme="outline"></i></button>
@@ -47,10 +54,18 @@
             <td><input nz-input placeholder="课程安排编号" [(ngModel)]="arragent.id" disabled></td>
           </tr>
           <tr>
-            <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.time">
+            <td><nz-form-label>上课星期</nz-form-label></td>
+            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.week">
               <nz-option *ngFor="let item of weekList" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
             </nz-select></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>上课开始时间</nz-form-label></td>
+            <td><nz-time-picker [(ngModel)]="arragent.start" nzPlaceHolder="选择上课开始时间" nzFormat="HH:mm"></nz-time-picker></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>上课结束时间</nz-form-label></td>
+            <td><nz-time-picker [(ngModel)]="arragent.end" nzPlaceHolder="选择上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>
@@ -72,6 +87,14 @@
             <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.time">
               <nz-option *ngFor="let item of weekList" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
             </nz-select></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>上课开始时间</nz-form-label></td>
+            <td><nz-time-picker [(ngModel)]="arragent.start" nzPlaceHolder="选择上课开始时间" nzFormat="HH:mm"></nz-time-picker></td>
+          </tr>
+          <tr>
+            <td><nz-form-label>上课结束时间</nz-form-label></td>
+            <td><nz-time-picker [(ngModel)]="arragent.end" nzPlaceHolder="选择上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>

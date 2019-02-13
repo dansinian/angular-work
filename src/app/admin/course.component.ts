@@ -73,6 +73,9 @@ export class CourseComponent implements OnInit {
 
   //修改内容
   handleEdit() {
+    console.log(this.course.class);
+    this.course.class.replace("，", ",");
+    console.log(this.course.class);
     this.sendData = {
       "courseId": this.course.id,
       "courseName" : this.course.name,
@@ -83,7 +86,6 @@ export class CourseComponent implements OnInit {
     };
     const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/course/updateCourse', Params).subscribe(data => {
-      console.log(data);
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);
@@ -103,6 +105,10 @@ export class CourseComponent implements OnInit {
 
   //添加内容
   handleAdd() {
+    console.log(this.course.class);
+    this.course.class.replace("，", ",");
+    console.log(this.course.class);
+
     this.sendData = {
       "courseName" : this.course.name,
       "teaName" : this.course.teaName,
@@ -112,7 +118,6 @@ export class CourseComponent implements OnInit {
     };
     const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/course/createCourse', Params).subscribe(data => {
-      console.log(data);
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);
