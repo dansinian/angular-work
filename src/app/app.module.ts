@@ -11,6 +11,8 @@ import * as AllIcons from '@ant-design/icons-angular/icons';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
+import { AppService } from './app.service';
+import { AppRoutingModule } from './app-routing.module';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -33,7 +35,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     AppRoutingModule
   ],
   providers: [
-    AppService, EcharService, 
+    AppService, 
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_ICONS, useValue: icons }
   ],
