@@ -13,6 +13,9 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './common/home.component';
+import { LoginComponent } from './common/login.component';
+import { DetailComponent } from './common/detail.component';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -22,7 +25,10 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

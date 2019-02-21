@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
  // { path: '', redirectTo: '/login', pathMatch: 'full' },
  // { path: 'login', component: LoginComponent, canActivate: [] },
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
  // { path: 'error', component: ErrorComponent },
 ];
 
