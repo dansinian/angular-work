@@ -1,0 +1,421 @@
+/* 公共 */
+a{
+    color: #000 !important;
+}
+.hide{ display: none; }
+.show{ display: block; }
+*{ padding: 0; margin: 0; }
+/* login */
+.attendance-login{
+    width:100%;
+    height:100%;
+    background: -webkit-linear-gradient(#ccc, #232325f2); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#ccc, #232325f2); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#ccc, #232325f2); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#ccc, #232325f2); /* 标准的语法（必须放在最后） */
+    padding-top: 10%;
+    /* background: #eee; */
+}
+.attendance-login .login-lk{
+    margin: 0 auto;
+    border-radius: 5px;
+    width: 450px;
+}
+.login-lk{
+    text-align: center;
+    background: #eee;
+}
+.login-lk>h3{
+    height: 100px;
+    line-height: 100px;
+    border-bottom: 2px solid rgb(156, 147, 147);
+}
+.login-form{
+    padding: 20px 0 40px 0;
+}
+.login-form td:first-child{
+    width: 100px;
+    text-align: right;
+}
+.login-form tr{
+    height: 60px;
+    line-height: 60px;
+}
+.login-form td:last-child{
+    width: 250px;
+    padding-left: 20px;
+}
+.admin-lk{
+    padding-bottom: 50px;
+}
+.admin-login{
+    background: -webkit-linear-gradient(#ccc, #232325f2); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#ccc, #232325f2); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#ccc, #232325f2); /* Firefox 3.6 - 15 */
+    background: linear-gradient(#ccc, #232325f2); /* 标准的语法（必须放在最后） */
+}
+/* system header */
+.header, .footer{
+    background: #eee;
+}
+.attendance-logo{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 15px 0;
+}
+.attendance-logo>p a{
+    margin-right:20px;
+}
+.attendance-logo>p a:hover{
+    color: red !important;
+}
+.attendance-nav ul{ 
+    list-style: none;
+    height: 40px;
+    line-height: 40px;
+    background: #ccc;
+}
+.attendance-nav ul>li{
+    float: left;
+    width: 100px;
+    text-align: center;
+    font-size: 16px;
+    border-right: 1px solid #999;
+}
+.attendance-nav .active, .attendance-nav ul>li:hover{
+    background: #0AA679;
+}
+.attendance-nav .active>a, .attendance-nav ul>li:hover>a{
+    color: #fff !important;
+}
+.attendance-nav ul>li>a{
+    color: #000 !important;
+}
+/* system footer */
+.footer a:hover{
+    color: red !important;
+}
+.attendance-foot-nav{
+    border-bottom: 1px solid #fff;
+    display: flex;
+    justify-content: space-around;
+}
+.attendance-foot-nav>ul{
+    list-style: none;
+    height: 35px;
+    line-height: 50px;
+}
+.attendance-foot-nav>ul>li{
+    float: left;
+    width: 80px;
+    text-align: center;
+}
+.attendance-foot-nav>ul>li>a{
+    color: #211d1d !important;
+}
+.attendance-foot-nav>ul>li:first-child{
+    text-align: right
+}
+.attendance-foot-nav>ul>li:first-child::before{
+    display: none;
+}
+.attendance-foot-nav>ul>li:before{
+    content: "/";
+    margin-right: 10px;
+    color: grey;
+}
+.attendance-foot-phone{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.attendance-foot-phone>div:first-child{
+    padding-right: 15px;
+}
+.attendance-foot-phone>div:last-child{
+    margin-left: 20px;
+    width: 500px;
+}
+.attendance-foot-phone>div a{
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+}
+.attendance-foot-copy{
+    height:35px;
+    line-height: 35px;
+    text-align: center;
+    background: #d2d0d0;
+}
+.attendance-leave{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+.attendance-leave>div{
+    width: 500px;
+    text-align: center;
+}
+.attendance-leave h3{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bolder;
+}
+.attendance-leave nz-form-label, .info-show nz-form-label{
+    width: 120px;
+    text-align: right;
+    margin-right:10px;
+}
+.attendance-account{
+    width: 75%;
+    display: flex;
+    justify-content: flex-start;
+}
+.attendance-account h3{
+    height: 35px;
+    line-height: 35px;
+    padding-left: 20px;
+    border-left: 10px solid red;
+    margin-bottom: 40px;
+}
+.other-info{ margin-left: 20px; width: 60%}
+.account-info{
+    width: 30%;
+    border-right: 1px solid #eee;
+}
+.other-info-jk>ul{
+    list-style: none;
+    height: 35px;
+    line-height: 35px;
+    margin-top: -15px;
+    border-bottom: 2px solid #ccc;
+}
+.other-info-jk>ul>li{
+    cursor: pointer;
+    float: left;
+    width: 120px;
+    text-align: center;
+}
+.other-info-jk>ul>li:hover{
+    border-bottom: 5px solid #0AA679;
+    margin-top:-4px;
+    color: #0AA679 !important;
+}
+.other-info-jk>ul .active{
+    border-bottom: 5px solid #0AA679;
+    margin-top:-4px;
+    color: #0AA679 !important;
+}
+.infojk{
+    margin: 50px;
+}
+#infojk-result{
+    width: 500px;
+    height: 400px;
+}
+.info-show ul{ list-style: none; }
+.info-show ul li>i{
+    margin-right:8px;
+}
+.attendance-detail{
+    display: flex;
+    justify-content: space-around;
+}
+.attendance-stu-show{
+    margin: 0 auto;
+    width: 75%;
+}
+.apply-detail button{
+    margin: 30px 40px 0 0;
+}
+.apply-detail h4{
+    margin: 15px 0;
+}
+.stu-record>h4{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 20px;
+}
+.stu-record>h4 button{
+    margin-left: 50px;
+}
+.attendance-stu-show>.stu-record ul{ 
+    list-style: none;
+    display: flex;
+}
+.attendance-stu-show>.stu-record ul li{ margin: 10px 20px; }
+.stu-record ul li>i{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+.stu-record table{ border-radius: 5px;}
+.stu-record table, .stu-record th, .stu-record td{
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 0 20px;
+}
+#lineChart{
+    width: 700px;
+    height: 400px;
+    margin-left: 50px;
+}
+.stu-statistic{
+}
+.attend-record{
+    display: flex;
+    justify-content: flex-start;
+}
+.record-from{
+    width: 80%;
+}
+.attend-record>button{
+    line-height: 100%;
+}
+.stu-record>table{
+    margin-bottom: 20px;
+}
+.teacher-month, .stu-statistic{
+    display: flex;
+    justify-content: flex-start;
+}
+.teacher-month h4{
+    margin-bottom: 20px;
+}
+/* .apply-detail th, .apply-detail td{
+    text-align: center;
+} */
+
+
+/* 系统后台 */
+.navigation{
+    height: 100%;
+    width: 200px;
+    background: #323e4a;
+}
+.navigation>h4{
+    height: 90px;
+    line-height: 90px;
+    text-align: center;   
+}
+.navigation>h4 span{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    background: #8297ab;
+    padding: 5px 10px 35px 10px;
+    border-radius: 5px;
+    color: #fff !important;
+}
+.admin{
+    margin: 45px;
+    width: 100%;
+}
+.add{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+}
+.add label{
+    margin-right: 15px;
+}
+.add input{
+    margin-right: 30px;
+}
+.add button{
+    margin-right: 30px;
+}
+/* .navigation>h4{
+ 
+} */
+/* .navigation>.nav-list{
+    height: 85%;
+} */
+.navigation>.nav-list li{
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #7d7979;
+}
+.nav-list li a{
+    color: #fff !important;
+}
+.nav-list li.active{
+    background: #ccc;
+}
+.nav-list li.active a{
+    color: #000 !important;
+}
+.admin-student,.admin-teacher{
+    display: flex;
+    justify-content: flex-start;
+}
+.admin-table td button:first-child{
+    margin-right: 15px;
+}
+.admin-edit tr>td:first-child{
+    text-align: right;
+}
+.admin-edit tr>td:last-child{
+    padding-left: 50px;
+}
+.student-table{
+    max-width: 1100px;
+    overflow: auto;
+}
+.tableOver{
+    max-width: 200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+}
+.leaveModel tr{padding: 5px 0;}
+.leaveModel tr th{
+    text-align: right;
+    width: 200px;
+    padding-right: 20px;
+}
+.apply-all ul {
+    list-style: none;
+}
+.apply-all li {
+    width: 300px;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+}
+/* 考勤 */
+.check-xawl{
+    width: 80%;
+    margin: 0 auto;
+}
+.check-sta{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+.check-btn{
+    padding-left: 20px;
+}
+.check-btn>span{
+    margin: 10px 50px;
+}
+.check-table h5{
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    background: #eee;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+.check-table td, .check-table th{
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
