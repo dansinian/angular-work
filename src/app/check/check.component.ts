@@ -21,7 +21,7 @@ export class CheckComponent implements OnInit {
     $(".attendance-nav ul li").removeClass('active');
     $(".attendance-nav ul li").eq(1).addClass('active');
     localStorage.setItem("checkFlag", this.checkFlag);
-    if (!(this.checkFlag == 'false')) {
+    if (this.checkFlag == 'false') {
       $("#open").removeAttr("disabled");
       $("#close").removeAttr("disabled");
       $("#close").attr("disabled", "true");
