@@ -5,14 +5,17 @@
             <table>
                 <tr>
                     <td><nz-form-label>管理员账号</nz-form-label></td>
-                    <td><input nz-input placeholder="学号"  [(ngModel)]="user.account"></td>
+                    <td width="240"><input nz-input placeholder="学号"  [(ngModel)]="user.account"></td>
                 </tr>
                 <tr>
                     <td><nz-form-label>密码</nz-form-label></td>
                     <td><input nz-input placeholder="密码" type="password" [(ngModel)]="user.password"></td>
                 </tr>
+                <tr>
+                    <td colspan="2"><button nz-button (click)="login()" nzType="primary">登录</button></td>
+                </tr>
             </table>
-            <button nz-button (click)="login()" nzType="primary">登录</button>
+            
         </div>
     </div>
 </div>

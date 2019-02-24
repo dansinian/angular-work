@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 export class AppService {
     constructor(private modalService: NzModalService, private datePipe: DatePipe) { }
 
-    //����ʱ���ʽ
+    //输入时间格式
     getDate(date) {
         return this.datePipe.transform(date, "yyyy-MM-dd HH:mm:ss'");
     }
