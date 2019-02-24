@@ -2,7 +2,6 @@
 <div class="check-xawl">
   <div class="check-btn">
     <button nz-button nzType="primary" (click)="checkOpen()" id="open">开启签到</button>
-    <span>计时地方</span>
     <button nz-button nzType="primary" (click)="checkClose()" id="close">关闭签到</button>
   </div>
   <div class="check-sta">
@@ -18,12 +17,12 @@
             <th width="70">正常</th>
           </tr>
         </thead>
-        <tr>
+        <tr *ngFor="let item of opencheckList; index as i;">
+          <td>{{i+1}}</td>
+          <td>{{item.stuID}}</td>
+          <td>{{item.name}}</td>
+          <td>0</td>
           <td>1</td>
-          <td>2511150329</td>
-          <td>苏丹丹</td>
-          <td>苏丹丹</td>
-          <td>苏丹丹</td>
         </tr>
       </table>
     </div>
@@ -39,12 +38,19 @@
               <th width="70">正常</th>
             </tr>
           </thead>
-          <tr>
+          <tr *ngFor="let item of closecheckList; index as i;">
+            <td>{{i+1}}</td>
+            <td>{{item.stuID}}</td>
+            <td>{{item.name}}</td>
+            <td>0</td>
             <td>1</td>
-            <td>2511150329</td>
-            <td>苏丹丹</td>
-            <td>苏丹丹</td>
-            <td>苏丹丹</td>
+          </tr>
+          <tr *ngFor="let item of checkList; index as i;" style="background: #dc8155;">
+            <td>{{listLength+i+1}}</td>
+            <td>{{item.stuID}}</td>
+            <td>{{item.name}}</td>
+            <td>1</td>
+            <td>0</td>
           </tr>
         </table>
       </div>

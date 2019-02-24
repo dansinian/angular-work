@@ -61,11 +61,11 @@
           </tr>
           <tr>
             <td><nz-form-label>上课开始时间</nz-form-label></td>
-            <td><nz-time-picker [(ngModel)]="arragent.start" nzPlaceHolder="选择上课开始时间" nzFormat="HH:mm"></nz-time-picker></td>
+            <td><nz-time-picker [(ngModel)]="startTime" nzPlaceHolder="上课开始时间" nzFormat="HH:mm"></nz-time-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>上课结束时间</nz-form-label></td>
-            <td><nz-time-picker [(ngModel)]="arragent.end" nzPlaceHolder="选择上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
+            <td><nz-time-picker [(ngModel)]="endTime" nzPlaceHolder="上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>
@@ -84,17 +84,20 @@
         <table>
           <tr>
             <td><nz-form-label>上课时间</nz-form-label></td>
-            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.time">
+            <td><nz-select style="width: 200px;" nzShowSearch nzAllowClear nzPlaceHolder="选择上课时间" [(ngModel)]="arragent.week">
               <nz-option *ngFor="let item of weekList" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
             </nz-select></td>
           </tr>
           <tr>
             <td><nz-form-label>上课开始时间</nz-form-label></td>
-            <td><nz-time-picker [(ngModel)]="arragent.start" nzPlaceHolder="选择上课开始时间" nzFormat="HH:mm"></nz-time-picker></td>
+            <td>
+              <nz-time-picker [(ngModel)]="startTime" nzFormat="HH:mm"></nz-time-picker>
+              <!-- <nz-time-picker [(ngModel)]="arragent.start" [nzDefaultOpenValue]="defaultOpenValue"></nz-time-picker> -->
+            </td>
           </tr>
           <tr>
             <td><nz-form-label>上课结束时间</nz-form-label></td>
-            <td><nz-time-picker [(ngModel)]="arragent.end" nzPlaceHolder="选择上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
+            <td><nz-time-picker [(ngModel)]="endTime" nzPlaceHolder="上课结束时间" nzFormat="HH:mm"></nz-time-picker></td>
           </tr>
           <tr>
             <td><nz-form-label>课程编号</nz-form-label></td>

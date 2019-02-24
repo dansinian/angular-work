@@ -19,6 +19,8 @@ export class CourseArrangementComponent implements OnInit {
     weekList;
     infoList = [];
     searchInfo;
+    startTime;
+    endTime;
 
     constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
       this.basePath = this.appService.getBasePath();
@@ -28,6 +30,8 @@ export class CourseArrangementComponent implements OnInit {
     ngOnInit() {
       $(".nav-list ul li").removeClass("active");
       $(".nav-list ul li").eq(4).addClass("active");
+      this.startTime = new Date();
+      this.endTime = new Date();
       this.weekList = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
       const Params = new HttpParams().set("data","");
       this.httpClient.post(this.basePath + '/arrangement/selectArrangement', Params).subscribe(data => {
@@ -37,9 +41,9 @@ export class CourseArrangementComponent implements OnInit {
             for (let item of list) {
               this.infoList.push({
                 "carmId": item['carmId'],
-                "week": item['week'],
-                "start": item['week'],
-                "end": item['week'],
+                "week": item['courseWeek'],
+                "start": item['startTime'],
+                "end": item['endTime'],
                 "courseId": item['courseId'],
                 "courseName": item['courseName'],
               });
@@ -47,16 +51,16 @@ export class CourseArrangementComponent implements OnInit {
           }
         }
       }, error => {
-
+        this.appService.error("检查代码！");
       });
     }
 
     //编辑信息
     editInfo(item) {
     this.arragent.id = item.carmId;
-    this.arragent.week = item.carmTime;
-    this.arragent.start = item.carmTime;
-    this.arragent.end = item.carmTime;
+    this.arragent.week = item.week;
+    this.arragent.start = item.start;
+    this.arragent.end = item.end;
     this.arragent.courId = item.courseId;
     this.arragent.courName = item.courseName;
     this.isVisibleEdit = true;
@@ -74,9 +78,9 @@ export class CourseArrangementComponent implements OnInit {
             for (let item of list) {
               this.infoList.push({
                 "carmId": item['carmId'],
-                "week": item['week'],
-                "start": item['week'],
-                "end": item['week'],
+                "week": item['courseWeek'],
+                "start": item['startTime'],
+                "end": item['endTime'],
                 "courseId": item['courseId'],
                 "courseName": item['courseName'],
               });
@@ -95,14 +99,17 @@ export class CourseArrangementComponent implements OnInit {
 
     //修改内容
     handleEdit() {
+      this.arragent.start = this.appService.getHours(this.startTime);
+      this.arragent.end = this.appService.getHours(this.endTime);
       this.sendData = {
         "arragementId" : this.arragent.id,
         "courseWeek" : this.arragent.week,
-        "srartTime" : this.arragent.start,
+        "startTime" : this.arragent.start,
         "endTime" : this.arragent.end,
         "courseId" : this.arragent.courId,
         "courseName" : this.arragent.courName
       };
+      console.log(this.sendData);
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
       this.httpClient.post(this.basePath + '/arrangement/updateArrangement', Params).subscribe(data => {
         if (data != null && data != '') {
@@ -121,9 +128,11 @@ export class CourseArrangementComponent implements OnInit {
 
     //添加内容
     handleAdd() {
+      this.arragent.start = this.appService.getHours(this.startTime);
+      this.arragent.end = this.appService.getHours(this.endTime);
       this.sendData = {
-        "carmTime" : this.arragent.week,
-        "srartTime" : this.arragent.start,
+        "courseWeek" : this.arragent.week,
+        "startTime" : this.arragent.start,
         "endTime" : this.arragent.end,
         "courseId" : this.arragent.courId,
         "courseName" : this.arragent.courName
@@ -145,8 +154,8 @@ export class CourseArrangementComponent implements OnInit {
       
     }
     //删除确认
-    deleteConfirm(ID ) {
-      this.sendData = {"arragementId" : ID};
+    deleteConfirm(ID) {
+      this.sendData = {"carmId" : ID};
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
       this.modalService.confirm({
         nzTitle     : '你确定删除此条信息？',

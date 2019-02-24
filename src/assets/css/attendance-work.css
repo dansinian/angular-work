@@ -228,7 +228,10 @@ a{
 .attendance-stu-show{
     margin: 0 auto;
     width: 75%;
+    display: flex;
+    justify-content: space-around;
 }
+.stu-statistic{ margin-top: 50px; }
 .apply-detail button{
     margin: 30px 40px 0 0;
 }
@@ -243,30 +246,17 @@ a{
 .stu-record>h4 button{
     margin-left: 50px;
 }
-.attendance-stu-show>.stu-record ul{ 
-    list-style: none;
-    display: flex;
-}
-.attendance-stu-show>.stu-record ul li{ margin: 10px 20px; }
-.stu-record ul li>i{
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    border-radius: 20px;
-    margin-right: 5px;
-}
 .stu-record table{ border-radius: 5px;}
 .stu-record table, .stu-record th, .stu-record td{
     border: 1px solid #ccc;
     text-align: center;
     padding: 0 20px;
 }
+.stu-record tr{ height: 45px; line-height: 45px; }
 #lineChart{
     width: 700px;
     height: 400px;
     margin-left: 50px;
-}
-.stu-statistic{
 }
 .attend-record{
     display: flex;
@@ -281,7 +271,7 @@ a{
 .stu-record>table{
     margin-bottom: 20px;
 }
-.teacher-month, .stu-statistic{
+.teacher-month{
     display: flex;
     justify-content: flex-start;
 }
@@ -403,8 +393,8 @@ a{
 .check-btn{
     padding-left: 20px;
 }
-.check-btn>span{
-    margin: 10px 50px;
+.check-btn>button:first-child{
+    margin-right: 70px;
 }
 .check-table h5{
     height: 45px;

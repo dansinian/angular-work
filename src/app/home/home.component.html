@@ -2,63 +2,48 @@
 <div class="attendance-stu-show" *ngIf="type == 'student'">
   <div class="stu-record">
       <h4>出勤记录 <button nz-button nzType="primary" (click)="getCheck()" id="check">签到按钮</button></h4>
-      <ul>
-        <li><i style="background: green;"></i>迟到</li>
-        <li><i style="background: red;"></i>旷课</li>
-        <li><i style="background: #2EB2D6;"></i>请假</li>
-        <li><i style="background: #0AA679;"></i>正常</li>
-        <li><i style="background: #f15d06;"></i>放假</li>
-      </ul>
       <table>
         <thead style="background: #eee;">
           <tr height="70">
-            <th width="120" rowspan="2">周</th>
-            <th colspan="7">星期</th>
-            <th colspan="4">考勤统计</th>
+            <th width="120" rowspan="2">序号</th>
+            <th rowspan="2">课程名称</th>
+            <th colspan="5">星期</th>
           </tr>
           <tr height="50">
-              <th>星期日</th>
               <th>星期一</th>
               <th>星期二</th>
               <th>星期三</th>
               <th>星期四</th>
               <th>星期五</th>
-              <th>星期六</th>
-              <th>迟到</th>
-              <th>旷课</th>
-              <th>请假</th>
-              <th>正常</th>
           </tr>
-         
         </thead>
         <tbody>
-          <tr height="40" *ngFor="let i of list">
-            <th>第{{i}}周</th>
-            <td style="background: #f15d06; opacity: 0.6;"></td>
-            <td style="background: #0AA679; opacity: 0.6;"></td>
-            <td style="background: #0AA679; opacity: 0.6;"></td>
-            <td style="background: #0AA679; opacity: 0.6;"></td>
-            <td style="background: #0AA679; opacity: 0.6;"></td>
-            <td style="background: #0AA679; opacity: 0.6;"></td>
-            <td style="background: #f15d06; opacity: 0.6;"></td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>5</td>
+          <tr *ngFor="let item of weekAttend; index as i;">
+            <td>{{i+1}}</td>
+            <td>{{item.course}}</td>
+            <td *ngIf="item.Mon == 0" style="color: red;">{{item.Mon}}</td>
+            <td *ngIf="item.Mon == 1" style="color: #0AA679;">{{item.Mon}}</td>
+            <td *ngIf="item.Mon == 2">{{item.Mon}}</td>
+            <td *ngIf="item.Tue == 0" style="color: red;">{{item.Tue}}</td>
+            <td *ngIf="item.Tue == 1" style="color: #0AA679;">{{item.Tue}}</td>
+            <td *ngIf="item.Tue == 2">{{item.Tue}}</td>
+            <td *ngIf="item.Wed == 0" style="color: red;">{{item.Wed}}</td>
+            <td *ngIf="item.Wed == 1" style="color: #0AA679;">{{item.Wed}}</td>
+            <td *ngIf="item.Wed == 2">{{item.Wed}}</td>
+            <td *ngIf="item.Thue == 0" style="color: red;">{{item.Thue}}</td>
+            <td *ngIf="item.Thue == 1" style="color: #0AA679;">{{item.Thue}}</td>
+            <td *ngIf="item.Thue == 2">{{item.Thue}}</td>
+            <td *ngIf="item.Fri == 0" style="color: red;">{{item.Fri}}</td>
+            <td *ngIf="item.Fri == 1" style="color: #0AA679;">{{item.Fri}}</td>
+            <td *ngIf="item.Fri == 2">{{item.Fri}}</td>
           </tr>
         </tbody>
       </table>
   </div>
   <div class="stu-statistic">
-    <div>
-      <h4>月出勤统计</h4>
       <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
           <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
       </div>
-    </div>
-    <div id="lineChart">
-      折线图显示月考勤状况
-    </div>
   </div>
 </div>
 
@@ -69,127 +54,68 @@
             <div class="record-from">
               <nz-form-item nzFlex>
                 <nz-form-label>选择班级</nz-form-label>
-                <nz-select style="width: 60%" nzShowSearch nzAllowClear  [(ngModel)]="classHome" nzPlaceHolder="请选择班级">
+                <nz-select style="width: 40%" nzShowSearch nzAllowClear  [(ngModel)]="classHome" nzPlaceHolder="请选择班级">
                   <nz-option *ngFor="let item of selectClass" nzLabel="{{item.teaClass}}" nzValue="{{item.teaClass}}"></nz-option>
                 </nz-select>
               </nz-form-item>
-              <nz-form-item nzFlex>
+              <!-- <nz-form-item nzFlex>
                 <nz-form-label>选择学生</nz-form-label>
                 <nz-select style="width: 60%" (click)="getChange()" nzShowSearch nzAllowClear id="selectClass" nzPlaceHolder="请选择学生" [(ngModel)]="studentHome">
                   <nz-option *ngFor="let item of selectStudent" nzLabel="{{item.name}}" nzValue="{{item.studentID}}"></nz-option>
                 </nz-select>
+              </nz-form-item> -->
+              <nz-form-item nzFlex>
+                <nz-form-label>选择日期</nz-form-label>
+                <nz-date-picker [(ngModel)]="datePicker" nzPlaceHolder="请选择日期"></nz-date-picker>
               </nz-form-item>
               <nz-form-item nzFlex *ngIf="teacherAttribute == 'teacher'">
                 <nz-form-label>选择课程</nz-form-label>
-                <nz-select style="width: 60%" nzShowSearch nzAllowClear nzPlaceHolder="请选择课程" [(ngModel)]="courseHome">
-                  <nz-option *ngFor="let item of selectCourse" nzLabel="{{item}}" nzValue="{{item}}"></nz-option>
+                <nz-select style="width: 40%" nzShowSearch nzAllowClear nzPlaceHolder="请选择课程" [(ngModel)]="courseHome">
+                  <nz-option *ngFor="let item of selectCourse" nzLabel="{{item.value}}" nzValue="{{item.key}}"></nz-option>
                 </nz-select>
               </nz-form-item>
             </div>
             <button nz-button nzType="primary" (click)="selectAttendance()"><i nz-icon type="search" theme="outline"></i>查询结果</button>
-            <!-- <div class="select">
-              <p>班级</p>
-              <ul *ngFor="let item of selectClass">
-                <li>{{item.teaClass}}</li>
-              </ul>
-            </div>
-            <div class="select">
-              <p>学生</p>
-              <ul *ngFor="let item of selectClass">
-                <li>{{item.teaClass}}</li>
-              </ul>
-            </div>
-            <div class="select">
-              <p>课程</p>
-              <ul *ngFor="let item of selectCourse">
-                <li>{{item}}</li>
-              </ul>
-            </div> -->
-
         </div>
         <table>
           <thead>
-              <tr>
-                <th rowspan="3">周</th>
-                <th colspan="20" height="50">星期</th>
-                <th colspan="4" rowspan="2">考勤统计</th>
-              </tr>
-              <tr height="50">
-                  <th colspan="4">星期一</th>
-                  <th colspan="4">星期二</th>
-                  <th colspan="4">星期三</th>
-                  <th colspan="4">星期四</th>
-                  <th colspan="4">星期五</th>
-              </tr>
-              <tr>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-                  <th>迟到</th>
-                  <th>旷课</th>
-                  <th>请假</th>
-                  <th>正常</th>
-              </tr>
+            <tr style="height: 45px; line-height:45px; background:#eee;">
+              <th width="70" rowspan="2">序号</th>
+              <th width="120" rowspan="2">学号</th>
+              <th width="100" rowspan="2">姓名</th>
+              <th colspan="5">星期</th>
+            </tr>
+            <tr style="height: 50px; line-height:50px; background:#eee;">
+              <th width="100">星期一</th>
+              <th width="100">星期二</th>
+              <th width="100">星期三</th>
+              <th width="100">星期四</th>
+              <th width="100">星期五</th>
+            </tr>
           </thead>
           <tbody>
-            <tr height="40" *ngFor="let i of list">
-              <th>第{{i}}周</th>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
-              <td>0</td>
-              <td>0</td>
-              <td>0</td>
-              <td>5</td>
+            <tr *ngFor="let item of weekAttend; index as i;">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td *ngIf="item.Mon == '0'" style="color: red">{{item.Mon}}</td>
+              <td *ngIf="item.Mon == '1'">{{item.Mon}}</td>
+              <td *ngIf="item.Mon == '2'" style="color: #0AA679">{{item.Mon}}</td>
+              <td *ngIf="item.Tue == '0'" style="color: red">{{item.Tue}}</td>
+              <td *ngIf="item.Tue == '1'">{{item.Tue}}</td>
+              <td *ngIf="item.Tue == '2'" style="color: #0AA679">{{item.Tue}}</td>
+              <td *ngIf="item.Wed == '0'" style="color: red">{{item.Wed}}</td>
+              <td *ngIf="item.Wed == '1'">{{item.Wed}}</td>
+              <td *ngIf="item.Wed == '2'" style="color: #0AA679">{{item.Wed}}</td>
+              <td *ngIf="item.Thue == '0'" style="color: red">{{item.Thue}}</td>
+              <td *ngIf="item.Thue == '1'">{{item.Thue}}</td>
+              <td *ngIf="item.Thue == '2'" style="color: #0AA679">{{item.Thue}}</td>
+              <td *ngIf="item.Fri == '0'" style="color: red">{{item.Fri}}</td>
+              <td *ngIf="item.Fri == '1'">{{item.Fri}}</td>
+              <td *ngIf="item.Fri == '2'" style="color: #0AA679">{{item.Fri}}</td>
             </tr>
           </tbody>
         </table>
-    </div>
-
-    <div class="teacher-month">
-      <div>
-          <h4>月出勤统计</h4>
-          <div [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
-              <nz-calendar nzCard (nzValueChange)="onValueChange($event)" (nzModeChange)="onModeChange($event)"></nz-calendar>
-          </div>
-      </div>
-      <div id="lineChart">
-        折线图显示月考勤状况
-      </div>
     </div>
 </div>
 
