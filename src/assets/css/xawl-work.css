@@ -45,3 +45,80 @@ a{
 .login-form>table button{
     width:215px;
 }
+/* admin */
+.admin{
+    display: flex;
+    justify-content: flex-start;
+    /* flex-direction: row-reverse; */
+    /* position: relative; */
+}
+.admin-header{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    line-height: 50px;
+    color: #fff;
+    background: #2ec5c5;
+    border-left: 1px solid #2ec5c5;
+    font-weight: bolder;
+}
+.admin-header .header-left{
+    height: 100%;
+    width: 45px;
+    text-align: center;
+    font-size: 16px;
+}
+.admin-header .header-left:hover{
+    opacity: 0.7;
+    font-size: 18px;
+}
+.admin-header .header-right{
+    width: 100%;
+    text-align: right;
+    padding-right: 40px;
+}
+.admin-header .header-right>span{
+    margin: 0 20px;
+}
+.header-right>span>i{
+    margin-right: 5px;
+    font-size: 12px;
+}
+.admin-nav{
+    width: 240px;
+    /* position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; */
+    height: 100%;
+}
+.admin-right{
+    width: 100%;
+    /* position: absolute;
+    left: 240px; */
+}
+.admin-nav>h4{
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    color: #fff;
+    background: #2ec5c5;
+    text-align: center;
+}
+.navigation{
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    margin-top: -10px;
+}
+.navigation ul{ width: 100%; list-style: none;}
+.navigation ul>li{
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    color: 14px;
+    font-size: 14px;
+}
+.navigation ul>li:hover{
+    background: #e0dede;
+}
