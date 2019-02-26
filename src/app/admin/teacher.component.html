@@ -1,140 +1,153 @@
-<div class="admin-teacher">
+<div class="admin">
     <app-navigation></app-navigation>
-    <div class="admin">
-        <div class="add student-add">
-          <div class="admin-search">
-            <!-- <label>老师信息：</label> -->
-            <input style="width:200px;" nz-input placeholder="请输入专业或者老师关键字搜索" [(ngModel)]="searchInfo">
-          </div>
-          <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i>查询</button>
+    <div class="admin-right">
+      <app-header></app-header>
+      <div class="content">
+        <div class="content-search">
+          <input nz-input style="width: 150px;" placeholder="请输入学生姓名/学号查询" [(ngModel)]="searchValue">
+          <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
-        <div class="admin-table teacher-table">
+        <div class="content-table">
           <nz-table #borderedTable nzBordered [nzData]="dataSet">
             <thead>
               <tr>
-                <th width="10">序号</th>
-                <th>教师编号</th>
+                <th>序号</th>
+                <th>编号</th>
                 <th>姓名</th>
-                <th>性别</th>
-                <th>学院名称</th>
                 <th>联系方式</th>
-                <th>教师职责</th>
-                <th>登录密码</th>
+                <th>密码</th>
+                <th>所带课程</th>
                 <th>所带班级</th>
+                <th>学院</th>
+                <th>昵称</th>
+                <th>头像</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of infoList; index as i">
-                <td>{{i+1}}</td>
-                <td>{{item.teaId}}</td>
-                <td>{{item.teaName}}</td>
-                <td>{{item.teaGender}}</td>
-                <td>{{item.teaDepartment}}</td>
-                <td>{{item.teaPhone}}</td>
-                <td *ngIf="item.teaFlag == 'teacher'">教师</td>
-                <td *ngIf="item.teaFlag == 'guide'">导员</td>
-                <td>{{item.teaPassword}}</td>
-                <td>{{item.teaClass}}</td>
+              <tr>
+                <td>1</td>
+                <td>2511150406</td>
+                <td>窦超</td>
+                <td>15129489109</td>
+                <td>123</td>
+                <td>编辑原理,java</td>
+                <td>2,3,4,5</td>
+                <td>信息工程</td>
+                <td>昵称-</td>
+                <td><img src="../../assets/image/stu001.jpg"></td>
                 <td>
-                  <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
-                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.teaId)"><i nz-icon type="delete" theme="outline"></i></button>
+                  <button nz-button nzType="primary" (click)="updateInfo()">编辑</button>
+                  <button nz-button nzType="danger" (click)="deteleInfo()">删除</button>
                 </td>
               </tr>
             </tbody>
           </nz-table>
         </div>
+      </div>
     </div>
   </div>
-  
-  <nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()" (nzOnOk)="handleEdit()">
-      <div class="admin-edit">
-          <table>
-              <tr>
-                <td width="150"><nz-form-label>教师编号</nz-form-label></td>
-                <td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id" disabled></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>姓名</nz-form-label></td>
-                <td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>性别</nz-form-label></td>
-                <td><nz-radio-group [(ngModel)]="teacher.gender">
-                    <label nz-radio nzValue="男">男</label>
-                    <label nz-radio nzValue="女">女</label>
-                  </nz-radio-group></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>学院名称</nz-form-label></td>
-                <td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>联系方式</nz-form-label></td>
-                <td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>教师职责</nz-form-label></td>
-                <td><nz-radio-group [(ngModel)]="teacher.flag">
-                    <label nz-radio nzValue="teacher">老师</label>
-                    <label nz-radio nzValue="guide">导员</label>
-                  </nz-radio-group></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>密码</nz-form-label></td>
-                <td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>所带班级</nz-form-label></td>
-                <td><textarea  rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea></td>
-              </tr>
-            </table>
-      </div>
-  </nz-modal>
-  
-  <nz-modal [(nzVisible)]="isVisibleAdd" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelAdd()" (nzOnOk)="handleAdd()">
-      <div class="admin-edit">
+  <!-- 添加 -->
+  <nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="添加老师信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
+    <div class="">
         <table>
           <tr>
-            <td width="150"><nz-form-label>教师编号</nz-form-label></td>
-            <td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id"></td>
+            <td width="150"><nz-form-label>编号</nz-form-label></td>
+            <td><input nz-input placeholder="编号" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>姓名</nz-form-label></td>
-            <td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
+            <td width="150"><nz-form-label>姓名</nz-form-label></td>
+            <td><input nz-input placeholder="姓名" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>性别</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="teacher.gender">
-                <label nz-radio nzValue="男">男</label>
-                <label nz-radio nzValue="女">女</label>
-              </nz-radio-group></td>
+            <td width="150"><nz-form-label>联系方式</nz-form-label></td>
+            <td><input nz-input placeholder="联系方式" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>学院名称</nz-form-label></td>
-            <td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
+            <td width="150"><nz-form-label>所带课程</nz-form-label></td>
+            <td><input nz-input placeholder="所带课程" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>联系方式</nz-form-label></td>
-            <td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
+            <td width="150"><nz-form-label>所带班级</nz-form-label></td>
+            <td><input nz-input placeholder="所带班级" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>教师职责</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="teacher.flag">
-                <label nz-radio nzValue="teacher">老师</label>
-                <label nz-radio nzValue="guide">导员</label>
-              </nz-radio-group></td>
+            <td width="150"><nz-form-label>学院</nz-form-label></td>
+            <td><input nz-input placeholder="学院" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>密码</nz-form-label></td>
-            <td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
+            <td width="150"><nz-form-label>昵称</nz-form-label></td>
+            <td><input nz-input placeholder="昵称" [(ngModel)]="student.id"></td>
           </tr>
           <tr>
-            <td><nz-form-label>所带班级</nz-form-label></td>
-            <td><textarea  rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea></td>
+            <td width="150"><nz-form-label>头像</nz-form-label></td>
+            <td>
+                <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
+                  [nzShowButton]="fileList.length < 3"
+                  [nzPreview]="handlePreview">
+                    <i nz-icon type="plus"></i>
+                    <div class="ant-upload-text">Upload</div>
+                </nz-upload>
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                  <ng-template #modalContent>
+                    <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                  </ng-template>
+                </nz-modal>
+            </td>
           </tr>
         </table>
-      </div>
+    </div>
   </nz-modal>
   
+  <!-- 修改 -->
+  <nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改老师信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+      <div class="">
+          <table>
+            <tr>
+              <td width="150"><nz-form-label>编号</nz-form-label></td>
+              <td><input nz-input placeholder="编号" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>姓名</nz-form-label></td>
+              <td><input nz-input placeholder="姓名" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>联系方式</nz-form-label></td>
+              <td><input nz-input placeholder="联系方式" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>所带课程</nz-form-label></td>
+              <td><input nz-input placeholder="所带课程" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>所带班级</nz-form-label></td>
+              <td><input nz-input placeholder="所带班级" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>学院</nz-form-label></td>
+              <td><input nz-input placeholder="学院" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>昵称</nz-form-label></td>
+              <td><input nz-input placeholder="昵称" [(ngModel)]="student.id"></td>
+            </tr>
+            <tr>
+              <td width="150"><nz-form-label>头像</nz-form-label></td>
+              <td>
+                  <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
+                    [nzShowButton]="fileList.length < 3"
+                    [nzPreview]="handlePreview">
+                      <i nz-icon type="plus"></i>
+                      <div class="ant-upload-text">Upload</div>
+                  </nz-upload>
+                  <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                    <ng-template #modalContent>
+                      <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                    </ng-template>
+                  </nz-modal>
+              </td>
+            </tr>
+          </table>
+      </div>
+    </nz-modal>

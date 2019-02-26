@@ -2,8 +2,178 @@
   <app-navigation></app-navigation>
   <div class="admin-right">
     <app-header></app-header>
-    <div class="">
-      
+    <div class="content">
+      <div class="content-search">
+        <input nz-input style="width: 150px;" placeholder="请输入学生姓名/学号查询" [(ngModel)]="searchValue">
+        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
+        <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
+      </div>
+      <div class="content-table">
+        <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>学号</th>
+              <th>姓名</th>
+              <th>联系方式</th>
+              <th>年级</th>
+              <th>班级</th>
+              <th>专业</th>
+              <th>学院</th>
+              <th>密码</th>
+              <th>昵称</th>
+              <th>头像</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2511150406</td>
+              <td>窦超</td>
+              <td>15129489109</td>
+              <td>15级</td>
+              <td>3班</td>
+              <td>软件工程</td>
+              <td>信息工程</td>
+              <td>123</td>
+              <td>昵称-</td>
+              <td><img src="../../assets/image/stu001.jpg"></td>
+              <td>
+                <button nz-button nzType="primary" (click)="updateInfo()">编辑</button>
+                <button nz-button nzType="danger" (click)="deteleInfo()">删除</button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
     </div>
   </div>
 </div>
+<!-- 添加 -->
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="添加学生信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
+  <div class="">
+      <table>
+        <tr>
+          <td width="150"><nz-form-label>学号</nz-form-label></td>
+          <td><input nz-input placeholder="学号" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>姓名</nz-form-label></td>
+          <td><input nz-input placeholder="姓名" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>联系方式</nz-form-label></td>
+          <td><input nz-input placeholder="联系方式" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>学院</nz-form-label></td>
+          <td><input nz-input placeholder="学院" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>专业</nz-form-label></td>
+          <td><input nz-input placeholder="专业" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>年级</nz-form-label></td>
+          <td><nz-select style="width: 120px;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose">
+              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+            </nz-select></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>班级</nz-form-label></td>
+          <td><nz-select style="width: 120px;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose">
+              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+            </nz-select></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>昵称</nz-form-label></td>
+          <td><input nz-input placeholder="昵称" [(ngModel)]="student.id"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>头像</nz-form-label></td>
+          <td>
+              <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
+                [nzShowButton]="fileList.length < 3"
+                [nzPreview]="handlePreview">
+                  <i nz-icon type="plus"></i>
+                  <div class="ant-upload-text">Upload</div>
+              </nz-upload>
+              <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                <ng-template #modalContent>
+                  <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                </ng-template>
+              </nz-modal>
+          </td>
+        </tr>
+      </table>
+  </div>
+</nz-modal>
+
+<!-- 修改 -->
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="添加学生信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+    <div class="">
+        <table>
+          <tr>
+            <td width="150"><nz-form-label>学号</nz-form-label></td>
+            <td><input nz-input placeholder="学号" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>姓名</nz-form-label></td>
+            <td><input nz-input placeholder="姓名" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>联系方式</nz-form-label></td>
+            <td><input nz-input placeholder="联系方式" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>学院</nz-form-label></td>
+            <td><input nz-input placeholder="学院" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>专业</nz-form-label></td>
+            <td><input nz-input placeholder="专业" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>年级</nz-form-label></td>
+            <td><nz-select style="width: 120px;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose">
+                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+              </nz-select></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>班级</nz-form-label></td>
+            <td><nz-select style="width: 120px;" [(ngModel)]="selectedValue" nzAllowClear nzPlaceHolder="Choose">
+                <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+              </nz-select></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>昵称</nz-form-label></td>
+            <td><input nz-input placeholder="昵称" [(ngModel)]="student.id"></td>
+          </tr>
+          <tr>
+            <td width="150"><nz-form-label>头像</nz-form-label></td>
+            <td>
+                <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
+                  [nzShowButton]="fileList.length < 3"
+                  [nzPreview]="handlePreview">
+                    <i nz-icon type="plus"></i>
+                    <div class="ant-upload-text">Upload</div>
+                </nz-upload>
+                <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+                  <ng-template #modalContent>
+                    <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+                  </ng-template>
+                </nz-modal>
+            </td>
+          </tr>
+        </table>
+    </div>
+  </nz-modal>

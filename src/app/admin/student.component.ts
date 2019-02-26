@@ -10,7 +10,7 @@ declare var $: any;
   templateUrl: './student.component.html'
 })
 export class StudentComponent implements OnInit {
-  isVisibleEdit = false;
+  isVisibleUpdate = false;
   isVisibleAdd = false;
   basePath;
   infoList = [];
@@ -24,6 +24,32 @@ export class StudentComponent implements OnInit {
 
   ngOnInit() {
       
+  }
+
+  //显示添加学生Model
+  addInfo() {
+    this.isVisibleAdd = true;
+  }
+
+  //添加学生信息
+  handleAdd() {
+    this.isVisibleAdd = false;
+  }
+
+  //显示修改Model
+  updateInfo() {
+    this.isVisibleUpdate = true;
+  }
+
+  //保存修改信息
+  handleUpdate() {
+    this.isVisibleUpdate = false;
+  }
+
+  //取消Model
+  handleCancel() {
+    this.isVisibleAdd = false;
+    this.isVisibleUpdate = false;
   }
 
 }

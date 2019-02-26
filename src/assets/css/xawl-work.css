@@ -122,3 +122,10 @@ a{
 .navigation ul>li:hover{
     background: #e0dede;
 }
+/* admin container */
+.content-search{
+    height: 60px;
+    line-height: 60px;
+    background: #2ec5c5;
+    color: #fff;
+}
