@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-//import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './common/home.component';
 
 const routes: Routes = [
- // { path: '', redirectTo: '/login', pathMatch: 'full' },
- // { path: 'login', component: LoginComponent, canActivate: [] },
+ { path: '', redirectTo: '/home', pathMatch: 'full' },
+ { path: 'home', component: HomeComponent, canActivate: [] },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
  // { path: 'error', component: ErrorComponent },
 ];

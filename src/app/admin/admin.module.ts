@@ -19,11 +19,12 @@ import { NavigationComponent } from './navigation.component';
     FormsModule,
     ReactiveFormsModule,
     NgZorroAntdModule,
-    StudentComponent,
-    TeacherComponent
   ],
   declarations: [
-  LoginComponent,
-  NavigationComponent]
+    LoginComponent,
+    NavigationComponent,
+    StudentComponent,
+    TeacherComponent,
+  ]
 })
 export class AdminModule { }
