@@ -1,3 +1,66 @@
-<p>
-  header works!
-</p>
+<div class="header">
+  <div class="header-left">
+    <ul>
+      <li><a href="">实时</a></li>
+      <li><a href="">图片</a></li>
+      <li><a href="">精品</a></li>
+      <li><a href="">看关注</a></li>
+    </ul>
+    <div>
+      <input nz-input placeholder="搜索" [(ngModel)]="value">
+      <button style="margin-left:30px;" nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>搜索</button>
+    </div>
+  </div>
+  <div class="header-right">
+    <div *ngIf="!flagLogin">
+      <span><i nz-icon type="mail" theme="outline"></i>通知</span>
+      <span><i nz-icon type="user" theme="outline"></i>昵称</span>
+      <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
+    </div>
+    <div *ngIf="flagLogin">
+      <span (click)="loginPerson()"><i nz-icon type="login" theme="outline"></i>登录</span>
+    </div>
+    <ng-template #contentTemplate>
+      <div  class="setting">
+        <a (click)="updatePass()">修改密码</a><br>
+        <a>个人信息</a>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改密码" (nzOnCancel)="updateCancel()" (nzOnOk)="updateOk()">
+  <table class="updatepws">
+    <tr>
+      <td width="150" align="right"><nz-form-label>旧密码</nz-form-label></td>
+      <td><input nz-input placeholder="请输入旧密码" [(ngModel)]="oldPassword"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right"><nz-form-label>新密码</nz-form-label></td>
+      <td><input nz-input placeholder="请输入新密码" [(ngModel)]="newPassword"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right"><nz-form-label>确认密码</nz-form-label></td>
+      <td><input nz-input placeholder="再输入一遍密码" [(ngModel)]="repeatPassword"></td>
+    </tr>
+</table>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleLogin" nzTitle="用户登录" (nzOnCancel)="loginCancel()" (nzOnOk)="loginOk()">
+  <table class="login-person">
+    <tr>
+      <td width="150" align="right"><nz-form-label>账户</nz-form-label></td>
+      <td><input nz-input placeholder="请输入账户" [(ngModel)]="account"></td>
+    </tr>
+    <tr>
+      <td width="150" align="right"><nz-form-label>密码</nz-form-label></td>
+      <td><input nz-input placeholder="请输入密码" [(ngModel)]="password"></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="text-align: right;padding-right: 40px;"><nz-radio-group [(ngModel)]="type">
+        <label nz-radio nzValue="stuednt">学生</label>
+        <label nz-radio nzValue="teacher">老师</label>
+      </nz-radio-group></td>
+    </tr>
+</table>
+</nz-modal>

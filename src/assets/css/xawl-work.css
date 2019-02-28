@@ -79,10 +79,14 @@ a{
 }
 .admin-header .header-right>span{
     margin: 0 20px;
+    cursor: pointer;
 }
-.header-right>span>i{
+.admin-header .header-right>span>i{
     margin-right: 5px;
     font-size: 12px;
+}
+.updatepws td:last-child{
+    padding-left: 20px;
 }
 .admin-nav{
     width: 240px;
@@ -110,6 +114,7 @@ a{
     border-bottom: 1px solid #eee;
     border-right: 1px solid #eee;
     margin-top: -10px;
+    height: 100%;
 }
 .navigation ul{ width: 100%; list-style: none;}
 .navigation ul>li{
@@ -118,14 +123,75 @@ a{
     text-align: center;
     color: 14px;
     font-size: 14px;
+    border-bottom: 1px solid #eee;
 }
 .navigation ul>li:hover{
     background: #e0dede;
 }
 /* admin container */
+.content{
+    padding: 20px;
+}
 .content-search{
     height: 60px;
     line-height: 60px;
-    background: #2ec5c5;
-    color: #fff;
+    /* background: #2ec5c5;
+    color: #fff; */
+}
+.content-search button{
+    margin: 0 20px;
+}
+.content-table th, .content-table td {
+    text-align: center;
+}
+.content-table img{
+    width: 100px;
+    height: 100px;
+}
+.content-model td:first-child{
+    text-align: right;
+    padding-right: 25px;
+}
+/* header */
+.header{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+    line-height: 50px;
+    background: rgba(243, 242, 242);
+    /* color: #fff; */
+    padding: 0 15px;
+}
+.header .header-left, .header .header-left>div{
+    display: flex;
+    justify-content: flex-start;
+}
+.header .header-left>div{
+    margin: 0 20px;
+    margin-top: 10px;
+}
+.header .header-left ul{list-style: none;}
+.header .header-left ul>li{
+    float: left;
+    width: 70px;
+    text-align: center;
+}
+.header .header-left ul>li:hover, .header .header-left .active{
+    background: #fff;
+    border-bottom: 3px solid #2ec5c5;
+}
+.header .header-right span{
+    margin: 0 20px;
+    cursor: pointer;
+}
+.header .header-right span:hover{ color: #2ec5c5; }
+.header .header-right span>i{
+    margin-right: 5px;
+}
+.header .setting a{
+    background: #2ec5c5 !important;
+}
+.login-person tr{
+    height: 60px;
+    line-height: 60px;
 }

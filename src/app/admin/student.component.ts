@@ -20,6 +20,7 @@ export class StudentComponent implements OnInit {
 
   constructor(private appService: AppService, private modalService: NzModalService, private httpClient: HttpClient) { 
     this.basePath = this.appService.getBasePath();
+    this.student = {id: '', name: '', gender: '', phone: '', class: '', major: '', department: '', password: '', nickname: '', img: ''};
   }
 
   ngOnInit() {
