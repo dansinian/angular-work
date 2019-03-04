@@ -2,9 +2,9 @@
   <div class="header-left">
     <ul>
       <li><a href="">实时</a></li>
-      <li><a href="">图片</a></li>
       <li><a href="">精品</a></li>
       <li><a href="">看关注</a></li>
+      <li><a routerLink="/post-datil">发帖</a></li>
     </ul>
     <div>
       <input nz-input placeholder="搜索" [(ngModel)]="value">
@@ -12,12 +12,12 @@
     </div>
   </div>
   <div class="header-right">
-    <div *ngIf="!flagLogin">
+    <div *ngIf="flagLogin">
       <span><i nz-icon type="mail" theme="outline"></i>通知</span>
       <span><i nz-icon type="user" theme="outline"></i>昵称</span>
       <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
     </div>
-    <div *ngIf="flagLogin">
+    <div *ngIf="!flagLogin">
       <span (click)="loginPerson()"><i nz-icon type="login" theme="outline"></i>登录</span>
     </div>
     <ng-template #contentTemplate>

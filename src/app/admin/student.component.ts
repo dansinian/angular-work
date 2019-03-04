@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Student } from '../entity/student';
+import { User } from '../entity/User';
 
 declare var $: any;
 @Component({
@@ -14,40 +14,43 @@ export class StudentComponent implements OnInit {
   isVisibleAdd = false;
   basePath;
   infoList = [];
-  student: Student;
+  user: User;
   sendData;
   searchInfo;
 
   constructor(private appService: AppService, private modalService: NzModalService, private httpClient: HttpClient) { 
     this.basePath = this.appService.getBasePath();
-    this.student = {id: '', name: '', gender: '', phone: '', class: '', major: '', department: '', password: '', nickname: '', img: ''};
+    this.user = {id: '', name: '', phone: '', major: '', department: '', password: '', nickname: '', img: '', autograph: '', type: ''};
   }
 
   ngOnInit() {
-      
+    //active
+    $(".navigation li").removeClass();
+    $(".navigation li").eq(0).addClass("active");
+      console.log(this.user);
   }
 
-  //显示添加学生Model
+  //鏄剧ず娣诲姞瀛︾敓Model
   addInfo() {
     this.isVisibleAdd = true;
   }
 
-  //添加学生信息
+  //娣诲姞瀛︾敓淇℃伅
   handleAdd() {
     this.isVisibleAdd = false;
   }
 
-  //显示修改Model
+  //鏄剧ず淇敼Model
   updateInfo() {
     this.isVisibleUpdate = true;
   }
 
-  //保存修改信息
+  //淇濆瓨淇敼淇℃伅
   handleUpdate() {
     this.isVisibleUpdate = false;
   }
 
-  //取消Model
+  //鍙栨秷Model
   handleCancel() {
     this.isVisibleAdd = false;
     this.isVisibleUpdate = false;

@@ -1,0 +1,30 @@
+<app-header></app-header>
+<div style="background: rgba(243, 242, 242);">
+    <div class="container">
+      <div class="main">
+        <app-nav></app-nav>
+        <div class="main-body">
+          <div class="">
+            <h4>发表帖子</h4>
+            <table>
+              <tr>
+                <td>标题</td>
+                <td><input nz-input placeholder="请输入帖子标题" [(ngModel)]="value"></td>
+              </tr>
+              <tr>
+                <td>文本</td>
+                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]=""></textarea></td>
+              </tr>
+              <tr>
+                <td>类型</td>
+                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]=""></textarea></td>
+              </tr>
+            </table>
+            <button nz-button nzType="primary">发表</button>
+          </div>
+        </div>
+        <app-avatar></app-avatar>
+      </div>
+      <app-footer></app-footer>
+    </div>
+</div>

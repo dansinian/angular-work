@@ -4,44 +4,42 @@
     <app-header></app-header>
     <div class="content">
       <div class="content-search">
-        <input nz-input style="width: 250px;" placeholder="«Î ‰»Î—ß…˙–’√˚/—ß∫≈≤È—Ø" [(ngModel)]="searchValue">
-        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> ≤È—Ø</button>
-        <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>ÃÌº”</button>
+        <input nz-input style="width: 250px;" placeholder="ËØ∑ËæìÂÖ•Â≠¶ÁîüÂßìÂêç/Â≠¶Âè∑Êü•ËØ¢" [(ngModel)]="searchValue">
+        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> Êü•ËØ¢</button>
+        <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>Ê∑ªÂä†</button>
       </div>
       <div class="content-table">
         <nz-table #borderedTable nzBordered [nzData]="dataSet">
           <thead>
             <tr>
-              <th>–Ú∫≈</th>
-              <th>—ß∫≈</th>
-              <th>–’√˚</th>
-              <th>¡™œµ∑Ω Ω</th>
-              <th>ƒÍº∂</th>
-              <th>∞‡º∂</th>
-              <th>◊®“µ</th>
-              <th>—ß‘∫</th>
-              <th>√‹¬Î</th>
-              <th>Í«≥∆</th>
-              <th>Õ∑œÒ</th>
-              <th>≤Ÿ◊˜</th>
+              <th>Â∫èÂè∑</th>
+              <th>Â≠¶Âè∑</th>
+              <th>ÂßìÂêç</th>
+              <th>ËÅîÁ≥ªÊñπÂºè</th>
+              <th>‰∏ì‰∏ö</th>
+              <th>Â≠¶Èô¢</th>
+              <th>ÂØÜÁ†Å</th>
+              <th>ÊòµÁß∞</th>
+              <th>Â§¥ÂÉè</th>
+              <th>‰∏™ÊÄßÁ≠æÂêç</th>
+              <th>Êìç‰Ωú</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
               <td>2511150406</td>
-              <td>Òº≥¨</td>
+              <td>Á™¶Ë∂Ö</td>
               <td>15129489109</td>
-              <td>15º∂</td>
-              <td>3∞‡</td>
-              <td>»Ìº˛π§≥Ã</td>
-              <td>–≈œ¢π§≥Ã</td>
+              <td>ËΩØ‰ª∂Â∑•Á®ã</td>
+              <td>‰ø°ÊÅØÂ∑•Á®ã</td>
               <td>123</td>
-              <td>Í«≥∆-</td>
+              <td>ÊòµÁß∞-</td>
+              <td>‰∏ñÁïåÈÇ£‰πàÂ§ßÔºåÊàëÊÉ≥ÂéªÁúãÁúã</td>
               <td><img src="../../assets/image/stu001.jpg"></td>
               <td>
-                <button nz-button nzType="primary" (click)="updateInfo()">±‡º≠</button>
-                <button nz-button nzType="danger" (click)="deteleInfo()">…æ≥˝</button>
+                <button nz-button nzType="primary" (click)="updateInfo()">ÁºñËæë</button>
+                <button nz-button nzType="danger" (click)="deteleInfo()">Âà†Èô§</button>
               </td>
             </tr>
           </tbody>
@@ -50,130 +48,104 @@
     </div>
   </div>
 </div>
-<!-- ÃÌº” -->
-<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="ÃÌº”—ß…˙–≈œ¢" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
+<!-- Ê∑ªÂä† -->
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="Ê∑ªÂä†Â≠¶Áîü‰ø°ÊÅØ" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
   <div class="content-model">
-      <table>
-        <tr>
-          <td width="150"><nz-form-label>—ß∫≈</nz-form-label></td>
-          <td><input nz-input placeholder="—ß∫≈" [(ngModel)]="student.id"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>–’√˚</nz-form-label></td>
-          <td><input nz-input placeholder="–’√˚" [(ngModel)]="student.name"></td>
-        </tr>
-        <tr>
-          <td><nz-form-label>–‘±</nz-form-label></td>
-          <td><nz-radio-group [(ngModel)]="student.gender">
-              <label nz-radio nzValue="ƒ–">ƒ–</label>
-              <label nz-radio nzValue="≈Æ">≈Æ</label>
-            </nz-radio-group></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>¡™œµ∑Ω Ω</nz-form-label></td>
-          <td><input nz-input placeholder="¡™œµ∑Ω Ω" [(ngModel)]="student.phone"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>—ß‘∫</nz-form-label></td>
-          <td><input nz-input placeholder="—ß‘∫" [(ngModel)]="student.department"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>◊®“µ</nz-form-label></td>
-          <td><input nz-input placeholder="◊®“µ" [(ngModel)]="student.major"></td>
-        </tr>
-        <!-- <tr>
-          <td width="150"><nz-form-label>ƒÍº∂</nz-form-label></td>
-          <td><nz-select style="width: 120px;" [(ngModel)]="student.major" nzAllowClear nzPlaceHolder="Choose">
-              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-            </nz-select></td>
-        </tr> -->
-        <tr>
-          <td width="150"><nz-form-label>∞‡º∂</nz-form-label></td>
-          <td><nz-select style="width: 120px;" [(ngModel)]="student.class" nzAllowClear nzPlaceHolder="Choose">
-              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-            </nz-select></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>Í«≥∆</nz-form-label></td>
-          <td><input nz-input placeholder="Í«≥∆" [(ngModel)]="student.nickname"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>Õ∑œÒ</nz-form-label></td>
-          <td>
-              <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
-                [nzShowButton]=""
-                [nzPreview]="handlePreview">
-                  <i nz-icon type="plus"></i>
-                  <div class="ant-upload-text">Upload</div>
-              </nz-upload>
-              <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
-                <ng-template #modalContent>
-                  <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
-                </ng-template>
-              </nz-modal>
-          </td>
-        </tr>
-      </table>
+    <table>
+     <tr>
+       <td width="150"><nz-form-label>Â≠¶Âè∑</nz-form-label></td>
+       <td><input nz-input placeholder="Â≠¶Âè∑" [(ngModel)]="user.id"></td>
+     </tr>
+     <tr>
+       <td width="150"><nz-form-label>ÂßìÂêç</nz-form-label></td>
+       <td><input nz-input placeholder="ÂßìÂêç" [(ngModel)]="user.name"></td>
+     </tr>
+     <tr>
+       <td width="150"><nz-form-label>ËÅîÁ≥ªÊñπÂºè</nz-form-label></td>
+       <td><input nz-input placeholder="ËÅîÁ≥ªÊñπÂºè" [(ngModel)]="user.phone"></td>
+     </tr>
+     <tr>
+       <td width="150"><nz-form-label>Â≠¶Èô¢</nz-form-label></td>
+       <td><input nz-input placeholder="Â≠¶Èô¢" [(ngModel)]="user.department"></td>
+     </tr>
+     <tr>
+       <td width="150"><nz-form-label>‰∏ì‰∏ö</nz-form-label></td>
+       <td><input nz-input placeholder="‰∏ì‰∏ö" [(ngModel)]="user.major"></td>
+     </tr>
+     <!-- <tr>
+       <td width="150"><nz-form-label>Âπ¥Á∫ß</nz-form-label></td>
+       <td><nz-select style="width: 120px;" [(ngModel)]="user.major" nzAllowClear nzPlaceHolder="Choose">
+           <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
+           <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
+           <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+         </nz-select></td>
+     </tr> -->
+     <tr>
+       <td width="150"><nz-form-label>ÊòµÁß∞</nz-form-label></td>
+       <td><input nz-input placeholder="ÊòµÁß∞" [(ngModel)]="user.nickname"></td>
+     </tr>
+     <tr>
+       <td width="150"><nz-form-label>Â§¥ÂÉè</nz-form-label></td>
+       <td>
+           <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
+             [nzShowButton]=""
+             [nzPreview]="handlePreview">
+               <i nz-icon type="plus"></i>
+               <div class="ant-upload-text">Upload</div>
+           </nz-upload>
+           <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+             <ng-template #modalContent>
+               <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+             </ng-template>
+           </nz-modal>
+       </td>
+     </tr>
+     <tr>
+       <td><nz-form-label>‰∏™ÊÄßÁ≠æÂêç</nz-form-label></td>
+       <td><textarea style="width: 60%" rows="3" nz-input placeholder="ÈôêÂ≠óÊï∞200" [(ngModel)]="user.autograph"></textarea></td>
+     </tr>
+   </table>
   </div>
 </nz-modal>
 
-<!-- –ﬁ∏ƒ -->
-<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="ÃÌº”—ß…˙–≈œ¢" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+<!-- ‰øÆÊîπ -->
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="Ê∑ªÂä†Â≠¶Áîü‰ø°ÊÅØ" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
     <div class="content-model">
        <table>
         <tr>
-          <td width="150"><nz-form-label>—ß∫≈</nz-form-label></td>
-          <td><input nz-input placeholder="—ß∫≈" [(ngModel)]="student.id"></td>
+          <td width="150"><nz-form-label>Â≠¶Âè∑</nz-form-label></td>
+          <td><input nz-input placeholder="Â≠¶Âè∑" [(ngModel)]="user.id"></td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>–’√˚</nz-form-label></td>
-          <td><input nz-input placeholder="–’√˚" [(ngModel)]="student.name"></td>
+          <td width="150"><nz-form-label>ÂßìÂêç</nz-form-label></td>
+          <td><input nz-input placeholder="ÂßìÂêç" [(ngModel)]="user.name"></td>
         </tr>
         <tr>
-          <td><nz-form-label>–‘±</nz-form-label></td>
-          <td><nz-radio-group [(ngModel)]="student.gender">
-              <label nz-radio nzValue="ƒ–">ƒ–</label>
-              <label nz-radio nzValue="≈Æ">≈Æ</label>
-            </nz-radio-group></td>
+          <td width="150"><nz-form-label>ËÅîÁ≥ªÊñπÂºè</nz-form-label></td>
+          <td><input nz-input placeholder="ËÅîÁ≥ªÊñπÂºè" [(ngModel)]="user.phone"></td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>¡™œµ∑Ω Ω</nz-form-label></td>
-          <td><input nz-input placeholder="¡™œµ∑Ω Ω" [(ngModel)]="student.phone"></td>
+          <td width="150"><nz-form-label>Â≠¶Èô¢</nz-form-label></td>
+          <td><input nz-input placeholder="Â≠¶Èô¢" [(ngModel)]="user.department"></td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>—ß‘∫</nz-form-label></td>
-          <td><input nz-input placeholder="—ß‘∫" [(ngModel)]="student.department"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>◊®“µ</nz-form-label></td>
-          <td><input nz-input placeholder="◊®“µ" [(ngModel)]="student.major"></td>
+          <td width="150"><nz-form-label>‰∏ì‰∏ö</nz-form-label></td>
+          <td><input nz-input placeholder="‰∏ì‰∏ö" [(ngModel)]="user.major"></td>
         </tr>
         <!-- <tr>
-          <td width="150"><nz-form-label>ƒÍº∂</nz-form-label></td>
-          <td><nz-select style="width: 120px;" [(ngModel)]="student.major" nzAllowClear nzPlaceHolder="Choose">
+          <td width="150"><nz-form-label>Âπ¥Á∫ß</nz-form-label></td>
+          <td><nz-select style="width: 120px;" [(ngModel)]="user.major" nzAllowClear nzPlaceHolder="Choose">
               <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
               <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
               <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
             </nz-select></td>
         </tr> -->
         <tr>
-          <td width="150"><nz-form-label>∞‡º∂</nz-form-label></td>
-          <td><nz-select style="width: 120px;" [(ngModel)]="student.class" nzAllowClear nzPlaceHolder="Choose">
-              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-            </nz-select></td>
+          <td width="150"><nz-form-label>ÊòµÁß∞</nz-form-label></td>
+          <td><input nz-input placeholder="ÊòµÁß∞" [(ngModel)]="user.nickname"></td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>Í«≥∆</nz-form-label></td>
-          <td><input nz-input placeholder="Í«≥∆" [(ngModel)]="student.nickname"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>Õ∑œÒ</nz-form-label></td>
+          <td width="150"><nz-form-label>Â§¥ÂÉè</nz-form-label></td>
           <td>
               <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
                 [nzShowButton]=""
@@ -187,6 +159,10 @@
                 </ng-template>
               </nz-modal>
           </td>
+        </tr>
+        <tr>
+          <td><nz-form-label>‰∏™ÊÄßÁ≠æÂêç</nz-form-label></td>
+          <td><textarea style="width: 60%" rows="3" nz-input placeholder="ÈôêÂ≠óÊï∞200" [(ngModel)]="user.autograph"></textarea></td>
         </tr>
       </table>
     </div>

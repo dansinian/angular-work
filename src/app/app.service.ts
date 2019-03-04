@@ -12,9 +12,7 @@ export class AppService {
     }
     
     getBasePath() {
-        //const BasePath = 'http://127.0.0.1:8080';
-        const BasePath = 'http://127.0.0.1:50081';
-        //http://localhost:50081/
+        const BasePath = 'http://localhost:8080/forum';
         return BasePath;
     }
     

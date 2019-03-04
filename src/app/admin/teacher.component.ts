@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NzModalService } from 'ng-zorro-antd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from 'src/app/app.service';
-import { Teacher } from '../entity/teacher';
+import { User } from '../entity/user';
 
 declare var $: any;
 @Component({
@@ -14,13 +14,13 @@ export class TeacherComponent implements OnInit {
   isVisibleAdd = false;
   basePath;
   sendData;
-  teacher: Teacher;
+  user: User;
   infoList = [];
   searchInfo;
 
   constructor(private modalService: NzModalService, private httpClient: HttpClient, private appService: AppService) {
     this.basePath = this.appService.getBasePath();
-    this.teacher = {id: '',name: '',password: '123456', flag: '', gender: '', department: '', phone: '', class: ''};
+    this.user = {id: '', name: '', phone: '', major: '', department: '', password: '', nickname: '', img: '', autograph: '', type: ''};
   }
 
   ngOnInit() {

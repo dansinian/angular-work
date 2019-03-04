@@ -1,0 +1,59 @@
+<div class="main-avatar">
+  <div class="avatar-info">
+    <p class="img"><img src="../../assets/image/stu002.jpg"></p>
+    <span>昵称昵称</span>
+    <p>
+      <span (click)="openPost()"><b>20</b><span>帖子</span></span>
+      <span (click)="openAttend()"><b>20</b><span>关注</span></span>
+      <span (click)="openFan()"><b>20</b><span>粉丝</span>
+      </span>
+    </p>
+  </div>
+</div>
+<div class="main-avatar">
+  <div class="avatar-link">
+    <h4>最新推荐</h4>
+    <ul>
+      <li><a href="">111111111111111111</a></li>
+      <li><a href="">222222222222222222</a></li>
+      <li><a href="">333333333333333333</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- 帖子 -->
+<nz-modal [(nzVisible)]="isVisiblePost" nzTitle="发表的帖子" (nzOnCancel)="cancelPost()" (nzOnOk)="handlePost()">
+  <div class="post-model">
+    <ul>
+      <li><a href="">标题1</a></li>
+      <li><a href="">标题1</a></li>
+      <li><a href="">标题1</a></li>
+    </ul>
+  </div>
+</nz-modal>
+
+<!-- 关注 -->
+<nz-modal [(nzVisible)]="isVisibleAttend" nzTitle="我关注的" (nzOnCancel)="cancelAttend()" (nzOnOk)="handleAttend()">
+  <div class="fan-model">
+    <table>
+      <tr>
+        <td width="60"><img src="../../assets/image/stu002.jpg"></td>
+        <td width="300">昵称</td>
+        <td><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</td>
+      </tr>
+    </table>
+  </div>
+</nz-modal>
+
+<!-- 粉丝 -->
+<nz-modal [(nzVisible)]="isVisibleFan" nzTitle="关注我的" (nzOnCancel)="cancelFan()" (nzOnOk)="handleFan()">
+  <div class="fan-model">
+    <table>
+      <tr>
+        <td width="60"><img src="../../assets/image/stu002.jpg"></td>
+        <td width="300">昵称</td>
+        <td><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</td>
+      </tr>
+    </table>
+  </div>
+</nz-modal>

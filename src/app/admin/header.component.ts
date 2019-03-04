@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
-  //µã»÷Òş²Øµ¼º½
+  //ç‚¹å‡»éšè—å¯¼èˆª
   hideNav() {
     if (this.hideNavigation) {
       $(".admin-nav").hide();
@@ -31,16 +31,16 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  //ÏÔÊ¾
+  //æ˜¾ç¤º
   showModel() {
     this.isVisible = true;
   }
-  //ÍË³öÏµÍ³
+  //é€€å‡ºç³»ç»Ÿ
   drop() {
     this.route.navigate(['/admin']);
   }
 
-  //ĞŞ¸ÄÃÜÂë
+  //ä¿®æ”¹å¯†ç 
   updatePass() { this.isVisible = false; }
 
   handleCancel() { this.isVisible = false; }
