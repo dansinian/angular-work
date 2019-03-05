@@ -13,14 +13,22 @@
               </tr>
               <tr>
                 <td>文本</td>
-                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]=""></textarea></td>
+                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]="aa"></textarea></td>
               </tr>
               <tr>
                 <td>类型</td>
-                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]=""></textarea></td>
+                <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]="aa"></textarea></td>
+              </tr>
+              <tr>
+                <td>上传文件</td>
+                <td>
+                  <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                    <button nz-button> <i nz-icon type="upload"></i><span>选择文件</span></button>
+                  </nz-upload>
+                </td>
               </tr>
             </table>
-            <button nz-button nzType="primary">发表</button>
+            <button nz-button nzType="primary" (click)="publishPost()">发表</button>
           </div>
         </div>
         <app-avatar></app-avatar>
