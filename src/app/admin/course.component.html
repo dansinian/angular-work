@@ -13,30 +13,20 @@
           <thead>
             <tr>
               <th>序号</th>
-              <th>编号</th>
-              <th>姓名</th>
-              <th>联系方式</th>
-              <th>专业</th>
               <th>学院</th>
-              <th>密码</th>
-              <th>昵称</th>
-              <th>头像</th>
-              <th>个性签名</th>
+              <th>专业</th>
+              <th>课程</th>
+              <th>老师</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>1</td>
-              <td>2511150406</td>
-              <td>窦超</td>
-              <td>15129489109</td>
+              <td>信息工程学院</td>
               <td>软件工程</td>
-              <td>信息工程</td>
-              <td>123</td>
-              <td>昵称-</td>
-              <td>世界那么大，我想去看看</td>
-              <td><img src="../../assets/image/stu001.jpg"></td>
+              <td>数学</td>
+              <td>孙少波</td>
               <td>
                 <button nz-button nzType="primary" (click)="updateInfo()">编辑</button>
                 <button nz-button nzType="danger" (click)="deteleInfo()">删除</button>
@@ -53,8 +43,8 @@
   <div class="content-model">
     <table>
      <tr>
-       <td width="150"><nz-form-label>编号</nz-form-label></td>
-       <td><input nz-input placeholder="编号" [(ngModel)]="user.id"></td>
+       <td width="150"><nz-form-label>学号</nz-form-label></td>
+       <td><input nz-input placeholder="学号" [(ngModel)]="user.id"></td>
      </tr>
      <tr>
        <td width="150"><nz-form-label>姓名</nz-form-label></td>

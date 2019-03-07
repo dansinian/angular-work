@@ -18,7 +18,6 @@
               <th>联系方式</th>
               <th>专业</th>
               <th>学院</th>
-              <th>密码</th>
               <th>昵称</th>
               <th>头像</th>
               <th>个性签名</th>
@@ -26,20 +25,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>2511150406</td>
-              <td>窦超</td>
-              <td>15129489109</td>
-              <td>软件工程</td>
-              <td>信息工程</td>
-              <td>123</td>
-              <td>昵称-</td>
-              <td>世界那么大，我想去看看</td>
-              <td><img src="../../assets/image/stu001.jpg"></td>
+            <tr *ngFor="let item of infoList; index as i">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.phone}}</td>
+              <td>{{item.major}}</td>
+              <td>{{item.department}}</td>
+              <td>{{item.nickname}}</td>
+              <td><img src="item.img"></td>
+              <td>{{item.autograph}}</td>
               <td>
-                <button nz-button nzType="primary" (click)="updateInfo()">编辑</button>
-                <button nz-button nzType="danger" (click)="deteleInfo()">删除</button>
+                <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
+                <button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
               </td>
             </tr>
           </tbody>
@@ -72,38 +70,6 @@
        <td width="150"><nz-form-label>专业</nz-form-label></td>
        <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
      </tr>
-     <!-- <tr>
-       <td width="150"><nz-form-label>年级</nz-form-label></td>
-       <td><nz-select style="width: 120px;" [(ngModel)]="user.major" nzAllowClear nzPlaceHolder="Choose">
-           <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-           <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-           <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-         </nz-select></td>
-     </tr> -->
-     <tr>
-       <td width="150"><nz-form-label>昵称</nz-form-label></td>
-       <td><input nz-input placeholder="昵称" [(ngModel)]="user.nickname"></td>
-     </tr>
-     <tr>
-       <td width="150"><nz-form-label>头像</nz-form-label></td>
-       <td>
-           <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
-             [nzShowButton]=""
-             [nzPreview]="handlePreview">
-               <i nz-icon type="plus"></i>
-               <div class="ant-upload-text">Upload</div>
-           </nz-upload>
-           <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
-             <ng-template #modalContent>
-               <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
-             </ng-template>
-           </nz-modal>
-       </td>
-     </tr>
-     <tr>
-       <td><nz-form-label>个性签名</nz-form-label></td>
-       <td><textarea rows="3" nz-input placeholder="限字数200" [(ngModel)]="user.autograph"></textarea></td>
-     </tr>
    </table>
   </div>
 </nz-modal>
@@ -114,7 +80,7 @@
        <table>
         <tr>
           <td width="150"><nz-form-label>学号</nz-form-label></td>
-          <td><input nz-input placeholder="学号" [(ngModel)]="user.id"></td>
+          <td><input nz-input placeholder="学号" [(ngModel)]="user.id" disabled></td>
         </tr>
         <tr>
           <td width="150"><nz-form-label>姓名</nz-form-label></td>
@@ -131,38 +97,6 @@
         <tr>
           <td width="150"><nz-form-label>专业</nz-form-label></td>
           <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
-        </tr>
-        <!-- <tr>
-          <td width="150"><nz-form-label>年级</nz-form-label></td>
-          <td><nz-select style="width: 120px;" [(ngModel)]="user.major" nzAllowClear nzPlaceHolder="Choose">
-              <nz-option nzValue="jack" nzLabel="Jack"></nz-option>
-              <nz-option nzValue="lucy" nzLabel="Lucy"></nz-option>
-              <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
-            </nz-select></td>
-        </tr> -->
-        <tr>
-          <td width="150"><nz-form-label>昵称</nz-form-label></td>
-          <td><input nz-input placeholder="昵称" [(ngModel)]="user.nickname"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>头像</nz-form-label></td>
-          <td>
-              <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" nzListType="picture-card" [(nzFileList)]="fileList"
-                [nzShowButton]=""
-                [nzPreview]="handlePreview">
-                  <i nz-icon type="plus"></i>
-                  <div class="ant-upload-text">Upload</div>
-              </nz-upload>
-              <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
-                <ng-template #modalContent>
-                  <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
-                </ng-template>
-              </nz-modal>
-          </td>
-        </tr>
-        <tr>
-          <td><nz-form-label>个性签名</nz-form-label></td>
-          <td><textarea style="width: 60%" rows="3" nz-input placeholder="限字数200" [(ngModel)]="user.autograph"></textarea></td>
         </tr>
       </table>
     </div>

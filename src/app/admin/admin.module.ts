@@ -11,6 +11,8 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { LoginComponent } from './login.component';
 import { NavigationComponent } from './navigation.component';
 import { HeaderComponent } from './header.component';
+import { CourseComponent } from './course.component';
+import { QuestionComponent } from './question.component';
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { HeaderComponent } from './header.component';
     StudentComponent,
     TeacherComponent,
     HeaderComponent,
+    CourseComponent,
+    QuestionComponent,
   ]
 })
 export class AdminModule { }

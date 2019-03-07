@@ -24,6 +24,21 @@ export class TeacherComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(".navigation li").removeClass();
+    $(".navigation li").eq(1).addClass("active");
+
+    this.sendData = {"type": "teacher"};
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath +'/user/selectAllUser', Params).subscribe(data => { 
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          console.log(data);
+        }
+      }
+    }, error => {
+      
+    });
     
   }
 
@@ -34,7 +49,30 @@ export class TeacherComponent implements OnInit {
 
   //添加学生信息
   handleAdd() {
-    this.isVisibleAdd = false;
+    this.sendData = {
+      "userId": this.user.id,
+      "userName": this.user.name,
+      "userPhone": this.user.phone,
+      "userPass": "123456",
+      "userDepartment": this.user.department,
+      "userMajor": this.user.major,
+      "nickName": this.user.nickname,
+      "antugraph": this.user.autograph,
+      "HeadImg": this.user.img,
+      "type": "teacher"
+    }
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath+ '/user/createUser', Params).subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.appService.info("添加成功！");
+          this.isVisibleAdd = false;
+          location.reload(true);
+        }
+      }
+    }, error => {
+      this.appService.error("添加出错！");
+    });
   }
 
   //显示修改Model
