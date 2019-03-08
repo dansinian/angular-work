@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Admin } from '../entity/admin';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { AppService } from '../app.service';
+
+
 
 
 declare var $: any;
@@ -8,16 +13,25 @@ declare var $: any;
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+  basePath;
   hideNavigation = true;
   isVisible = false;
   oldPassword;
   newPassword;
   repeatPassword;
+  adminID;
+  adminPassWord;
+  sendData;
+  promptFlag = false; //密码两次输入不一样提示信息
 
 
-  constructor(private route: Router) { }
+  constructor(private route: Router, private httpClient: HttpClient, private appService: AppService) {
+    this.basePath = this.appService.getBasePath();
+  }
 
   ngOnInit() {
+    this.adminID = localStorage.getItem("id");
+    this.adminPassWord = localStorage.getItem("pass");
   }
 
   //点击隐藏导航
@@ -41,7 +55,31 @@ export class HeaderComponent implements OnInit {
   }
 
   //修改密码
-  updatePass() { this.isVisible = false; }
+  updatePass() {
+    if (this.newPassword == this.repeatPassword) {
+      this.sendData = {
+        "adminId": this.adminID,
+        "oldpass": this.oldPassword,
+        "newpass": this.newPassword,
+      }
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/admin/updatePass', Params).subscribe(data => {
+        if (data != null && data != '') {
+          if (data['status'] == '200') {
+            this.appService.info(data['msg']);
+            this.isVisible = false;
+          } else {
+            this.appService.info(data['msg']);
+          }
+        }
+      }, error => {
+        this.appService.error("修改密码出错");
+      });
+    } else {
+      this.promptFlag = true;
+    }
+    
+  }
 
   handleCancel() { this.isVisible = false; }
   

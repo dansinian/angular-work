@@ -4,8 +4,8 @@
     <app-header></app-header>
     <div class="content">
       <div class="content-search">
-        <input nz-input style="width: 250px;" placeholder="请输入学生姓名/学号查询" [(ngModel)]="searchValue">
-        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
+        <input nz-input style="width: 250px;" placeholder="请输入学生姓名/学号查询" [(ngModel)]="searchInfo">
+        <button nz-button nzType="primary" (click)="getSearchInfo()"><i nz-icon type="search" theme="outline"></i> 查询</button>
         <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
       </div>
       <div class="content-table">
@@ -75,7 +75,7 @@
 </nz-modal>
 
 <!-- 修改 -->
-<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="添加学生信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改学生信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
     <div class="content-model">
        <table>
         <tr>

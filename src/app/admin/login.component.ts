@@ -26,21 +26,26 @@ export class LoginComponent implements OnInit {
 
   //登录
   login() {
-    this.sendData = {
-      "account": this.admin.account,
-      "password": this.admin.password,
-      "type": "admin"
-    }
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/admin/loginAdmin', Params).subscribe(data => {
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
-          this.route.navigate(['/admin/student']);
-        }
+    if (this.admin.account != '' && this.admin.account != null && this.admin.password != '' && this.admin.password != null) {
+      this.sendData = {
+        "adminId": this.admin.account,
+        "passWord": this.admin.password,
       }
-    }, error => {
-      
-    });
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/admin/loginAdmin', Params).subscribe(data => {
+        if (data != null && data != '') {
+          if (data['status'] == '200') {
+            localStorage.setItem("id",data['admin']['adminId']);
+            localStorage.setItem("pass",data['admin']['adminPass']);
+            this.route.navigate(['/admin/student']);
+          }
+        }
+      }, error => {
+        this.appService.error("登录失败！");
+      });
+    } else {
+      this.appService.info("账户和密码不能为空");
+    }
 
   }
 

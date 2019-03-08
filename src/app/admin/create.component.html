@@ -1,0 +1,24 @@
+<div class="admin">
+    <app-navigation></app-navigation>
+    <div class="admin-right">
+      <app-header></app-header>
+      <div class="content">
+        <div class="admin-create">
+          <table>
+            <tr>
+              <th>标题</th>
+              <td><input nz-input placeholder="请输入帖子标题" [(ngModel)]="course.department"></td>
+            </tr>
+            <tr>
+              <th>文本</th>
+              <td><input nz-input placeholder="请输入帖子内容" [(ngModel)]="course.department"></td>
+            </tr>
+            <tr>
+              <th>图片</th>
+              <td><input type="file" ng2FileSelect [uploader]="uploader" class="form-control" id="imageFile" name="imageFile"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

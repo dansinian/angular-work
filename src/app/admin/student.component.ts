@@ -3,7 +3,6 @@ import { AppService } from '../app.service';
 import { NzModalService } from 'ng-zorro-antd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../entity/User';
-import { error } from 'selenium-webdriver';
 
 declare var $: any;
 @Component({
@@ -53,6 +52,37 @@ export class StudentComponent implements OnInit {
       console.log(error);
     });
       
+  }
+
+  //查询信息
+  getSearchInfo() {
+    if (this.searchInfo != null && this.searchInfo != ''){
+      this.sendData = { "content": this.searchInfo, "type": "student" };
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/user/selectUser', Params).subscribe(data => {
+        console.log(data);
+        if (data != '' && data != null) {
+          if (data['status'] == '200') {
+            this.infoList = [];
+            let list = data['users'];
+            for (let item of list) {
+              this.infoList.push({
+                "id": item['userId'],
+                "name": item['userName'],
+                "phone": item['userPhone'],
+                "major": item['userMajor'],
+                "department": item['userDepartment'],
+                "nickname": item['nickname'],
+                "img": item['headImg'],
+                "autograph": item['autograph'],
+              });
+            }
+          }
+        }
+      }, error => {
+        console.log("error");
+      });
+    }
   }
 
   //显示添加学生Model
@@ -106,6 +136,7 @@ export class StudentComponent implements OnInit {
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);
+          location.reload(true);
         }
       }
     }, error => {
@@ -123,8 +154,10 @@ export class StudentComponent implements OnInit {
       "userMajor": this.user.major,
       "type": "student"
     };
+    console.log(this.sendData);
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/user/updateUser', Params).subscribe(data => {
+      console.log(data);
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);

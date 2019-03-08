@@ -1,3 +1,84 @@
-<p>
-  question works!
-</p>
+<div class="admin">
+  <app-navigation></app-navigation>
+  <div class="admin-right">
+    <app-header></app-header>
+    <div class="content">
+      <div class="content-search">
+        <input nz-input style="width: 250px;" placeholder="请输入关键字查询" [(ngModel)]="searchValue">
+        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
+        <!-- <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button> -->
+      </div>
+      <div class="content-table">
+        <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>编号</th>
+              <th>主题</th>
+              <th>内容</th>
+              <th>图片</th>
+              <th>创建人编号</th>
+              <th>创建时间</th>
+              <th>隶属课程</th>
+              <th>点击量</th>
+              <th>点赞数</th>
+              <th>回复数</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>123456789</td>
+              <td>主题</td>
+              <td title="详情">详情</td>
+              <td><img src=""></td>
+              <td>123443465</td>
+              <td>创建时间</td>
+              <td>数学</td>
+              <td>10</td>
+              <td>5</td>
+              <td>14</td>
+              <td>
+                <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
+                <button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 修改 -->
+<nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改帖子信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
+    <div class="content-model">
+      <table>
+        <tr>
+          <td width="150"><nz-form-label>编号</nz-form-label></td>
+          <td><input nz-input placeholder="编号" [(ngModel)]="question.id" disabled></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>主题</nz-form-label></td>
+          <td><input nz-input placeholder="主题" [(ngModel)]="question.title"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>内容</nz-form-label></td>
+          <td><textarea rows="2" nz-input [(ngModel)]="question.detail"></textarea></td>
+        </tr>
+        <tr>
+         <td width="150"><nz-form-label>创建人</nz-form-label></td>
+         <td><input nz-input placeholder="创建人" [(ngModel)]="question.userID" disabled></td>
+       </tr>
+        <tr>
+          <td width="150"><nz-form-label>隶属课程</nz-form-label></td>
+          <td><input nz-input placeholder="隶属课程" [(ngModel)]="question.course"></td>
+        </tr>
+        <tr>
+          <td width="150"><nz-form-label>图片</nz-form-label></td>
+          <td><img src=""></td>
+        </tr>
+      </table>
+    </div>
+  </nz-modal>
