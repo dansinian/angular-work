@@ -5,7 +5,7 @@
     <div class="content">
       <div class="content-search">
         <input nz-input style="width: 250px;" placeholder="请输入关键字查询" [(ngModel)]="searchValue">
-        <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
+        <button nz-button nzType="primary" (click)="getSearchInfo()"><i nz-icon type="search" theme="outline"></i> 查询</button>
         <!-- <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button> -->
       </div>
       <div class="content-table">
@@ -27,18 +27,19 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>123456789</td>
-              <td>主题</td>
-              <td title="详情">详情</td>
-              <td><img src=""></td>
-              <td>123443465</td>
-              <td>创建时间</td>
-              <td>数学</td>
-              <td>10</td>
-              <td>5</td>
-              <td>14</td>
+            <tr *ngFor="let item of infoList; index as i;">
+              <td>{{i+1}}</td>
+              <td>{{item.id}}</td>
+              <td>{{item.title}}</td>
+              
+              <td class="tableOver" title="{{item.detail}}">{{item.detail}}</td>
+              <td><img src="item.src"></td>
+              <td>{{item.userID}}</td>
+              <td>{{item.time}}</td>
+              <td>{{item.course}}</td>
+              <td>{{item.click}}</td>
+              <td>{{item.praise}}</td>
+              <td>{{item.reply}}</td>
               <td>
                 <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
                 <button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
@@ -77,7 +78,9 @@
         </tr>
         <tr>
           <td width="150"><nz-form-label>图片</nz-form-label></td>
-          <td><img src=""></td>
+          <td>
+            <img src="{{question.src}}">
+          </td>
         </tr>
       </table>
     </div>

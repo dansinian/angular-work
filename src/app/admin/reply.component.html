@@ -53,19 +53,19 @@
       <table>
         <tr>
           <td width="150"><nz-form-label>编号</nz-form-label></td>
-          <td><input nz-input placeholder="编号" [(ngModel)]="question.id" disabled></td>
+          <td><input nz-input placeholder="编号" [(ngModel)]="reply.id" disabled></td>
         </tr>
         <tr>
             <td width="150"><nz-form-label>评论用户编号</nz-form-label></td>
-            <td><input nz-input placeholder="评论用户编号" [(ngModel)]="question.userID" disabled></td>
+            <td><input nz-input placeholder="评论用户编号" [(ngModel)]="reply.commentID" disabled></td>
            </tr>
         <tr>
-          <td width="150"><nz-form-label>评论用户编号</nz-form-label></td>
-          <td><input nz-input placeholder="评论用户编号" [(ngModel)]="question.title" disabled></td>
+          <td width="150"><nz-form-label>回复用户编号</nz-form-label></td>
+          <td><input nz-input placeholder="回复用户编号" [(ngModel)]="reply.userID" disabled></td>
         </tr>
         <tr>
           <td width="150"><nz-form-label>内容</nz-form-label></td>
-          <td><textarea rows="2" nz-input [(ngModel)]="question.detail"></textarea></td>
+          <td><textarea rows="2" nz-input [(ngModel)]="reply.content"></textarea></td>
         </tr>
         <tr>
           <td width="150"><nz-form-label>图片</nz-form-label></td>

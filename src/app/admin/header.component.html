@@ -1,6 +1,8 @@
 <div class="admin-header">
   <div class="header-left" (click)="hideNav()"><i nz-icon type="pic-left" theme="outline"></i></div>
   <div class="header-right">
+    <a routerLink="/admin/create"><span>发帖</span></a>
+    <a routerLink="/admin/questionPage"><span>详情</span></a>
     <span (click)="drop()"><i nz-icon type="poweroff" theme="outline"></i>退出</span>
     <span (click)="showModel()"><i nz-icon type="setting" theme="outline"></i>修改密码</span>
   </div>

@@ -1,26 +1,73 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { AppService } from '../app.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { UploadFile } from 'ng-zorro-antd';
+import { filter } from 'rxjs/operators';
 
+declare var $: any;
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html'
 })
 export class CreateComponent implements OnInit {
   basePath;
-  upLoad;
+  uploader;
+  queTitle;
+  queContent;
+  queImg;
+  sendData;
+  fileList: UploadFile[] = [];
 
-  constructor(private appService: AppService) {
+  constructor(private appService: AppService, private httpClient: HttpClient) {
     this.basePath = this.appService.getBasePath();
   }
 
+  beforeUpload = (file: UploadFile): boolean => {
+    this.fileList = this.fileList.concat(file);
+    return false;
+  }
+
   ngOnInit() {
-    //定义上传文件
-    this.upLoad: FileUploader  = new FileUploader({
-      url: this.basePath + "/images/upload", //上传地址
-      method: "POST",  //上传方式
-      itemAlias: "imageFile",  //别名（后台接受参数名）
-      autoUpload: false  //是否自动上传（如果为true，则在input选择完后自动上传）
+    this.uploader  = new FileUploader({
+      url: this.basePath + '/ticket/uploadmedioFile?appName=',
+      method: 'POST',
+      itemAlias: 'medioFile'
+  });
+
+  }
+
+  //选择上传文件
+  selectedFileOnChanged(event: any) {
+    console.log(event);
+  }
+
+  //发布帖子
+  publishQue() {
+    const formData = new FormData();
+    this.fileList.forEach((file: any) => {
+      console.log(file);
+      formData.append('files[]', file);
+    });
+    this.sendData = {
+      "title": this.queTitle,
+      "detail": this.queContent,
+      "userId": localStorage.getItem('id'),
+      "queImg": formData
+    }
+    console.log(this.sendData);
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath +'/question/createQuestion', Params).subscribe(data => {
+      console.log(data);
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }
+    }, error => {
+      console.log("error");
     });
   }
 

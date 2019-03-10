@@ -3,6 +3,7 @@ import { Reply } from '../entity/reply';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 
+declare var $: any;
 @Component({
   selector: 'app-reply',
   templateUrl: './reply.component.html'
@@ -17,6 +18,9 @@ export class ReplyComponent implements OnInit {
   }
 
   ngOnInit() {
+    //active
+    $(".navigation li").removeClass();
+    $(".navigation li").eq(5).addClass("active");
   }
 
 }

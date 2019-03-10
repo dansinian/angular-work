@@ -17,6 +17,7 @@ import { QuestionComponent } from './question.component';
 import { CommentComponent } from './comment.component';
 import { ReplyComponent } from './reply.component';
 import { CreateComponent } from './create.component';
+import { QuestionPageComponent } from './question-page.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { CreateComponent } from './create.component';
     CommentComponent,
     ReplyComponent,
     CreateComponent,
+    QuestionPageComponent,
   ]
 })
 export class AdminModule { }

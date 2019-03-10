@@ -1,10 +1,16 @@
 <div class="header">
   <div class="header-left">
     <ul>
-      <li><a href="">实时</a></li>
-      <li><a href="">精品</a></li>
-      <li><a href="">看关注</a></li>
-      <li><a routerLink="/post-datil">发帖</a></li>
+      <a routerLink="/home"><li>实时</li></a>
+      <a routerLink="/post-datil"><li>精品</li></a>
+      <a routerLink="/post-datil"><li>看关注</li></a>
+      <a routerLink="/post-datil"><li>发帖</li></a>
+
+      <!-- <li><a routerLink="/post-datil">实时</a></li>
+      <li><a routerLink="/post-datil">精品</a></li>
+      <li><a routerLink="/post-datil">看关注</a></li>
+      <li><a routerLink="/post-datil">发帖</a></li> -->
+
     </ul>
     <div>
       <input nz-input placeholder="搜索" [(ngModel)]="value">
@@ -13,9 +19,10 @@
   </div>
   <div class="header-right">
     <div *ngIf="flagLogin">
-      <span><i nz-icon type="mail" theme="outline"></i>通知</span>
+      <span (click)="getMessage()"><i nz-icon type="mail" theme="outline"></i>通知</span>
       <span><i nz-icon type="user" theme="outline"></i>昵称</span>
       <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
+      <span (click)="dropSystem()"><i nz-icon type="poweroff" theme="outline"></i>退出</span>
     </div>
     <div *ngIf="!flagLogin">
       <span (click)="loginPerson()"><i nz-icon type="login" theme="outline"></i>登录</span>
@@ -56,11 +63,11 @@
       <td width="150" align="right"><nz-form-label>密码</nz-form-label></td>
       <td><input nz-input placeholder="请输入密码" [(ngModel)]="password"></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td colspan="2" style="text-align: right;padding-right: 40px;"><nz-radio-group [(ngModel)]="type">
         <label nz-radio nzValue="stuednt">学生</label>
         <label nz-radio nzValue="teacher">老师</label>
       </nz-radio-group></td>
-    </tr>
+    </tr> -->
 </table>
 </nz-modal>

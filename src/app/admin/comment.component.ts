@@ -3,6 +3,7 @@ import { Comment } from '../entity/comment';
 import { AppService } from '../app.service';
 import { HttpClient } from '@angular/common/http';
 
+declare var $: any;
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html'
@@ -17,6 +18,9 @@ export class CommentComponent implements OnInit {
   }
 
   ngOnInit() {
+    //active
+    $(".navigation li").removeClass();
+    $(".navigation li").eq(4).addClass("active");
   }
 
 }

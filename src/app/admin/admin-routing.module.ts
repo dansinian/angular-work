@@ -8,6 +8,7 @@ import { QuestionComponent } from 'src/app/admin/question.component';
 import { CommentComponent } from './comment.component';
 import { ReplyComponent } from './reply.component';
 import { CreateComponent } from './create.component';
+import { QuestionPageComponent } from 'src/app/admin/question-page.component';
 
 
 const AdminRoutes: Routes = [
@@ -21,6 +22,7 @@ const AdminRoutes: Routes = [
     { path: 'comment', component: CommentComponent },
     { path: 'reply', component: ReplyComponent },
     { path: 'create', component: CreateComponent },
+    { path: 'questionPage', component: QuestionPageComponent }
 ];
 
 @NgModule({

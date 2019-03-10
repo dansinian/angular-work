@@ -77,6 +77,19 @@ a{
     text-align: right;
     padding-right: 40px;
 }
+.admin-header .header-right>a{
+    display: inline-block;
+    padding: 0 20px;
+}
+.admin-header .header-right>a:hover{
+    background: #fff;
+}
+.admin-header .header-right>a:hover>span{
+    color: #2ec5c5;
+}
+.admin-header .header-right>a>span{
+    color: #fff;
+}
 .admin-header .header-right>span{
     margin: 0 20px;
     cursor: pointer;
@@ -117,7 +130,13 @@ a{
     height: 100%;
 }
 .navigation ul{ width: 100%; list-style: none;}
-.navigation ul>li{
+.navigation ul>a{
+    display: inline-block;
+    height: 45px;
+    line-height: 45px;
+    width: 100%;
+}
+.navigation ul li{
     height: 45px;
     line-height: 45px;
     text-align: center;
@@ -125,7 +144,7 @@ a{
     font-size: 14px;
     border-bottom: 1px solid #eee;
 }
-.navigation ul>li:hover, .navigation ul .active{
+.navigation ul li:hover, .navigation ul .active{
     background: #e0dede;
 }
 /* admin container */
@@ -171,12 +190,17 @@ a{
     margin-top: 10px;
 }
 .header .header-left ul{list-style: none;}
-.header .header-left ul>li{
+.header .header-left ul>a{
+    display: inline-block;
+    width: 70px;
+    height: 100%;
+}
+.header .header-left ul li{
     float: left;
     width: 70px;
     text-align: center;
 }
-.header .header-left ul>li:hover, .header .header-left .active{
+.header .header-left ul li:hover, .header .header-left .active{
     background: #fff;
     border-bottom: 3px solid #2ec5c5;
 }
@@ -309,4 +333,54 @@ a{
     color: #2ec5c5;
     cursor: pointer;
 }
-
+/* admin创建 */
+.admin-create table tr{
+    height: 90px;
+    line-height: 90px;
+}
+.admin-create table tr>th{
+    text-align: center;
+}
+.tableOver{
+    max-width: 200px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;
+}
+.content-model table td>img{
+    height: 60px;
+    height: 60px;
+}
+/* admin帖子详情 */
+.question-page{
+    width: 60%;
+    margin: 0 auto;
+}
+.question-page>h5{
+    height: 50px;
+    line-height: 50px;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.question-page>.question-content{
+    padding: 0 8px;
+}
+.question-page>.question-icon{
+    display: flex;
+    justify-content: flex-end;
+}
+.question-page>.question-icon>span{
+    margin-right: 20px;
+    cursor: pointer;
+    font-size: 18px;
+}
+.question-icon>span>i{ margin-right: 3px; }
+.question-page>.question-icon>span:hover{ color: #2ec5c5; }
+.question-comment-content .comment-user{ color: #2ec5c5; cursor: pointer; }
+.question-comment-content>p>i{ margin: 0 3px;}
+.question-comment-content .comment-reply{ margin-left: 5px;}
+.question-comment-content .comment-detele{ margin-left: 150px; cursor: pointer; }
+.question-comment-content .comment-detele:hover{ color: #2ec5c5; }
+.question-comment{ position: relative; }
+.question-comment>button{
+    position: absolute;
+    top: 100px;
+    right: 0px;
+}

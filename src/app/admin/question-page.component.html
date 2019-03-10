@@ -1,0 +1,42 @@
+<div class="admin">
+    <app-navigation></app-navigation>
+    <div class="admin-right">
+      <app-header></app-header>
+      <div class="content">
+        <div class="question-page">
+          <h5>系统管理员帖子的标题</h5>
+          <p class="question-content">ongoing管理学院系统管理员的帖子内容环境好地方好好发挥司法局</p>
+          <p class="question-icon">
+            <span><i nz-icon type="heart" theme="outline"></i><span>12</span></span>
+            <span (click)="showCommentReply(1)"><i nz-icon type="message" theme="outline"></i><span>12</span></span>
+          </p>
+          <!-- 评论回复 -->
+          <div class="question-comment-content">
+            <p>
+              <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+              <i>:</i>
+              <span class="comment-content">内容</span>
+              <span class="comment-detele"><i nz-icon type="delete" theme="outline"></i></span>
+            </p>
+            <p>
+              <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+              <span class="comment-reply">回复</span>
+              <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+              <i>:</i>
+              <span class="comment-content">内容</span>
+              <span class="comment-detele"><i nz-icon type="delete" theme="outline"></i></span>
+            </p>
+          </div>
+          <!-- 评论回复end -->
+
+          <!-- 评论框 -->
+          <div class="question-comment" *ngIf="commentPartFlag">
+              <textarea rows="3" placeholder="@ 回复{{commentConent}}" nz-input [(ngModel)]="queContent"></textarea>
+              <button style="margin-top: 10px;" nz-button nzType="primary" (click)="commentPublish()">发表</button>
+          </div>
+          <!-- 评论框结束 -->
+
+        </div>
+      </div>
+    </div>
+  </div>
