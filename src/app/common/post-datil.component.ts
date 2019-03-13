@@ -28,7 +28,7 @@ export class PostDatilComponent implements OnInit {
 
   ngOnInit() {
     $(".header-left li").removeClass();//active
-    $(".header-left li").eq(3).addClass('active');
+    $(".header-left li").eq(2).addClass('active');
   }
 
   //·¢±íÌû×Ó

@@ -4,10 +4,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 declare var $: any;
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html'
+  selector: 'app-view-attention',
+  templateUrl: './view-attention.component.html'
 })
-export class HomeComponent implements OnInit {
+export class ViewAttentionComponent implements OnInit {
   basePath;
   sendData;
   loginFlag;
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.loginFlag = localStorage.getItem("loginFlag");
     $(".header-left li").removeClass();//active
-    $(".header-left li").eq(0).addClass('active');
+    $(".header-left li").eq(1).addClass('active');
   }
 
 }

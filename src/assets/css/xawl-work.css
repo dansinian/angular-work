@@ -384,3 +384,55 @@ a{
     top: 100px;
     right: 0px;
 }
+/* 关注人页面 */
+.view-attention{
+    position: relative;
+}
+.view-attention .attention-user{
+    height: 70px;
+    line-height: 70px;
+    display: flex;
+    justify-content: space-between;
+}
+.attention-user .attention-user-avatar{
+    display: flex;
+    justify-content: flex-start;
+}
+.attention-user .attention-user-avatar>img{
+    height: 60px;
+    width: 60px;
+    border-radius: 50px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+.attention-user .attention-user-avatar>.attention-nickName>span:first-child{
+    color: #2ec5c5;
+    font-size: 14px;
+    cursor: pointer;
+}
+.attention-user .attention-user-avatar>.attention-nickName>span:last-child{
+    color: #ccc;
+    margin-left: 15px;
+}
+.attention-user .attention-cancel{
+    color: #2ec5c5;
+    cursor: pointer;
+    margin-right: 70px;
+}
+.view-attention .attention-content>img{
+    width: 100px;
+    height: 100px;
+    margin: 5px 8px;
+}
+.view-attention .attention-icon{
+   position: absolute;
+   right: 20px;
+}
+.view-attention .attention-icon>span{
+    font-size: 16px;
+    margin: 0 15px;
+    cursor: pointer;
+}
+.view-attention .attention-icon>span:hover{
+    color: #2ec5c5;
+}

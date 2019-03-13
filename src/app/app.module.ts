@@ -20,6 +20,7 @@ import { FooterComponent } from './common/footer.component';
 import { NavComponent } from './common/nav.component';
 import { AvatarComponent } from './common/avatar.component';
 import { PostDatilComponent } from './common/post-datil.component';
+import { ViewAttentionComponent } from './common/view-attention.component';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -36,7 +37,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     FooterComponent,
     NavComponent,
     AvatarComponent,
-    PostDatilComponent
+    PostDatilComponent,
+    ViewAttentionComponent
   ],
   imports: [
     BrowserModule,

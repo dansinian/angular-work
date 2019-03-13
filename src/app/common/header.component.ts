@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   account;
   password;
   loginFlag; //判断用户是否登录
+  nickName;
 
   constructor(private httpClient: HttpClient, private appService: AppService, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -27,12 +28,17 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.loginFlag = localStorage.getItem("loginFlag");
+    this.nickName = localStorage.getItem("nickName");
     $(".header-left li").on('click', function() {
       if (this.loginFlag != 'true') {
-        this.route.navigate(['/home']);
-        this.appService.info("请先登录！");
+        this.isVisibleLogin = true;
       }
     });
+    if (this.loginFlag != 'true') {
+      this.flagLogin = false;
+    } else {
+      this.flagLogin = true;
+    }
   }
 
   //修改密码
@@ -65,11 +71,14 @@ export class HeaderComponent implements OnInit {
         "password":  this.password
       }
       const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
-      this.httpClient.post(this.basePath + '/user/userLogin', '').subscribe(data => {
+      this.httpClient.post(this.basePath + '/user/userLogin', Params).subscribe(data => {
         if (data['status'] == '200') {
+          console.log(data);
           this.flagLogin = true;
           this.isVisibleLogin = false;
           localStorage.setItem("loginFlag", "true");
+          localStorage.setItem("nickName", data['admin']['nickname']);
+          location.reload(true);
         }
       }, error => {
         console.log("error");
@@ -82,15 +91,15 @@ export class HeaderComponent implements OnInit {
   //发送消息
   getMessage() {
     if (this.loginFlag != 'true') {
-      this.appService.info("请先登录！");
+      this.isVisibleLogin = true;
     }
   }
 
   //退出系统
   dropSystem() {
     localStorage.setItem("loginFlag", "");
-    this.flagLogin = false;
     location.reload(true);
+    this.flagLogin = false;
   }
 
 }

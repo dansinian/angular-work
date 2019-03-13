@@ -2,8 +2,8 @@
 <div style="background: rgba(243, 242, 242);">
     <div class="container">
       <div class="main">
-        <app-nav></app-nav>
-        <div class="main-body">
+        <app-nav  *ngIf="loginFlag == 'true'"></app-nav>
+        <div class="main-body" [ngStyle]="{'width': loginFlag === 'true' ? '60%' : '100%'}">
           <div class="main-admin">
             <ul>
               <li style="border-bottom: 1px solid #eee;padding: 5px;"><a href="">
@@ -29,7 +29,7 @@
             </table>
           </div>
         </div>
-        <app-avatar></app-avatar>
+        <app-avatar *ngIf="loginFlag == 'true'"></app-avatar>
       </div>
       <app-footer></app-footer>
     </div>
