@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   flagLogin = false;  //登录框是否显示
   isVisibleUpdate = false; //修改密码
   isVisibleLogin = false; //登录
+  isVisiblePersonInfo = false; //个人信息
+  isVisibleImg = false; //更换头像
   oldPassword;
   newPassword;
   repeatPassword;
@@ -21,6 +23,9 @@ export class HeaderComponent implements OnInit {
   password;
   loginFlag; //判断用户是否登录
   nickName;
+  userNickName;
+  userSignature;
+  userID;
 
   constructor(private httpClient: HttpClient, private appService: AppService, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -28,26 +33,50 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.loginFlag = localStorage.getItem("loginFlag");
-    this.nickName = localStorage.getItem("nickName");
-    $(".header-left li").on('click', function() {
-      if (this.loginFlag != 'true') {
-        this.isVisibleLogin = true;
-      }
-    });
+    this.userID = localStorage.getItem("userID");
+   
     if (this.loginFlag != 'true') {
       this.flagLogin = false;
     } else {
       this.flagLogin = true;
     }
+
+    //获取当前登录用户信息
+    console.log(this.userID, this.loginFlag);
+    if (this.userID) {
+      this.sendData = { "content": this.userID };
+      const userIDParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+      console.log(this.sendData);
+      this.httpClient.post(this.basePath + '/user/selectUser', userIDParams).subscribe(data => {
+        if (data['status'] == '200') {
+          console.log(data);
+        }
+      }, error => {
+        console.log("error");
+      });
+    }
+
+
+  }
+
+  //查看头像
+  viewImg() { this.isVisibleImg = true; }
+  ImgCancel() { this.isVisibleImg = false; }
+  ImgOk() {
+
+  }
+  
+
+  //个人信息
+  updatePersonInfo() { this.isVisiblePersonInfo = true; }
+  personInfoCancel() { this.isVisiblePersonInfo = false; }
+  personInfoOk() {
+
   }
 
   //修改密码
-  updatePass() {
-    this.isVisibleUpdate = true;
-  }
-  updateCancel() {
-    this.isVisibleUpdate = false;
-  }
+  updatePass() { this.isVisibleUpdate = true; }
+  updateCancel() { this.isVisibleUpdate = false; }
   updateOk() {
     this.sendData = {
       "old": this.oldPassword,
@@ -58,12 +87,8 @@ export class HeaderComponent implements OnInit {
   }
 
   //用户登录
-  loginPerson() {
-    this.isVisibleLogin = true;
-  }
-  loginCancel() {
-    this.isVisibleLogin = false;
-  }
+  loginPerson() { this.isVisibleLogin = true; }
+  loginCancel() { this.isVisibleLogin = false; }
   loginOk() {
     if (this.account != '' && this.account != null && this.password != null && this.password != '') {
       this.sendData = {
@@ -77,7 +102,7 @@ export class HeaderComponent implements OnInit {
           this.flagLogin = true;
           this.isVisibleLogin = false;
           localStorage.setItem("loginFlag", "true");
-          localStorage.setItem("nickName", data['admin']['nickname']);
+          localStorage.setItem("userID", data['admin']['userId']);
           location.reload(true);
         }
       }, error => {
@@ -98,6 +123,8 @@ export class HeaderComponent implements OnInit {
   //退出系统
   dropSystem() {
     localStorage.setItem("loginFlag", "");
+    localStorage.setItem("userID", "");
+    this.route.navigate(['/home']);
     location.reload(true);
     this.flagLogin = false;
   }

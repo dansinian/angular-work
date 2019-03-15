@@ -6,16 +6,20 @@
         <div class="main-body" [ngStyle]="{'width': loginFlag === 'true' ? '60%' : '100%'}">
           <div class="view-attention">
             <div style="margin-bottom: 30px;">
+              <!-- 关注/粉丝基本信息 -->
               <div class="attention-user">
                 <div class="attention-user-avatar">
                     <img src="../../assets/image/stu002.jpg">
                     <p class="attention-nickName">
-                      <span>昵称</span>
+                      <span>当前标题</span>
                       <span>2018-09-12</span>
                     </p>
                 </div>
                 <span class="attention-cancel"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span>
               </div>
+              <!-- 关注/粉丝基本信息 end -->
+
+              <!-- 内容 -->
               <p class="attention-content">
                 <img src="../../assets/image/lun01.jpg" >
                 <img src="../../assets/image/test.jpg" >
@@ -25,10 +29,14 @@
                 悟生活，让书中文字的韵律，渐渐安静我的灵魂，让我在书中沉淀自己，去除生命的糟粕，提取生命的精华。让我在这尘世中找到属于自己的位置，安静而美好。
                 的那份悸动的瞬间。有书的熏陶，有文字的滋润从内而外都洋溢着一种自信。在夏之月夜里尽情挥洒，茶的香气满屋弥漫。捧卷而读，暗香，也由指间漾上了心头
               </p>
+              <!-- 内容  end-->
+
+              <!-- 点赞评论 -->
               <p class="attention-icon">
                 <span><i nz-icon type="heart" theme="outline"></i><span>12</span></span>
                 <span><i nz-icon type="message" theme="outline"></i><span>12</span></span>
               </p>
+              <!-- 点赞评论 end -->
             </div>
           </div>
         </div>

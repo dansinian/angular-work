@@ -4,6 +4,7 @@ import { AppService } from '../app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { UploadFile } from 'ng-zorro-antd';
 import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -19,7 +20,7 @@ export class CreateComponent implements OnInit {
   sendData;
   fileList: UploadFile[] = [];
 
-  constructor(private appService: AppService, private httpClient: HttpClient) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
   }
 
@@ -62,6 +63,7 @@ export class CreateComponent implements OnInit {
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);
+          this.route.navigate(['/admin/questionPage'], {queryParams: {'id':""} });
         } else {
           this.appService.info(data['msg']);
         }

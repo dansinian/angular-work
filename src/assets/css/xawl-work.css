@@ -208,6 +208,12 @@ a{
     margin: 0 20px;
     cursor: pointer;
 }
+.header .header-right img{
+    height: 50px;
+    line-height: 50px;
+    border-radius: 25px;
+    margin-right: 5px;
+}
 .header .header-right span:hover{ color: #2ec5c5; }
 .header .header-right span>i{
     margin-right: 5px;
@@ -428,11 +434,150 @@ a{
    position: absolute;
    right: 20px;
 }
-.view-attention .attention-icon>span{
+.view-attention .attention-icon>span, .person-page-moment .moment-icon>span{
     font-size: 16px;
     margin: 0 15px;
     cursor: pointer;
 }
-.view-attention .attention-icon>span:hover{
+.view-attention .attention-icon>span:hover, .person-page-moment .moment-icon>span:hover{
     color: #2ec5c5;
 }
+/* user创建帖子 */
+.post-datil>h4{
+    height: 35px;
+    line-height: 35px;
+    border-left: 2px solid #2ec5c5;
+    padding-left: 15px;
+}
+.post-datil>table{
+    margin: 15px;
+}
+.post-datil>table tr{
+    height: 80px;
+}
+/* 个人信息 */
+.person-page{
+    /* margin: 0 auto; */
+}
+.person-page .person-page-header{
+    /* margin: 0 auto; */
+}
+.person-page-header>p>img{
+    height: 70px;
+    width: 70px;
+    border-radius: 35px;
+    margin-right:20px
+}
+.person-page-header .nickName{
+    color: #2ec5c5;
+    font-size: 16px;
+}
+.person-page-header>p:last-child{
+    margin-left: 15px;
+}
+.scrollbar::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 1px;
+}
+.scrollbar::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 5px #fff;
+    background: #ccc;
+}
+.scrollbar::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px #fff;
+    border-radius: 10px;
+    background: #EDEDED;
+}
+.person-page-moment{
+    /* position: relative; */
+}
+.person-page-moment .moment-title{
+    padding-left: 20px;
+    border-bottom: 2px solid #2ec5c5;
+    display: flex;
+    justify-content: flex-start;
+}
+.person-page-moment .moment-title>h5{
+    height: 25px;
+    line-height: 25px;
+    font-weight: bolder;
+    margin-right: 20px;
+    color: #2ec5c5;
+}
+ .person-page-moment .moment-title>span{
+    color: #ccc;
+    margin-top: 4px;
+}/*
+.moment-title>span>i{ color: #ccc; } */
+.person-page-moment .moment-content{
+    padding: 5px 10px;
+}
+.moment-content>img{
+    width: 100px;
+    height: 100px;
+    margin: 5px 8px;
+}
+.person-page-moment .moment-icon{
+    padding-right: 40px;
+    margin: 10px 0 70px 0;
+}
+.person-page-moment .moment-icon>span{
+    float: right;
+}
+/* 帖子评论回复 （详情）*/
+/* question-content */
+.question-content-header{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+.question-content-header>img{
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+.question-content-header>span{
+    margin-left:15px;
+    color: #2ec5c5
+}
+.question-content-text>h5{
+    height: 40px;
+    line-break: 40px;
+    font-weight: bolder;
+}
+.question-content-text .question-content-text2{
+    margin: 15px 5px;
+}
+.question-content-text .question-content-text2>img{
+    width: 100px;
+    height: 100px;
+    margin: 5px 8px;
+}
+.question-content-text .question-content-text-icon{
+    margin-right:20px;
+}
+.question-content-text .question-content-text-icon>span{
+    float: right;
+    margin: 0 15px;
+    cursor: pointer;
+}
+.question-content-text .question-content-text-icon>span:hover{
+    color: #2ec5c5;
+}
+.question-content-comment>p{
+    height: 25px;
+    line-height: 25px;
+    margin: 0;
+}
+.question-content-comment .comment-user{ color: #2ec5c5; cursor: pointer; }
+.question-content-comment .comment-reply{ margin-left: 5px;}
+.question-content-comment .comment-detele{ margin-left: 150px; cursor: pointer; }
+.question-content-comment .comment-detele:hover{ color: #2ec5c5; }
+.question-content-textarea>button{
+    position: absolute;
+    top: 100px;
+    right: 0px;
+}
+/* 个人设置 */
+

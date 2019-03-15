@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { filter } from 'rxjs/operators';
-import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
 
 declare var Base64: any;
@@ -12,9 +12,14 @@ declare var $: any;
 })
 export class PostDatilComponent implements OnInit {
   basePath;
-  aa;
   uploading = false;
   fileList: UploadFile[] = [];
+  sendData;
+  questionCourse; //课程
+  questionText; //文本
+  questionTitle; //标题
+  userID;
+  courseList = [];
 
   constructor(private appService: AppService ,private httpClient: HttpClient, private messageService: NzMessageService) {
     this.basePath = this.appService.getBasePath();
@@ -29,9 +34,46 @@ export class PostDatilComponent implements OnInit {
   ngOnInit() {
     $(".header-left li").removeClass();//active
     $(".header-left li").eq(2).addClass('active');
+    this.userID = localStorage.getItem("userID");
+    this.httpClient.get(this.basePath + '/course/getCourse').subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          let course = data['AllCourse'];
+          for (let item of course) {
+            this.courseList.push({
+              "value": item['course']
+            });
+          }
+          console.log(this.courseList);
+        }
+      }
+    }, error => {
+      console.log("error");
+    });
   }
 
   //发表帖子
+  createQuestion() {
+    this.sendData = {
+      "userId": this.userID,
+      "title": this.questionTitle,
+      "detail": this.questionText,
+      "queCourse": this.questionCourse,
+      "queImg": ""
+    }
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/question/createQuestion', Params).subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          
+        }
+      }
+    }, error => {
+      console.log("发帖失败！");
+    });
+  }
+
+
   publishPost(): void {
     const formData = new FormData();
     // tslint:disable-next-line:no-any

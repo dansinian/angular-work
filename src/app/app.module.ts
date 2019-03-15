@@ -14,13 +14,14 @@ import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './common/home.component';
-import { DetailComponent } from './common/detail.component';
 import { HeaderComponent } from './common/header.component';
 import { FooterComponent } from './common/footer.component';
 import { NavComponent } from './common/nav.component';
 import { AvatarComponent } from './common/avatar.component';
 import { PostDatilComponent } from './common/post-datil.component';
 import { ViewAttentionComponent } from './common/view-attention.component';
+import { PersonPageComponent } from './common/person-page.component';
+import { QuestionContentComponent } from './common/question-content.component';
 
 registerLocaleData(en);
 const antDesignIcons = AllIcons as {
@@ -32,13 +33,14 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   declarations: [
     AppComponent,
     HomeComponent,
-    DetailComponent,
     HeaderComponent,
     FooterComponent,
     NavComponent,
     AvatarComponent,
     PostDatilComponent,
-    ViewAttentionComponent
+    ViewAttentionComponent,
+    PersonPageComponent,
+    QuestionContentComponent
   ],
   imports: [
     BrowserModule,
