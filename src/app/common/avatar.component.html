@@ -1,11 +1,12 @@
 <div class="main-avatar">
   <div class="avatar-info">
     <p class="img"><img src="../../assets/image/stu002.jpg"></p>
-    <span>昵称昵称</span>
+    <!-- {{userHeadImg}} -->
+    <span>{{userNickName}}</span>
     <p>
-      <span (click)="openPost()"><b>20</b><span>帖子</span></span>
-      <span (click)="openAttend()"><b>20</b><span>关注</span></span>
-      <span (click)="openFan()"><b>20</b><span>粉丝</span>
+      <span (click)="openPost()"><b>{{questionLength}}</b><span>帖子</span></span>
+      <span (click)="openAttend()"><b>{{followLength}}</b><span>关注</span></span>
+      <span (click)="openFan()"><b>{{followedLength}}</b><span>粉丝</span>
       </span>
     </p>
   </div>
@@ -23,11 +24,13 @@
 
 <!-- 帖子 -->
 <nz-modal [(nzVisible)]="isVisiblePost" nzTitle="发表的帖子" (nzOnCancel)="cancelPost()" (nzOnOk)="handlePost()">
-  <div class="post-model">
+  <div class="post-model1">
     <ul>
-      <li><a href="">标题1</a></li>
-      <li><a href="">标题1</a></li>
-      <li><a href="">标题1</a></li>
+      <li *ngFor="let item of questionList">
+        <span (click)="positionQuestion(item)">{{item.title}}</span>
+        <span class="time">{{item.createTime}}</span>
+        <span><i nz-icon type="delete" theme="outline" (click)="deleteQuestion(item)"></i></span>
+      </li>
     </ul>
   </div>
 </nz-modal>
@@ -36,10 +39,10 @@
 <nz-modal [(nzVisible)]="isVisibleAttend" nzTitle="我关注的" (nzOnCancel)="cancelAttend()" (nzOnOk)="handleAttend()">
   <div class="fan-model">
     <table>
-      <tr>
-        <td width="60"><img src="../../assets/image/stu002.jpg"></td>
-        <td width="300">昵称</td>
-        <td><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</td>
+      <tr *ngFor="let item of followList">
+        <td width="60"><img src="{{item.headImg}}"></td>
+        <td width="300">{{item.nickName}}</td>
+        <td><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'unfouce')"></i>取消关注</td>
       </tr>
     </table>
   </div>
@@ -49,10 +52,10 @@
 <nz-modal [(nzVisible)]="isVisibleFan" nzTitle="关注我的" (nzOnCancel)="cancelFan()" (nzOnOk)="handleFan()">
   <div class="fan-model">
     <table>
-      <tr>
-        <td width="60"><img src="../../assets/image/stu002.jpg"></td>
-        <td width="300">昵称</td>
-        <td><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</td>
+      <tr *ngFor="let item of followedList">
+        <td width="60"><img src="{{item.headImg}}"></td>
+        <td width="300">{{item.nickName}}</td>
+        <td><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</td>
       </tr>
     </table>
   </div>

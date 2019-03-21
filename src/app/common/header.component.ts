@@ -24,10 +24,11 @@ export class HeaderComponent implements OnInit {
   account;
   password;
   loginFlag; //判断用户是否登录
-  nickName;
   userNickName;
   userSignature;
+  userHeadImg;
   userID;
+  promptFlag = false; //密码
 
   constructor(private httpClient: HttpClient, private appService: AppService, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -48,10 +49,11 @@ export class HeaderComponent implements OnInit {
     if (this.userID) {
       this.sendData = { "content": this.userID };
       const userIDParams = new HttpParams().set("data", JSON.stringify(this.sendData));
-      console.log(this.sendData);
       this.httpClient.post(this.basePath + '/user/selectUser', userIDParams).subscribe(data => {
         if (data['status'] == '200') {
-          console.log(data);
+          this.userNickName = data['user']['nickname'];
+          this.userSignature = data['user']['autograph'];
+          this.userHeadImg = data['user']['headImg'];
         }
       }, error => {
         console.log("error");
@@ -78,6 +80,25 @@ export class HeaderComponent implements OnInit {
   updatePersonInfo() { this.isVisiblePersonInfo = true; }
   personInfoCancel() { this.isVisiblePersonInfo = false; }
   personInfoOk() {
+    if (this.userNickName != '' && this.userNickName != null && this.userSignature != '' && this.userSignature != null) {
+      this.sendData = {
+        "userId": this.userID,
+        "nickName": this.userNickName,
+        "antugraph": this.userSignature
+      }
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/user/updateUser', Params).subscribe(data => {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+          this.isVisiblePersonInfo = false;
+          location.reload(true);
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }, error => {
+        console.log("error");
+      });
+    }
 
   }
 
@@ -85,12 +106,30 @@ export class HeaderComponent implements OnInit {
   updatePass() { this.isVisibleUpdate = true; }
   updateCancel() { this.isVisibleUpdate = false; }
   updateOk() {
-    this.sendData = {
-      "old": this.oldPassword,
-      "new": this.newPassword,
-      "repeat": this.repeatPassword
+    if (this.newPassword == this.repeatPassword) {
+      this.sendData = {
+        "oldpass": this.oldPassword,
+        "newpass": this.newPassword,
+        "userId": this.userID
+      }
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/user/updatePass', Params).subscribe(data => {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+          this.isVisibleUpdate = false;
+          this.oldPassword = "";
+          this.newPassword = "";
+          this.repeatPassword = "";
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }, error => {
+        console.log("error");
+      });
+    } else {
+      this.promptFlag = true;
     }
-    this.isVisibleUpdate = false;
+    
   }
 
   //用户登录

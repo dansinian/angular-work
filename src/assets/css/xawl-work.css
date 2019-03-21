@@ -292,6 +292,11 @@ a{
 }
 .avatar-link ul>li a:hover{color: #2ec5c5 !important;}
 .main-admin ul{ list-style: none; }
+.main-admin ul>li{
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    padding: 5px;
+}
 .main-admin ul>li:hover{
     background: #eee;
 }
@@ -330,6 +335,9 @@ a{
     cursor: pointer;
 }
 .post-model ul>li:hover a{ color: #2ec5c5; }
+.fan-model td{
+    padding: 10px 0;
+}
 .fan-model td img{
     width: 50px;
     height: 50px;
@@ -579,5 +587,26 @@ a{
     top: 100px;
     right: 0px;
 }
+.post-model1 li{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+.post-model1 li>span:first-child{
+    color: #2ec5c5;
+    margin-right: 10px;
+    font-weight: bolder;
+    font-size: 14px;
+    cursor: pointer;
+}
+.post-model1 li .time{
+    font-size: 10px;
+    color: #ccc;
+}
+.post-model1 li>span:last-child{
+    color: #2ec5c5;
+    cursor: pointer;
+}
+
 /* 个人设置 */
 

@@ -14,7 +14,7 @@
   <div class="header-right">
     <div *ngIf="flagLogin">
       <span (click)="getMessage()"><i nz-icon type="mail" theme="outline"></i>通知</span>
-      <span><img (click)="viewImg()" src="../../assets/image/stu002.jpg">{{nickName}}</span>
+      <span><img (click)="viewImg()" src="../../assets/image/stu002.jpg">{{userNickName}}</span>
       <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
       <span (click)="dropSystem()"><i nz-icon type="poweroff" theme="outline"></i>退出</span>
     </div>
@@ -54,15 +54,18 @@
   <table class="updatepws">
     <tr>
       <td width="150" align="right"><nz-form-label>旧密码</nz-form-label></td>
-      <td><input nz-input placeholder="请输入旧密码" [(ngModel)]="oldPassword"></td>
+      <td><input type="password" nz-input placeholder="请输入旧密码" [(ngModel)]="oldPassword"></td>
     </tr>
     <tr>
       <td width="150" align="right"><nz-form-label>新密码</nz-form-label></td>
-      <td><input nz-input placeholder="请输入新密码" [(ngModel)]="newPassword"></td>
+      <td><input type="password" nz-input placeholder="请输入新密码" [(ngModel)]="newPassword"></td>
     </tr>
     <tr>
       <td width="150" align="right"><nz-form-label>确认密码</nz-form-label></td>
-      <td><input nz-input placeholder="再输入一遍密码" [(ngModel)]="repeatPassword"></td>
+      <td><input type="password" nz-input placeholder="再输入一遍密码" [(ngModel)]="repeatPassword"></td>
+    </tr>
+    <tr>
+      <td colspan="2" style="color: red;text-align: right" *ngIf="promptFlag">两次输入的密码不一样</td>
     </tr>
 </table>
 </nz-modal>

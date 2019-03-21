@@ -6,10 +6,10 @@
         <div class="main-body" [ngStyle]="{'width': loginFlag === 'true' ? '60%' : '100%'}">
           <div class="main-admin">
             <ul>
-              <li style="border-bottom: 1px solid #eee;padding: 5px;"><a href="">
-                <p class="text-title"><span style="margin-right: 10px;">帖子标题</span><i style="color: #ccc;">2018-12-12 12:00:00</i></p>
-                <p style="padding-left: 15px;color: #999;">帖子内容内容帖子内容内容帖子内容内容帖子内容内容帖子内容内容</p>
-              </a></li>
+              <li *ngFor="let item of adminQuestionList;index as i;" (click)="positionQuestion(item)">
+                <p class="text-title"><span style="margin-right: 10px;">{{item.queTitle}}</span><i style="color: #ccc;">{{item.createTime}}</i></p>
+                <p style="padding-left: 15px;color: #999;">{{item.queDetail}}</p>
+              </li>
             </ul>
           </div>
           <div class="main-post">
