@@ -1,8 +1,8 @@
-<app-header></app-header>
+<app-header (search)="getSearchValue($event)"></app-header>
 <div style="background: rgba(243, 242, 242);">
     <div class="container">
       <div class="main">
-        <app-nav  *ngIf="loginFlag == 'true'"></app-nav>
+        <app-nav (nav)="getNavValue($event)" *ngIf="loginFlag == 'true'"></app-nav>
         <div class="main-body" [ngStyle]="{'width': loginFlag === 'true' ? '60%' : '100%'}">
           <div class="main-admin">
             <ul>

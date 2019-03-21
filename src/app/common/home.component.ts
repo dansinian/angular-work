@@ -22,4 +22,14 @@ export class HomeComponent implements OnInit {
     $(".header-left li").eq(0).addClass('active');
   }
 
+  //获取搜索数据
+  getSearchValue(event) {
+    console.log(event);
+  }
+
+  //获取导航数据
+  getNavValue(event) {
+    console.log(event);
+  }
+
 }

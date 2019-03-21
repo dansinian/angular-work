@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { count } from 'rxjs/internal/operators/count';
@@ -9,6 +9,8 @@ declare var $: any;
   templateUrl: './nav.component.html'
 })
 export class NavComponent implements OnInit {
+  @Output('nav') getNavValue = new EventEmitter<any>();
+  navValue;
   basePath;
   navinfoList = [];
 
@@ -40,7 +42,15 @@ export class NavComponent implements OnInit {
     });
   }
 
-  //µã»÷ÇÐ»»×¨Òµ
+  updateQuestion(item, value) {
+    this.navValue = {
+      "deparament": item.department,
+      "major": value
+    }
+    this.getNavValue.emit(JSON.stringify(this.navValue));
+  }
+
+  //????§Ý???
   getMajor(department, major) {
     let loginFlag = localStorage.getItem("loginFlag");
     if (loginFlag != "true") {

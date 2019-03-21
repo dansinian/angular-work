@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
@@ -9,6 +9,8 @@ declare var $: any;
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
+  @Output('search') getSearchValue = new EventEmitter<any>();
+  searchValue: any;
   basePath;
   flagLogin = false;  //登录框是否显示
   isVisibleUpdate = false; //修改密码
@@ -57,6 +59,11 @@ export class HeaderComponent implements OnInit {
     }
 
 
+  }
+
+  //搜索
+  getSearchInfo() {
+    this.getSearchValue.emit(this.searchValue);
   }
 
   //查看头像

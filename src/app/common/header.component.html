@@ -7,8 +7,8 @@
 
     </ul>
     <div>
-      <input nz-input placeholder="搜索" [(ngModel)]="value">
-      <button style="margin-left:30px;" nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>搜索</button>
+      <input nz-input placeholder="搜索" [(ngModel)]="searchValue">
+      <button (click)="getSearchInfo()" style="margin-left:30px;" nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>搜索</button>
     </div>
   </div>
   <div class="header-right">

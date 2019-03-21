@@ -4,7 +4,7 @@
         <li nz-submenu *ngFor="let item of navinfoList; index as i;">
           <span title><i nz-icon type="tags" theme="outline"></i>{{item.department}}</span>
           <ul>
-            <li nz-menu-item *ngFor="let value of item.major">{{value}}</li>
+            <li nz-menu-item *ngFor="let value of item.major" (click)="updateQuestion(item, value)">{{value}}</li>
             <!--  (click)="getMajor(item.department, value)" -->
           </ul>
         </li>
