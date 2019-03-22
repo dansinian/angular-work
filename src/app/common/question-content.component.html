@@ -6,26 +6,35 @@
           <div class="question-content">
             <!-- 当前帖子用户信息 -->
             <div class="question-content-header">
-                <img src="../../assets/image/stu002.jpg">
-                <span>昵称</span>
+                <img src="{{queUserHeadImg}}">
+                <span>{{queUserNickName}}</span>
             </div>
             <!-- 当前帖子用户信息 end -->
 
+            <!-- //      clickCount: 0
+            //     createTime: "2019-03-07 14:24:43"
+            //     praiseCount: 1
+            //     queCourse: ""
+            //     queDetail:
+            //     queId: "1551939737000"
+            // queImg: ""
+            // queSummary: ""
+            // queTitle: "梦"
+            // replyCount: 0
+            // unread: 10
+            // userId: "2511150406" -->
+
             <!-- 帖子标题及其内容 -->
             <div class="question-content-text">
-                <h4>帖子的标题</h4>
+                <h5>{{questionInfo.queTitle}} <i>{{questionInfo.createTime}}</i></h5>
                 <p class="question-content-text2">
-                    <img src="../../assets/image/lun01.jpg" >
-                    <img src="../../assets/image/lun02.jpg" >
-                    <br>
-                    漫步在诗书的时间轮，望着赤日炎炎的夏天，思绪不禁翻开了卷卷黄页。那种感觉如夏雨落入尘世的前奏，雨点柔柔的、软软的，轻轻融进暗香浮动的梦境
-                    ，飘逸浓浓醉心书香扑面而来，韵味悠久，沁人肺腑融入灵魂深处淡雅迷醉，如涓涓流水般，流过指尖，流过键盘，流到我的心底，填充我的灵魂，陪我一起领
-                    悟生活，让书中文字的韵律，渐渐安静我的灵魂，让我在书中沉淀自己，去除生命的糟粕，提取生命的精华。让我在这尘世中找到属于自己的位置，安静而美好。
-                    的那份悸动的瞬间。有书的熏陶，有文字的滋润从内而外都洋溢着一种自信。在夏之月夜里尽情挥洒，茶的香气满屋弥漫。捧卷而读，暗香，也由指间漾上了心头
+                    <img src="{{questionInfo.queImg}}" *ngIf="questionInfo.queImg">
+                    <!-- <img src="../../assets/image/lun02.jpg" > -->
+                    {{questionInfo.queDetail}}
                 </p>
                 <p class="question-content-text-icon">
-                  <span (click)="showCommentReply(1)"><i nz-icon type="message" theme="outline"></i><span>12</span></span>
-                  <span><i nz-icon type="heart" theme="outline"></i><span>12</span></span>
+                  <span (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i><span>{{questionInfo.replyCount}}</span></span>
+                  <span (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i><span>{{questionInfo.praiseCount}}</span></span>
                 </p>
             </div>
             <!-- 帖子标题及其内容 end -->
@@ -33,26 +42,34 @@
             <!-- 评论回复 -->
             <div class="question-content-comment">
               <p>
-                <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+                <span class="comment-user">思念</span>
                 <i>:</i>
                 <span class="comment-content">内容</span>
-                <span class="comment-detele"><i nz-icon type="delete" theme="outline"></i></span>
+                <span>
+                    <span class="comment-detele" (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i></span>
+                    <span  (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i></span>
+                    <span  (click)="deleteComment()"><i nz-icon type="delete" theme="outline"></i></span>
+                </span>
               </p>
               <p>
-                <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+                <span class="comment-user" (click)="showCommentReply()">思念</span>
                 <span class="comment-reply">回复</span>
-                <span class="comment-user" (click)="showCommentReply(0)">思念</span>
+                <span class="comment-user" (click)="showCommentReply()">思念</span>
                 <i>:</i>
                 <span class="comment-content">内容</span>
-                <span class="comment-detele"><i nz-icon type="delete" theme="outline"></i></span>
+                <span>
+                    <span class="comment-detele" (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i></span>
+                    <span  (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i></span>
+                    <span  (click)="deleteComment()"><i nz-icon type="delete" theme="outline"></i></span>
+                </span>
               </p>
             </div>
             <!-- 评论回复 end -->
 
             <!-- 评论框 -->
             <div class="question-content-textarea">
-                <textarea rows="3" placeholder="@ 回复" nz-input [(ngModel)]="queContent"></textarea>
-                <button style="margin-top: 10px;" nz-button nzType="primary" (click)="commentPublish()">发表</button>
+                <textarea rows="3" placeholder="{{queUserNickName}}@ 回复" nz-input [(ngModel)]="queContent"></textarea>
+                <button nz-button nzType="primary" (click)="commentPublish()">发表</button>
             </div>
             <!-- 评论框 end -->
           </div>

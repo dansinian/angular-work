@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
   sendData;
   loginFlag;
   adminQuestionList = [];
+  userQuestionList = [];
 
   constructor(private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -22,28 +23,45 @@ export class HomeComponent implements OnInit {
     this.loginFlag = localStorage.getItem("loginFlag");
     $(".header-left li").removeClass();//active
     $(".header-left li").eq(0).addClass('active');
+    // è·å–adminå¸–å­ä¿¡æ¯
     const adminParams = new HttpParams().set("data", JSON.stringify(""));
     this.httpClient.post(this.basePath + '/question/adminList', adminParams).subscribe(data => {
       if (data['status'] == '200') {
         this.adminQuestionList = data['questions'];
-        console.log(data);
       }
     }, error => {
       console.log(error);
     });
+
+    //æ­£å¸¸å¸–å­ä¿¡æ¯
+    const recommendParams = new HttpParams().set("data", "");
+    this.httpClient.post(this.basePath + '/question/recommendQuestion', recommendParams).subscribe(data => {
+      if (data['status'] == '200') {
+        this.userQuestionList = data['questions'];
+      }
+    }, error => {
+      console.log("error");
+    });
+
   }
 
-  //ËÑË÷
-    getSearchValue(event) {
-    console.log(event);
+  //æœç´¢
+  getSearchValue(event) {
+    this.sendData = {
+      "content": event,
+    };
   }
 
-  //Ìû×ÓÏêÇé
+  //å¸–å­è¯¦æƒ…
   positionQuestion(item) {
-    console.log(item);
-    if (item.queId != null && item.queId != '') {
-      this.route.navigate(['/questionContent'], {queryParams: {"questionId" : item.queId}});
+    if (this.loginFlag != 'true') {
+      this.appService.info("è¯·å…ˆç™»å½•ï¼");
+    } else {
+      if (item.queId != null && item.queId != '') {
+        this.route.navigate(['/questionContent'], {queryParams: {"questionId" : item.queId, "userID": item.userId}});
+      }
     }
+    
   }
 
 }

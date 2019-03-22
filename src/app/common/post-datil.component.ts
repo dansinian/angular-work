@@ -15,9 +15,9 @@ export class PostDatilComponent implements OnInit {
   uploading = false;
   fileList: UploadFile[] = [];
   sendData;
-  questionCourse; //¿Î³Ì
-  questionText; //ÎÄ±¾
-  questionTitle; //±êÌâ
+  questionCourse; //è¯¾ç¨‹
+  questionText; //æ–‡æœ¬
+  questionTitle; //æ ‡é¢˜
   userID;
   courseList = [];
 
@@ -52,7 +52,7 @@ export class PostDatilComponent implements OnInit {
     });
   }
 
-  //·¢±íÌû×Ó
+  //å‘è¡¨å¸–å­
   createQuestion() {
     this.sendData = {
       "userId": this.userID,
@@ -69,7 +69,7 @@ export class PostDatilComponent implements OnInit {
         }
       }
     }, error => {
-      console.log("·¢ÌûÊ§°Ü£¡");
+      console.log("å‘å¸–å¤±è´¥ï¼");
     });
   }
 

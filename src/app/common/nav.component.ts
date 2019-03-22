@@ -50,11 +50,11 @@ export class NavComponent implements OnInit {
     this.getNavValue.emit(JSON.stringify(this.navValue));
   }
 
-  //????§İ???
+  //
   getMajor(department, major) {
     let loginFlag = localStorage.getItem("loginFlag");
     if (loginFlag != "true") {
-      this.appService.info("ÇëÏÈµÇÂ¼£¡");
+      this.appService.info("è¯·å…ˆç™»å½•ï¼");
     } else {
       
     }
