@@ -1,9 +1,9 @@
 export class Reply {
     public  id: String;
-    public  commentID: String;  //ÆÀÂÛID
-    public  userID: String; //·¢±í´ËÌõ»Ø¸´µÄÓÃ»§ID
-    public  content: String;    //»Ø¸´µÄÄÚÈİ
-    public  prase: String;  //»Ø¸´µÄµãÔŞÊı
-    public  time: String;   //»Ø¸´Ê±¼ä
-    public  commentUserID: String;  //»Ø¸´µÄÆÀÂÛµÄÓÃ»§ID
+    public  commentID: String;  //è¯„è®ºID
+    public  userID: String; //å‘è¡¨æ­¤æ¡å›å¤çš„ç”¨æˆ·ID
+    public  content: String;    //å›å¤çš„å†…å®¹
+    public  prase: String;  //å›å¤çš„ç‚¹èµæ•°
+    public  time: String;   //å›å¤æ—¶é—´
+    public  commentUserID: String;  //å›å¤çš„è¯„è®ºçš„ç”¨æˆ·ID
 }

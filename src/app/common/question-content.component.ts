@@ -2,24 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { Question } from 'src/app/entity/question';
 
 @Component({
   selector: 'app-question-content',
   templateUrl: './question-content.component.html'
 })
 export class QuestionContentComponent implements OnInit {
+  question: Question;
   basePath;
   sendData;
   questionId;
-  queUserID;  //·¢±íÌû×ÓÓÃ»§ID
-  queUserNickName;  //·¢±íÌû×ÓÓÃ»§êÇ³Æ
-  queUserHeadImg;  //·¢±íÌû×ÓÓÃ»§Í·Ïñ
+  queUserID;  //å‘è¡¨å¸–å­ç”¨æˆ·ID
+  queUserNickName;  //å‘è¡¨å¸–å­ç”¨æˆ·æ˜µç§°
+  queUserHeadImg;  //å‘è¡¨å¸–å­ç”¨æˆ·å¤´åƒ
   questionInfo;
-  loginUserID;   //µÇÂ¼ÓÃ»§ID
+  loginUserID;   //ç™»å½•ç”¨æˆ·ID
   queContent;
 
   constructor(private appService: AppService, private httpClient: HttpClient, private activatedRoute: ActivatedRoute) {
     this.basePath = this.appService.getBasePath();
+    this.question = {id: '', time: '', title: '', detail: '', userID: '', click: '', praise: '', reply: '', course: '', unread: '', src: ''};
   }
 
   ngOnInit() {
@@ -27,7 +30,7 @@ export class QuestionContentComponent implements OnInit {
       this.questionId = params['questionId'];
       this.queUserID = params['userID'];
     });
-    // »ñÈ¡ÓÃ»§ĞÅÏ¢
+    // è·å–ç”¨æˆ·ä¿¡æ¯
     const userParams = new HttpParams().set("data", JSON.stringify({"content": this.queUserID}));
     this.httpClient.post(this.basePath + '/user/selectUser', userParams).subscribe(data => {
       if (data['status'] == '200') {
@@ -38,13 +41,41 @@ export class QuestionContentComponent implements OnInit {
       console.log("error");
     });
 
+     //      clickCount: 0
+    //     createTime: "2019-03-07 14:24:43"
+    //     praiseCount: 1
+    //     queCourse: ""
+    //     queDetail:
+    //     queId: "1551939737000"
+    // queImg: ""
+    // queSummary: ""
+    // queTitle: "æ¢¦"
+    // replyCount: 0
+    // unread: 10
+    // userId: "2511150406
+
  
+    //è·å–å½“å‰å¸–å­ä¿¡æ¯
     this.sendData = {"questionId": this.questionId};
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/questionDetail', Params).subscribe(data => {
-      if (data['status'] == '200') {
-        console.log(data);
-        this.questionInfo = data['question'];
+      console.log(data);
+      if (data != null && data != '') {
+        let question = data['question'];
+        //console.log(question);
+        this.question.id = question['queId'];
+        this.question.time = question['createTime'];
+        this.question.course = question['queCourse'];
+        this.question.praise = question['praiseCount'];
+        this.question.detail = question['queDetail'];
+        this.question.src = question['queImg'];
+        this.question.title = question['queTitle'];
+        this.question.reply = question['replyCount'];
+        this.question.unread = question['createTime'];
+        this.question.userID = question['unread'];
+        this.question.click = question['clickCount'];
+        console.log(this.question);
+        // console.log(this.questionInfo);
         //
       }
     }, error => {
@@ -53,26 +84,26 @@ export class QuestionContentComponent implements OnInit {
 
   }
 
-  // µãÔŞ
-  getPraiseCount() {
-    this.sendData = {
-      "ID": this.questionId,
-      "userId": this.queUserID,
-    }
+ // ç‚¹èµ
+ getPraiseCount() {
+  this.sendData = {
+    "ID": this.questionId,
+    "userId": this.queUserID,
   }
+}
 
-  //É¾³ı
+  //åˆ é™¤
   deleteComment() {
     /*
-    Ë¼Â·£º 
-       1, ÅĞ¶ÏÌû×ÓÊÇ·ñÎªµ±Ç°µÇÂ¼ÓÃ»§:
-            ÈôÊÇµ±Ç°ÓÃ»§µÄÌû×Ó£¬¿ÉÒÔËæ±ãÉ¾³ı,
-            Èô²»ÊÇ£¬ÔòÖ»ÄÜÉ¾³ı×Ô¼º·¢±íÁËÆÀÂÛµÄÄÚÈİ  £¨¸ø³öÈ¨ÏŞ²»×ã£©
+    æ€è·¯ï¼š 
+      1, åˆ¤æ–­å¸–å­æ˜¯å¦ä¸ºå½“å‰ç™»å½•ç”¨æˆ·:
+            è‹¥æ˜¯å½“å‰ç”¨æˆ·çš„å¸–å­ï¼Œå¯ä»¥éšä¾¿åˆ é™¤,
+            è‹¥ä¸æ˜¯ï¼Œåˆ™åªèƒ½åˆ é™¤è‡ªå·±å‘è¡¨äº†è¯„è®ºçš„å†…å®¹  ï¼ˆç»™å‡ºæƒé™ä¸è¶³ï¼‰
         
     */
   }
 
-  //ÆÀÂÛ
+  //è¯„è®º
   showCommentReply() {
 
   }

@@ -355,6 +355,7 @@ a{
 .post-model ul>li:hover a{ color: #2ec5c5; }
 .fan-model td{
     padding: 10px 0;
+    cursor: pointer;
 }
 .fan-model td img{
     width: 50px;
@@ -482,6 +483,12 @@ a{
     height: 80px;
 }
 /* 个人信息 */
+.question-none{
+    text-align: center;
+    margin: 0;
+    font-size: 18px;
+    color: #666;
+}
 .person-page{
     /* margin: 0 auto; */
 }
@@ -530,6 +537,7 @@ a{
     font-weight: bolder;
     margin-right: 20px;
     color: #2ec5c5;
+    cursor: pointer;
 }
  .person-page-moment .moment-title>span{
     color: #ccc;
@@ -538,6 +546,7 @@ a{
 .moment-title>span>i{ color: #ccc; } */
 .person-page-moment .moment-content{
     padding: 5px 10px;
+    cursor: pointer;
 }
 .moment-content>img{
     width: 100px;
@@ -591,14 +600,18 @@ a{
 }
 .question-content-text .question-content-text-icon{
     margin-right:20px;
+    display: flex;
+    justify-content: flex-end;
 }
 .question-content-text .question-content-text-icon>span{
-    float: right;
     margin: 0 15px;
     cursor: pointer;
 }
 .question-content-text .question-content-text-icon>span:hover{
     color: #2ec5c5;
+}
+.question-content-comment{
+    margin: 20px 0;
 }
 .question-content-comment>p{
     height: 25px;

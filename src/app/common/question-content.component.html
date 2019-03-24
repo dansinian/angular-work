@@ -26,15 +26,15 @@
 
             <!-- 帖子标题及其内容 -->
             <div class="question-content-text">
-                <h5>{{questionInfo.queTitle}} <i>{{questionInfo.createTime}}</i></h5>
+                <h5>{{question.title}} <i>{{question.time}}</i></h5>
                 <p class="question-content-text2">
-                    <img src="{{questionInfo.queImg}}" *ngIf="questionInfo.queImg">
+                    <img src="{{question.src}}" *ngIf="question.src">
                     <!-- <img src="../../assets/image/lun02.jpg" > -->
-                    {{questionInfo.queDetail}}
+                    {{question.detail}}
                 </p>
                 <p class="question-content-text-icon">
-                  <span (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i><span>{{questionInfo.replyCount}}</span></span>
-                  <span (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i><span>{{questionInfo.praiseCount}}</span></span>
+                  <span (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i><span>{{question.reply}}</span></span>
+                  <span (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i><span>{{question.praise}}</span></span>
                 </p>
             </div>
             <!-- 帖子标题及其内容 end -->

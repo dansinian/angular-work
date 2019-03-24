@@ -52,14 +52,22 @@ export class AvatarComponent implements OnInit {
       console.log("errror");
     });
 
-
     
   }
 
   //进入详情
   positionQuestion(item) {
     if (item.questionId != null && item.questionId != '') {
-      this.route.navigate(['/questionContent'], {queryParams: {'questionId': item.questionId}});
+      this.route.navigate(['/questionContent'], {queryParams: {'questionId': item.questionId, "userID": item.userId}});
+      location.reload(true);
+    }
+  }
+
+  //进入个人主页
+  getPersonPage(item) {
+    if (item.userId != null && item.userId != '') {
+      this.route.navigate(['/person'], {queryParams: {"userID": item.userId}});
+      location.reload(true);
     }
   }
 
@@ -70,6 +78,7 @@ export class AvatarComponent implements OnInit {
     this.httpClient.post(this.basePath + '/question/deleteQuestion', Params).subscribe(data => {
       if (data['status'] == '200') {
         this.msg.success(data['msg']);
+        location.reload(true);
       } else {
         this.msg.success(data['msg']);
       }

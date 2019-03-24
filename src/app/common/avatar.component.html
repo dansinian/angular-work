@@ -40,8 +40,8 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followList">
-        <td width="60"><img src="{{item.headImg}}"></td>
-        <td width="300">{{item.nickName}}</td>
+        <td width="60" (click)="getPersonPage(item)"><img src="{{item.headImg}}"></td>
+        <td width="300" (click)="getPersonPage(item)">{{item.nickName}}</td>
         <td><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'unfouce')"></i>取消关注</td>
       </tr>
     </table>
@@ -53,8 +53,8 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followedList">
-        <td width="60"><img src="{{item.headImg}}"></td>
-        <td width="300">{{item.nickName}}</td>
+        <td width="60" (click)="getPersonPage(item)"><img src="{{item.headImg}}"></td>
+        <td width="300" (click)="getPersonPage(item)">{{item.nickName}}</td>
         <td><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</td>
       </tr>
     </table>

@@ -3,6 +3,7 @@ import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { filter } from 'rxjs/operators';
 import { HttpClient, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 
 declare var Base64: any;
 declare var $: any;
@@ -21,7 +22,8 @@ export class PostDatilComponent implements OnInit {
   userID;
   courseList = [];
 
-  constructor(private appService: AppService ,private httpClient: HttpClient, private messageService: NzMessageService) {
+  constructor(private appService: AppService ,private httpClient: HttpClient, private messageService: NzMessageService, 
+    private route: Router) {
     this.basePath = this.appService.getBasePath();
   }
   // const Params = new HttpParams().set('data', Base64.encode(JSON.stringify(dataParams)))
@@ -44,7 +46,6 @@ export class PostDatilComponent implements OnInit {
               "value": item['course']
             });
           }
-          console.log(this.courseList);
         }
       }
     }, error => {
@@ -65,7 +66,8 @@ export class PostDatilComponent implements OnInit {
     this.httpClient.post(this.basePath + '/question/createQuestion', Params).subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          
+          let question = data['question'];
+          this.route.navigate(['/questionContent'], {queryParams: {"questionId" : question.queId, "userID": question.userId}});
         }
       }
     }, error => {

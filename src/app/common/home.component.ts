@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     this.httpClient.post(this.basePath + '/question/adminList', adminParams).subscribe(data => {
       if (data['status'] == '200') {
         this.adminQuestionList = data['questions'];
+        console.log(data);
       }
     }, error => {
       console.log(error);
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
     //正常帖子信息
     const recommendParams = new HttpParams().set("data", "");
     this.httpClient.post(this.basePath + '/question/recommendQuestion', recommendParams).subscribe(data => {
+      console.log(data);      
       if (data['status'] == '200') {
         this.userQuestionList = data['questions'];
       }
