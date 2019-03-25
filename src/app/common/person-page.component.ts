@@ -52,7 +52,7 @@ export class PersonPageComponent implements OnInit {
 
   }
 
-  //Ìû×ÓÏêÇé
+  //å¸–å­è¯¦æƒ…
   positionQuestion(item) {
     console.log(item);
     if (item.questionId != null && item.questionId != '') {

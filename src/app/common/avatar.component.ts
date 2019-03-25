@@ -90,6 +90,37 @@ export class AvatarComponent implements OnInit {
   //关注信息
   getFouce(item, fouce) {
     console.log(item, fouce);
+    this.sendData = {
+      "userId": this.userID,
+      "followedId": item.userId
+    }
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    if (fouce === 'fouce') {
+      /*关注 */
+      this.httpClient.post(this.basePath + '/user/follow', Params).subscribe(data => {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }, error => {
+        console.log("error");
+      });
+
+    } else{
+      /*取消关注 */
+      this.httpClient.post(this.basePath + '/user/unfollow', Params).subscribe(data => {
+        if (data['status'] == '200') {
+          this.appService.info(data['msg']);
+        } else {
+          this.appService.info(data['msg']);
+        }
+      }, error => {
+        console.log("error");
+      });
+    }
+    location.reload(true);
+
   }
 
   //打开

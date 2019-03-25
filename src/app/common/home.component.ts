@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     this.httpClient.post(this.basePath + '/question/adminList', adminParams).subscribe(data => {
       if (data['status'] == '200') {
         this.adminQuestionList = data['questions'];
-        console.log(data);
       }
     }, error => {
       console.log(error);
@@ -37,7 +36,6 @@ export class HomeComponent implements OnInit {
     //正常帖子信息
     const recommendParams = new HttpParams().set("data", "");
     this.httpClient.post(this.basePath + '/question/recommendQuestion', recommendParams).subscribe(data => {
-      console.log(data);      
       if (data['status'] == '200') {
         this.userQuestionList = data['questions'];
       }
@@ -49,9 +47,18 @@ export class HomeComponent implements OnInit {
 
   //搜索
   getSearchValue(event) {
-    this.sendData = {
-      "content": event,
-    };
+    this.sendData = { "content": event };
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/question/selectQuestion', Params).subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.userQuestionList = [];
+          this.userQuestionList = data['questions'];
+        }
+      }
+    }, error => {
+      console.log("error");
+    });
   }
 
   //帖子详情
@@ -64,6 +71,11 @@ export class HomeComponent implements OnInit {
       }
     }
     
+  }
+
+  //根据院系显示
+  getNavValue(event) {
+    console.log(event);
   }
 
 }

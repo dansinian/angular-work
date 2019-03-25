@@ -90,6 +90,14 @@ export class QuestionContentComponent implements OnInit {
     "ID": this.questionId,
     "userId": this.queUserID,
   }
+  const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+  this.httpClient.post(this.basePath + '/user/likes', Params).subscribe(data => {
+    if (data['status'] == '200') {
+      
+    }
+  }, error => {
+    console.log("error");
+  });
 }
 
   //删除
