@@ -52,6 +52,8 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem("depart", data['teacher']['teaDepartment']);
                         localStorage.setItem("flag", data['teacher']['teaFlag']);
                     }
+                    console.log(data, this.user);
+                    localStorage.setItem("userFlag", JSON.stringify(this.user));
                     this.route.navigate(['/home'],{queryParams: {"type": this.user.type}}); 
                 } else {
                     this.appService.info(data['msg']);

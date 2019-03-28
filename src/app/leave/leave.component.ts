@@ -57,7 +57,7 @@ export class LeaveComponent implements OnInit {
         }
       }
     }, error => {
-      this.appservice.error("ÐÂ½¨³ö´í");
+      this.appservice.error("æ–°å»ºå‡ºé”™");
     });
   }
 }

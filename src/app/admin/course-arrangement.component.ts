@@ -21,6 +21,8 @@ export class CourseArrangementComponent implements OnInit {
     searchInfo;
     startTime;
     endTime;
+    nzNoResult = "正在加载。。。";
+    pageLoading = true;
 
     constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
       this.basePath = this.appService.getBasePath();
@@ -36,31 +38,23 @@ export class CourseArrangementComponent implements OnInit {
       const Params = new HttpParams().set("data","");
       this.httpClient.post(this.basePath + '/arrangement/selectArrangement', Params).subscribe(data => {
         if (data != null && data != '') {
+          console.log(data);
           if (data['status'] == '200') {
-            let list = data['Arrangements'];
-            for (let item of list) {
-              this.infoList.push({
-                "carmId": item['carmId'],
-                "week": item['courseWeek'],
-                "start": item['startTime'],
-                "end": item['endTime'],
-                "courseId": item['courseId'],
-                "courseName": item['courseName'],
-              });
-            }
+            this.infoList = data['Arrangements'];
+            this.pageLoading = false;
           }
         }
       }, error => {
-        this.appService.error("检查代码！");
+        console.log("error");
       });
     }
 
     //编辑信息
     editInfo(item) {
     this.arragent.id = item.carmId;
-    this.arragent.week = item.week;
-    this.arragent.start = item.start;
-    this.arragent.end = item.end;
+    this.arragent.week = item.courseWeek;
+    this.arragent.start = item.startTime;
+    this.arragent.end = item.endTime;
     this.arragent.courId = item.courseId;
     this.arragent.courName = item.courseName;
     this.isVisibleEdit = true;
@@ -68,24 +62,16 @@ export class CourseArrangementComponent implements OnInit {
 
     //搜索
     getSearch() {
+      this.pageLoading = true;
       this.sendData = { "content": this.searchInfo };
       const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
       this.httpClient.post(this.basePath + '/arrangement/selectArrangement', Params).subscribe(data => {
         if (data != null && data != '') {
           this.infoList = [];
           if (data['status'] == '200') {
-            let list = data['Arrangements'];
-            for (let item of list) {
-              this.infoList.push({
-                "carmId": item['carmId'],
-                "week": item['courseWeek'],
-                "start": item['startTime'],
-                "end": item['endTime'],
-                "courseId": item['courseId'],
-                "courseName": item['courseName'],
-              });
-            }
+            this.infoList = data['Arrangements'];
           }
+          this.pageLoading = false;
         }
       }, error => {
 
@@ -143,13 +129,13 @@ export class CourseArrangementComponent implements OnInit {
           if (data['status'] == '200') {
             this.appService.info(data['msg']);
             this.isVisibleAdd = false;
-            location.reload(true);
+            //location.reload(true);
           } else {
             this.appService.info(data['msg']);
           }
         }
       }, error => {
-        this.appService.error("请检查代码！");
+        console.log("error");
       });
       
     }

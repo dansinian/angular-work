@@ -83,7 +83,7 @@ a{
     border-right: 1px solid #999;
 }
 .attendance-nav .active, .attendance-nav ul>li:hover{
-    background: #0AA679;
+    background: #3498A6;
 }
 .attendance-nav .active>a, .attendance-nav ul>li:hover>a{
     color: #fff !important;
@@ -201,14 +201,14 @@ a{
     text-align: center;
 }
 .other-info-jk>ul>li:hover{
-    border-bottom: 5px solid #0AA679;
+    border-bottom: 5px solid #3498A6;
     margin-top:-4px;
-    color: #0AA679 !important;
+    color: #3498A6 !important;
 }
 .other-info-jk>ul .active{
-    border-bottom: 5px solid #0AA679;
+    border-bottom: 5px solid #3498A6;
     margin-top:-4px;
-    color: #0AA679 !important;
+    color: #3498A6 !important;
 }
 .infojk{
     margin: 50px;

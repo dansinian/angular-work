@@ -11,12 +11,12 @@ import { CheckComponent } from 'src/app/check/check.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent, canActivate: [] },
-  { path: 'home', component: HomeComponent, canActivate: [] },
-  { path: 'leave', component: LeaveComponent },
-  { path: 'detail', component: DetailComponent},
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent }, // canActivate: [LoginGuardService]
+  { path: 'leave', component: LeaveComponent  },
+  { path: 'detail', component: DetailComponent },
   { path: 'account', component: AccountComponent },
-  { path: 'check', component: CheckComponent},
+  { path: 'check', component: CheckComponent },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   { path: 'error', component: ErrorComponent },
 ];

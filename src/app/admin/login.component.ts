@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
        this.httpClient.post(this.basePath + '/user/loginUser', Params).subscribe(data => {
           if (data['msg'] == '') {
               this.route.navigate(['/admin/student']);
+          } else {
+            this.appService.info(data['msg']);
           }
        }, error => {
           this.appService.error("你不是该系统的管理员！");

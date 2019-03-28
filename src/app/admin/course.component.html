@@ -10,28 +10,28 @@
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
         <div class="admin-table student-table">
-          <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
             <thead>
               <tr>
                 <th width="10">序号</th>
                 <th>课程编号</th>
                 <th>课程名称</th>
                 <th>任课老师</th>
-                <th>上课班级</th>
+                <th nzWidth="350px">上课班级</th>
                 <th>所属专业</th>
                 <th>所属学院</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of infoList; index as i">
+              <tr *ngFor="let item of nzTable.data; index as i">
                 <td>{{i+1}}</td>
                 <td>{{item.courseId}}</td>
-                <td>{{item.teacher}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.class}}</td>
-                <td>{{item.major}}</td>
-                <td>{{item.department}}</td>
+                <td>{{item.courseName}}</td>
+                <td>{{item.teaName}}</td>
+                <td nzWidth="350px">{{item.courseClass}}</td>
+                <td>{{item.courseMajor}}</td>
+                <td>{{item.courseDepartment}}</td>
                 <td>
                   <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
                   <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.courseId)"><i nz-icon type="delete" theme="outline"></i></button>

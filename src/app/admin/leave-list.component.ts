@@ -19,6 +19,8 @@ export class LeaveListComponent implements OnInit {
   sendData;
   infoList = [];
   searchInfo;
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
   constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
@@ -31,21 +33,10 @@ export class LeaveListComponent implements OnInit {
     const Params = new HttpParams().set("data","");
     this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
       if (data != null && data != '') {
+        console.log(data);
         if (data['status'] == '200') {
-          let leaveList = data['leaves'];
-          for (let item of leaveList) {
-            this.infoList.push({
-              "leaveId": item.leaveId,
-              "stuId": item.stuId,
-              "stuName": item.stuName,
-              "applicationTime": item.applicationTime,
-              "startTime": item.startTime,
-              "endTime": item.endTime,
-              "leaveDay": item.leaveDay,
-              "approvalTea": item.approvalTea,
-              "status": item.status
-            });
-          }
+          this.infoList = data['leaves'];
+          this.pageLoading = false;
         } else {
           this.appService.info(data['msg']);
         }
@@ -56,26 +47,15 @@ export class LeaveListComponent implements OnInit {
   }
 
   getSearch() {
+    this.pageLoading = true;
     this.sendData = {"content": this.searchInfo, "type": "student"};
     const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
       if (data != null && data != '') {
         this.infoList = [];
         if (data['status'] == '200') {
-          let leaveList = data['leaves'];
-          for (let item of leaveList) {
-            this.infoList.push({
-              "leaveId": item.leaveId,
-              "stuId": item.stuId,
-              "stuName": item.stuName,
-              "applicationTime": item.applicationTime,
-              "startTime": item.startTime,
-              "endTime": item.endTime,
-              "leaveDay": item.leaveDay,
-              "approvalTea": item.approvalTea,
-              "status": item.status
-            });
-          }
+          this.infoList = data['leaves'];
+          this.pageLoading = false;
         }
       }
     }, error => {

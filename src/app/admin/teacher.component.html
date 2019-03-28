@@ -10,7 +10,7 @@
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
         <div class="admin-table teacher-table">
-          <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
             <thead>
               <tr>
                 <th width="10">序号</th>
@@ -26,7 +26,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of infoList; index as i">
+              <tr *ngFor="let item of nzTable.data; index as i">
                 <td>{{i+1}}</td>
                 <td>{{item.teaId}}</td>
                 <td>{{item.teaName}}</td>

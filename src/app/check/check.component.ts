@@ -135,6 +135,29 @@ export class CheckComponent implements OnInit {
               this.checkList.push(item);
             }
           }
+          let closeList = [];
+          for (let item of this.checkList) {
+            closeList.push({
+              "stuID": item.stuID,
+              "name": item.name
+            });
+          }
+          this.sendData = {
+            "stuList": closeList,
+            "courseId": this.checkCourseID,
+          };
+          const closeParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+          this.httpClient.post(this.basePath + '/goCourse/createAllStudent', closeParams).subscribe( datas => {
+            if (datas != null && datas != '') {
+              if (data['status'] == '200') {
+                console.log(data['msg']);
+              } else {
+                console.log(data['msg']);
+              }
+            }
+          }, error => {
+            console.log("旷课存入失败！");
+          });
           console.log(this.opencheckList, this.checkList);
         }
       }

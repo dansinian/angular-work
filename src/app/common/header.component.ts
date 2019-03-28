@@ -20,6 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   drop() {
+    localStorage.setItem("userFlag", "");
     this.route.navigate(['/login'],{});
   }
 

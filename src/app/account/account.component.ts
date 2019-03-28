@@ -56,7 +56,7 @@ export class AccountComponent implements OnInit {
               this.student.phone = personInfo['stuPhone'];
               this.student.guideName = personInfo['teaName'];
               let schedule = personInfo['schedule'];
-              schedule = schedule.replace("£¬",",");
+              schedule = schedule.replace("ï¼Œ",",");
               let arr = schedule.split(",");
               for (let item of arr) {
                 this.scheduleInfo.push({
@@ -94,7 +94,7 @@ export class AccountComponent implements OnInit {
       //this.echartService.getAxis("infojk-result");
   }
 
-  //ĞŞ¸ÄÃÜÂë
+  //ä¿®æ”¹å¯†ç 
   updatePassword() {
     this.sendData = {
       "id": localStorage.getItem("id"),
@@ -119,7 +119,7 @@ export class AccountComponent implements OnInit {
         }
       }
     }, error => {
-      this.appService.error("ĞŞ¸ÄÊ§°Ü£¡");
+      this.appService.error("ä¿®æ”¹å¤±è´¥ï¼");
     });
   }
 

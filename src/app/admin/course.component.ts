@@ -19,6 +19,8 @@ export class CourseComponent implements OnInit {
   sendData;
   infoList = [];
   searchCourse; //搜索的关键字信息
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
   constructor(private modalService: NzModalService, private appService: AppService, private httpClient: HttpClient, private route: Router) { 
     this.basePath = this.appService.getBasePath();
@@ -33,18 +35,8 @@ export class CourseComponent implements OnInit {
     this.httpClient.post(this.basePath + '/course/selectCourse', Params).subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          let courseList = data['courses'];
-          for (let value of courseList) {
-            this.infoList.push({
-              "id": value.id,
-              "courseId": value.courseId,
-              "teacher": value.courseName,
-              "name": value.teaName,
-              "class": value.courseClass,
-              "major": value.courseMajor,
-              "department": value.courseDepartment
-            });
-          }
+          this.infoList = data['courses'];
+          this.pageLoading = false;
         } else {
           this.appService.info(data['msg']);
         }
@@ -165,25 +157,15 @@ export class CourseComponent implements OnInit {
 
   //搜索课程
   getCourse() {
+    this.pageLoading = true;
     this.sendData = {"content": this.searchCourse };
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/course/selectCourse', Params).subscribe(data => {
-      console.log(data);
       if (data != null && data != '') {
         this.infoList = [];
         if (data['status'] == '200') {
-          let courseList = data['courses'];
-          for (let value of courseList) {
-            this.infoList.push({
-              "id": value.id,
-              "courseId": value.courseId,
-              "teacher": value.courseName,
-              "name": value.teaName,
-              "class": value.courseClass,
-              "major": value.courseMajor,
-              "department": value.courseDepartment
-            });  
-          }
+          this.infoList = data['courses'];
+          this.pageLoading = false;
         } else {
           this.appService.info(data['msg']);
         }

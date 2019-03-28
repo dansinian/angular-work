@@ -17,6 +17,8 @@ export class TeacherComponent implements OnInit {
   teacher: Teacher;
   infoList = [];
   searchInfo;
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
   constructor(private modalService: NzModalService, private httpClient: HttpClient, private appService: AppService) {
     this.basePath = this.appService.getBasePath();
@@ -30,19 +32,8 @@ export class TeacherComponent implements OnInit {
     this.httpClient.post(this.basePath + '/teacher/selectTeacher',Params).subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          let teacherList = data['teachers'];
-          for (let item of teacherList) {
-            this.infoList.push({
-              "teaId": item.teaId,
-              "teaName": item.teaName,
-              "teaGender": item.teaGender,
-              "teaDepartment": item.teaDepartment,
-              "teaFlag": item.teaFlag,
-              "teaClass": item.teaClass,
-              "teaPassword": item.teaPassword,
-              "teaPhone": item.teaPhone
-            });
-          }
+          this.infoList = data['teachers'];
+          this.pageLoading = false;
         } else {
           this.appService.info(data['msg']);
         }
@@ -53,25 +44,15 @@ export class TeacherComponent implements OnInit {
   }
 
   getSearch() {
+    this.pageLoading = true;
     this.sendData = {"content": this.searchInfo};
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/teacher/selectTeacher', Params).subscribe(data => {
       if (data != null && data != '') {
         this.infoList = [];
         if (data['status'] == '200') {
-          let teacherList = data['teacher'];
-          for (let item of teacherList) {
-            this.infoList.push({
-              "teaId": item.teaId,
-              "teaName": item.teaName,
-              "teaGender": item.teaGender,
-              "teaDepartment": item.teaDepartment,
-              "teaFlag": item.teaFlag,
-              "teaClass": item.teaClass,
-              "teaPassword": item.teaPassword,
-              "teaPhone": item.teaPhone
-            });
-          }
+          this.infoList = data['teacher'];
+          this.pageLoading = false;
         } else {
           this.appService.info(data['msg']);
         }

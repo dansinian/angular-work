@@ -10,7 +10,7 @@
           <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
         </div>
         <div class="admin-table student-table">
-          <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
             <thead>
               <tr>
                 <th width="10" rowspan="2">序号</th>
@@ -26,15 +26,24 @@
                 <th>开始时间</th>
               </tr>
             </thead>
+            <!-- 
+              carmId: "1553778317000"
+courseId: "20190202131443306"
+courseName: "编译原理"
+courseWeek: "星期一"
+endTime: "09:50"
+id: 11
+startTime: "08:00"
+             -->
             <tbody>
-              <tr *ngFor="let item of infoList; index as i;">
+              <tr *ngFor="let item of nzTable.data; index as i;">
                 <td>{{i+1}}</td>
                 <td>{{item.carmId}}</td>
                 <td>{{item.courseId}}</td>
                 <td>{{item.courseName}}</td>
-                <td>{{item.week}}</td>
-                <td>{{item.start}}</td>
-                <td>{{item.end}}</td>
+                <td>{{item.courseWeek}}</td>
+                <td>{{item.startTime}}</td>
+                <td>{{item.endTime}}</td>
                 <td>
                   <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
                   <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.carmId)"><i nz-icon type="delete" theme="outline"></i></button>

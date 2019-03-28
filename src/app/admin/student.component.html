@@ -10,7 +10,7 @@
         <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
       </div>
       <div class="admin-table student-table">
-        <nz-table #borderedTable nzBordered [nzData]="dataSet" [nzScroll]="{x:'1700px'}">
+        <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading" [nzScroll]="{x:'1700px'}">
           <thead>
             <tr>
               <th width="10" nzLeft="0px">序号</th>
@@ -29,8 +29,23 @@
               <th width="120" nzRight="0px">操作</th>
             </tr>
           </thead>
+          <!-- 
+            id: 8
+schedule: ""
+stuClass: "软件三班"
+stuDepartment: "信息工程学院"
+stuFlag: "1"
+stuGender: "女"
+stuId: "2511150325"
+stuIdentity: "62282719960817372X"
+stuMajor: "软件工程"
+stuName: "南豆"
+stuPassword: "123456"
+stuPhone: "15771776539"
+teaName: "陈桂霞"
+           -->
           <tbody>
-            <tr *ngFor="let item of infoList; index as i">
+            <tr *ngFor="let item of nzTable.data; index as i">
               <td nzLeft="0px">{{i+1}}</td>
               <td nzLeft="10px">{{item.stuId}}</td>
               <td>{{item.stuName}}</td>

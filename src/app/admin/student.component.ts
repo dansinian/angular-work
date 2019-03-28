@@ -17,6 +17,8 @@ export class StudentComponent implements OnInit {
   student: Student;
   sendData;
   searchInfo;
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
   constructor(private appService: AppService, private modalService: NzModalService, private httpClient: HttpClient) { 
     this.basePath = this.appService.getBasePath();
@@ -28,25 +30,9 @@ export class StudentComponent implements OnInit {
       $(".nav-list ul li").eq(0).addClass("active");
       const Params = new HttpParams().set("data","");
       this.httpClient.post(this.basePath + '/student/selectStudent', Params).subscribe(data => {
-        console.log(data);
           if (data['msg'] == '' && data['status'] == '200') {
-            let studentList = data['students'];
-            for (let item of studentList) {
-              this.infoList.push({
-                "stuId": item.stuId,
-                "stuName": item.stuName,
-                "stuGender": item.stuGender,
-                "stuIdentity": item.stuIdentity,
-                "stuPhone": item.stuPhone,
-                "stuClass": item.stuClass,
-                "stuMajor": item.stuMajor,
-                "stuDepartment": item.stuDepartment,
-                "teaName": item.teaName,
-                "stuPassword": item.stuPassword,
-                "stuFlag": item.stuFlag,
-                "schedule": item.schedule
-              });
-            }
+            this.infoList = data['students'];
+            this.pageLoading = false;
           } else{
             this.appService.info(data['msg']);
           }
@@ -59,27 +45,11 @@ export class StudentComponent implements OnInit {
     this.sendData = {"content": this.searchInfo};
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/student/selectStudent', Params).subscribe(data => {
-      console.log(data);
       if (data != null && data != '') {
         this.infoList = [];
         if (data['status'] == '200') {
-          let studentList = data['students'];
-          for (let item of studentList) {
-            this.infoList.push({
-              "stuId": item.stuId,
-              "stuName": item.stuName,
-              "stuGender": item.stuGender,
-              "stuIdentity": item.stuIdentity,
-              "stuPhone": item.stuPhone,
-              "stuClass": item.stuClass,
-              "stuMajor": item.stuMajor,
-              "stuDepartment": item.stuDepartment,
-              "teaName": item.teaName,
-              "stuPassword": item.stuPassword,
-              "stuFlag": item.stuFlag,
-              "schedule": item.schedule
-            });
-          }
+          this.infoList = data['students'];
+          this.pageLoading = false;
         } else {  
           this.appService.info(data['msg']);
         }
