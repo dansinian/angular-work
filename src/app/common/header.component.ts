@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
     this.type = localStorage.getItem("type");
     this.name = localStorage.getItem("name");
     this.id = localStorage.getItem("id");
+    // console.log($(".header ul"));
   }
 
   drop() {

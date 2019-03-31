@@ -8,13 +8,13 @@
         </p>
     </div>
     <div class="attendance-nav">
-        <ul *ngIf="type == 'student'">
+        <ul *ngIf="type == 'student'" id="navigation">
           <li><a routerLink="/home">主页</a></li>
           <li><a routerLink="/leave">新建请假</a></li>
           <li><a routerLink="/detail">请假详情</a></li>
           <li><a routerLink="/account">账户管理</a></li>
         </ul>
-        <ul *ngIf="type == 'teacher'">
+        <ul *ngIf="type == 'teacher'" id="navigation">
           <li><a routerLink="/home">主页</a></li>
           <li><a routerLink="/check">签到管理</a></li>
           <li><a routerLink="/detail">请假详情</a></li>

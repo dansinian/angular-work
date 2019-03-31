@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="admin-student">
   <app-navigation></app-navigation>
   <div class="admin">
@@ -29,21 +30,6 @@
               <th width="120" nzRight="0px">操作</th>
             </tr>
           </thead>
-          <!-- 
-            id: 8
-schedule: ""
-stuClass: "软件三班"
-stuDepartment: "信息工程学院"
-stuFlag: "1"
-stuGender: "女"
-stuId: "2511150325"
-stuIdentity: "62282719960817372X"
-stuMajor: "软件工程"
-stuName: "南豆"
-stuPassword: "123456"
-stuPhone: "15771776539"
-teaName: "陈桂霞"
-           -->
           <tbody>
             <tr *ngFor="let item of nzTable.data; index as i">
               <td nzLeft="0px">{{i+1}}</td>

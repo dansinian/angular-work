@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   weekAttend = [];
   shouldNum;
   actualNum;
+  homeRouter;
 
 
   constructor(private echart: EcharService, private activatedRoute: ActivatedRoute, private httpClient: HttpClient, private appService: AppService) {
@@ -34,6 +35,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.homeRouter = localStorage.getItem("router");
+    if (this.homeRouter.indexOf('login') >= 0) {
+      localStorage.setItem("router", window.location.href);
+      location.reload(true);
+    }
+    
     this.type = localStorage.getItem('type');
     this.teacherAttribute = localStorage.getItem("flag");
     if (localStorage.getItem("checkFlag") == 'true') {

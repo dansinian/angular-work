@@ -31,6 +31,8 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() { 
+      $(".attendance-nav ul li").removeClass('active');
+      $(".attendance-nav ul li").eq(3).addClass('active');
       this.type = localStorage.getItem("type");
       $("#info-jk-tab li").on('click', function() {
           $("#info-jk-tab li").removeClass('active');

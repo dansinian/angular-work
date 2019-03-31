@@ -1,10 +1,48 @@
 /* 公共 */
+*{
+    margin: 0px;
+    padding: 0px;
+}
 a{
     color: #000 !important;
 }
 .hide{ display: none; }
 .show{ display: block; }
 *{ padding: 0; margin: 0; }
+/* header */
+.admin-header{
+    height: 45px;
+    line-height: 45px;
+    background: #323e4a;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+.admin-header>h4{
+    height: 45px;
+    line-height: 45px;
+    width: 200px;
+    text-align: center;
+}
+.admin-header>h4 span{
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    /* background: #8297ab; */
+    padding: 5px 10px 35px 10px;
+    border-radius: 5px;
+    color: #fff !important;
+}
+.admin-header>span{
+    margin-right: 50px;
+    cursor: pointer;
+}
+.admin-header>span:hover{
+    color: #3498A6;
+}
+.admin-header>span>i{
+    margin-right: 5px;
+}
 /* login */
 .attendance-login{
     width:100%;
@@ -73,7 +111,7 @@ a{
     list-style: none;
     height: 40px;
     line-height: 40px;
-    background: #ccc;
+    background: #eae4e4;
 }
 .attendance-nav ul>li{
     float: left;
@@ -81,11 +119,12 @@ a{
     text-align: center;
     font-size: 16px;
     border-right: 1px solid #999;
+    cursor: pointer;
 }
 .attendance-nav .active, .attendance-nav ul>li:hover{
     background: #3498A6;
 }
-.attendance-nav .active>a, .attendance-nav ul>li:hover>a{
+.attendance-nav .active, .attendance-nav ul>li:hover{
     color: #fff !important;
 }
 .attendance-nav ul>li>a{
@@ -179,7 +218,7 @@ a{
     height: 35px;
     line-height: 35px;
     padding-left: 20px;
-    border-left: 10px solid red;
+    border-left: 10px solid #3498A6;
     margin-bottom: 40px;
 }
 .other-info{ margin-left: 20px; width: 60%}
@@ -288,8 +327,9 @@ a{
     height: 100%;
     width: 200px;
     background: #323e4a;
+    /* padding-top: 35px; */
 }
-.navigation>h4{
+/* .navigation>h4{
     height: 90px;
     line-height: 90px;
     text-align: center;   
@@ -302,7 +342,7 @@ a{
     padding: 5px 10px 35px 10px;
     border-radius: 5px;
     color: #fff !important;
-}
+} */
 .admin{
     margin: 45px;
     width: 100%;

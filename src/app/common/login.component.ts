@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
   
     ngOnInit(): void {
         this.user = {account: "", password: "", type: "", flagLogin: true};
+        localStorage.setItem("router", window.location.href);
     }
     
 

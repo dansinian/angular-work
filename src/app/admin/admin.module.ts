@@ -13,6 +13,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { LeaveListComponent } from './leave-list.component';
 import { CourseArrangementComponent } from './course-arrangement.component';
 import { AttendanceComponent } from './attendance.component';
+import { HeaderComponent } from './header.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { AttendanceComponent } from './attendance.component';
       CourseComponent,
       LeaveListComponent,
       CourseArrangementComponent,
-      AttendanceComponent
+      AttendanceComponent,
+      HeaderComponent
   ]
 })
 export class AdminModule { }
