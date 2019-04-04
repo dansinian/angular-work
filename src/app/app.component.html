@@ -1,24 +1,24 @@
 <div class="header" *ngIf="!headerDivFlag">
     <div class="attendance-logo">
-        <h3>ѧ�����ڹ���ϵͳ</h3>
+        <h3>学生考勤管理系统</h3>
         <p>
           <a>{{name}}</a>
           <a>{{id}}</a>
-          <a (click)="drop()">�˳�ϵͳ</a>
+          <a (click)="drop()">退出系统</a>
         </p>
     </div>
     <div class="attendance-nav">
         <ul *ngIf="type == 'student'">
-          <li (click)="getRouter('home')">��ҳ</li>
-          <li (click)="getRouter('leave')">�½����</li>
-          <li (click)="getRouter('detail')">�������</li>
-          <li (click)="getRouter('account')">�˻�����</li>
+          <li (click)="getRouter('home')">主页</li>
+          <li (click)="getRouter('leave')">新建请假</li>
+          <li (click)="getRouter('detail')">请假详情</li>
+          <li (click)="getRouter('account')">账户管理</li>
         </ul>
         <ul *ngIf="type == 'teacher'">
-          <li (click)="getRouter('home')">��ҳ</li>
-          <li (click)="getRouter('check')">ǩ������</li>
-          <li (click)="getRouter('detail')">�������</li>
-          <li (click)="getRouter('account')">�˻�����</li>
+          <li (click)="getRouter('home')">主页</li>
+          <li (click)="getRouter('check')">签到管理</li>
+          <li (click)="getRouter('detail')">请假详情</li>
+          <li (click)="getRouter('account')">账户管理</li>
         </ul>
     </div>
 </div>

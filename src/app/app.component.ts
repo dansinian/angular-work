@@ -35,7 +35,7 @@ export class AppComponent implements OnInit  {
     this.headerDivFlag = true;
   }
 
-  //路由跳转
+  //脗路脫脡脤酶脳陋
   getRouter(action) {
     this.route.navigate(['/'+action], {});
   }
