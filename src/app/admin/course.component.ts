@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Course } from '../entity/course';
 import { AppService } from '../app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -16,28 +17,26 @@ export class CourseComponent implements OnInit {
   sendData;
   infoList = [];
   searchValue;
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
-  constructor(private appService: AppService, private httpClient: HttpClient) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
     this.course = {id:'', department: '', major: '', teacher: '', course: '', file: ''};
   }
   ngOnInit() {
+    if (!localStorage.getItem("userFlag")) {
+      this.route.navigate(['/admin/login']);
+      return;
+    }
     //active
     $(".navigation li").removeClass();
     $(".navigation li").eq(2).addClass("active");
     this.httpClient.get(this.basePath+ '/course/getCourse').subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          let list = data['AllCourse'];
-          for (let item of list) {
-            this.infoList.push({
-              "department": item['department'],
-              "major": item['major'],
-              "course": item['course'],
-              "teacher": item['courseTeacher'],
-              "id": item['couId']
-            });
-          }
+          this.infoList = data['AllCourse'];
+          this.pageLoading = false;
         } else {
           console.log("error");
         }
@@ -50,22 +49,15 @@ export class CourseComponent implements OnInit {
 
   //搜索信息
   getSearchInfo() {
+    this.pageLoading = true;
     this.sendData = {"content": this.searchValue};
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/course/selectCourse', Params).subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
           console.log(data);
-          let list = data['course'];
-          for (let item of list) {
-            this.infoList.push({
-              "department": item['department'],
-              "major": item['major'],
-              "course": item['course'],
-              "teacher": item['courseTeacher'],
-              "id": item['couId']
-            });
-          }
+          this.infoList = data['course'];
+          this.pageLoading = false;
         }
       }
     }, error => {

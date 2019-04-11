@@ -6,8 +6,13 @@
           <div class="person-page">
             <!-- 用户信息 -->
             <div class="person-page-header">
-              <p class="nickName"><img src="{{userHeadImg}}"><span>{{userNickName}}</span></p>
-              <p><span>{{userAutograph}}</span></p>
+              <div>
+                  <p class="nickName"><img src="{{userHeadImg}}"><span>{{userNickName}}</span></p>
+                  <p><span>{{userAutograph}}</span></p>
+              </div>
+              <div class="person-page-header-follow" *ngIf=" userFocus == 'unfocus' ">
+                  <span><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</span>
+              </div>
             </div>
              <!-- 用户信息 end-->
 
@@ -31,8 +36,8 @@
     
                     <!-- 点赞评论信息 -->
                     <p class="moment-icon">
-                      <span><i nz-icon type="message" theme="outline"></i><span>12</span></span>
-                      <span><i nz-icon type="heart" theme="outline"></i><span>12</span></span>
+                      <span><i nz-icon type="message" theme="outline"></i><span>{{question.Praise}}</span></span>
+                      <span><i nz-icon type="heart" theme="outline"></i><span>{{question.reply}}</span></span>
                     </p>
                     <!-- 点赞评论信息 end -->
     

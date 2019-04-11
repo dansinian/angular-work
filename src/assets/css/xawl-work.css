@@ -283,14 +283,18 @@ a{
 }
 .avatar-link ul{
     width: 100%;
-    text-align: center;
     list-style: none;
 }
 .avatar-link ul>li{
     height: 35px;
     line-height: 35px;
+    padding-left: 25px;
+    cursor: pointer;
 }
-.avatar-link ul>li a:hover{color: #2ec5c5 !important;}
+.avatar-link ul>li:hover{
+    color: #2ec5c5 !important;
+    background: #f5f6fa;
+}
 .main-admin ul{ list-style: none; }
 .main-admin ul>li{
     cursor: pointer;
@@ -458,8 +462,9 @@ a{
     margin: 5px 8px;
 }
 .view-attention .attention-icon{
-   position: absolute;
-   right: 20px;
+   display: flex;
+   justify-content: flex-end;
+   padding-right: 40px;
 }
 .view-attention .attention-icon>span, .person-page-moment .moment-icon>span{
     font-size: 16px;
@@ -468,6 +473,14 @@ a{
 }
 .view-attention .attention-icon>span:hover, .person-page-moment .moment-icon>span:hover{
     color: #2ec5c5;
+}
+.view-attention>div{
+    margin-bottom: 80px;
+    border-bottom: 1px solid #ccc;
+}
+.view-attention>div:last-child{
+    margin-bottom: 50px;
+    border-bottom: none;
 }
 /* user创建帖子 */
 .post-datil>h4{
@@ -493,9 +506,10 @@ a{
     /* margin: 0 auto; */
 }
 .person-page .person-page-header{
-    /* margin: 0 auto; */
+    display: flex;
+    justify-content: space-between;
 }
-.person-page-header>p>img{
+.person-page-header p>img{
     height: 70px;
     width: 70px;
     border-radius: 35px;
@@ -505,8 +519,23 @@ a{
     color: #2ec5c5;
     font-size: 16px;
 }
-.person-page-header>p:last-child{
+.person-page-header p:last-child{
     margin-left: 15px;
+}
+.person-page-header-follow{
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    cursor: pointer;
+    color: #2ec5c5;
+}
+.person-page-header-follow>span{
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 15px;
+    border: 1px solid #2ec5c5;
+    border-radius: 5px;
 }
 .scrollbar::-webkit-scrollbar {/*滚动条整体样式*/
     width: 5px;     /*高宽分别对应横竖滚动条的尺寸*/
@@ -564,15 +593,15 @@ a{
 /* question-content */
 .question-content-header{
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-bottom: 10px;
 }
-.question-content-header>img{
+.question-content-header img{
     width: 60px;
     height: 60px;
     border-radius: 30px;
 }
-.question-content-header>span{
+.question-content-header>div:first-child>span{
     margin-left:15px;
     color: #2ec5c5;
     margin-top: 20px;
@@ -586,7 +615,7 @@ a{
 }
 .question-content-text>h5>i{
     margin-left:20px;
-    color: #555;
+    color: #999;
     font-size: 12px;
     font-weight: 300;
 }
@@ -607,21 +636,41 @@ a{
     margin: 0 15px;
     cursor: pointer;
 }
+.question-content-text-icon>span>i{
+    margin-right: 5px;
+}
 .question-content-text .question-content-text-icon>span:hover{
     color: #2ec5c5;
 }
 .question-content-comment{
     margin: 20px 0;
-}
-.question-content-comment>p{
-    height: 25px;
+    font-size: 13px;
     line-height: 25px;
-    margin: 0;
+}
+.question-content-comment .content-comment-text{
+    display: flex;
+    justify-content: space-between;
+}
+.content-comment-text .comment-symbol{
+    margin: 0 6px;
 }
 .question-content-comment .comment-user{ color: #2ec5c5; cursor: pointer; }
-.question-content-comment .comment-reply{ margin-left: 5px;}
-.question-content-comment .comment-detele{ margin-left: 150px; cursor: pointer; }
-.question-content-comment .comment-detele:hover{ color: #2ec5c5; }
+.content-comment-text .comment-reply{ margin: 0 5px;}
+.content-comment-text .content-comment-icon>span{
+    margin-right: 30px;
+    cursor: pointer;
+}
+.content-comment-icon>span>i{
+    margin-right: 5px;
+}
+.content-comment-text .content-comment-icon>span:hover{
+    color: #2ec5c5;
+}
+.content-comment-text .content-comment-icon>span:last-child{
+    margin-right: 15px;
+}
+/* .question-content-comment .comment-detele{ margin-left: 150px; cursor: pointer; }
+.question-content-comment .comment-detele:hover{ color: #2ec5c5; } */
 .question-content-textarea>button{
    float: right;
    margin-top:15px;

@@ -2,7 +2,7 @@
 <div style="background: rgba(243, 242, 242);">
     <div class="container">
       <div class="main">
-        <app-nav></app-nav>
+        <app-nav (nav)="getNavValue($event)" ></app-nav>
         <div class="main-body">
           <div class="post-datil">
             <h4>发表帖子</h4>

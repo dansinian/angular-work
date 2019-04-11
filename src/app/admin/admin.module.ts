@@ -15,7 +15,6 @@ import { HeaderComponent } from './header.component';
 import { CourseComponent } from './course.component';
 import { QuestionComponent } from './question.component';
 import { CommentComponent } from './comment.component';
-import { ReplyComponent } from './reply.component';
 import { CreateComponent } from './create.component';
 import { QuestionPageComponent } from './question-page.component';
 
@@ -38,7 +37,6 @@ import { QuestionPageComponent } from './question-page.component';
     CourseComponent,
     QuestionComponent,
     CommentComponent,
-    ReplyComponent,
     CreateComponent,
     QuestionPageComponent,
   ]

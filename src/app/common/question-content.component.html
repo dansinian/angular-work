@@ -6,23 +6,15 @@
           <div class="question-content">
             <!-- 当前帖子用户信息 -->
             <div class="question-content-header">
-                <img src="{{queUserHeadImg}}">
-                <span>{{queUserNickName}}</span>
+                <div>
+                    <img src="{{queUserHeadImg}}">
+                    <span>{{queUserNickName}}</span>
+                </div>
+                <div class="person-page-header-follow" *ngIf=" userFocus == 'unfocus' ">
+                    <span (click)="getFocus()"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</span>
+                </div>
             </div>
             <!-- 当前帖子用户信息 end -->
-
-            <!-- //      clickCount: 0
-            //     createTime: "2019-03-07 14:24:43"
-            //     praiseCount: 1
-            //     queCourse: ""
-            //     queDetail:
-            //     queId: "1551939737000"
-            // queImg: ""
-            // queSummary: ""
-            // queTitle: "梦"
-            // replyCount: 0
-            // unread: 10
-            // userId: "2511150406" -->
 
             <!-- 帖子标题及其内容 -->
             <div class="question-content-text">
@@ -33,42 +25,52 @@
                     {{question.detail}}
                 </p>
                 <p class="question-content-text-icon">
-                  <span (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i><span>{{question.reply}}</span></span>
-                  <span (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i><span>{{question.praise}}</span></span>
+                  <span (click)="showCommentReply(question.id, queUserNickName)"><i nz-icon type="message" theme="outline"></i><span>{{question.reply}}</span></span>
+                  <span (click)="getPraiseCount(question.id, 'question')"><i nz-icon type="heart" theme="outline"></i><span>{{question.praise}}</span></span>
                 </p>
             </div>
             <!-- 帖子标题及其内容 end -->
 
             <!-- 评论回复 -->
-            <div class="question-content-comment">
-              <p>
-                <span class="comment-user">思念</span>
-                <i>:</i>
-                <span class="comment-content">内容</span>
-                <span>
-                    <span class="comment-detele" (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i></span>
-                    <span  (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i></span>
-                    <span  (click)="deleteComment()"><i nz-icon type="delete" theme="outline"></i></span>
-                </span>
-              </p>
-              <p>
-                <span class="comment-user" (click)="showCommentReply()">思念</span>
-                <span class="comment-reply">回复</span>
-                <span class="comment-user" (click)="showCommentReply()">思念</span>
-                <i>:</i>
-                <span class="comment-content">内容</span>
-                <span>
-                    <span class="comment-detele" (click)="getPraiseCount()"><i nz-icon type="heart" theme="outline"></i></span>
-                    <span  (click)="showCommentReply()"><i nz-icon type="message" theme="outline"></i></span>
-                    <span  (click)="deleteComment()"><i nz-icon type="delete" theme="outline"></i></span>
-                </span>
-              </p>
+            <div class="question-content-comment" *ngIf="commentList.length != 0">
+              <div *ngFor="let comment of commentList; index as i;">
+                <div class="content-comment-text">
+                  <div>
+                      <span class="comment-user">{{comment.comment.userNickname}}</span>
+                      <span class="comment-symbol">:</span>
+                      <span class="comment-content">{{comment.comment.commentConent}}</span>
+                  </div>
+                  <span class="content-comment-icon">
+                      <span class="comment-detele" (click)="getPraiseCount(comment.comment.commentId, 'comment')"><i nz-icon type="heart" theme="outline"></i>{{comment.comment.parseCount}}</span>
+                      <span  (click)="showCommentReply(comment.comment.commentId, comment.comment.userNickname)"><i nz-icon type="message" theme="outline"></i></span>
+                      <span  (click)="deleteComment(comment.comment.commentId, 'comment', comment.comment.userId)"><i nz-icon type="delete" theme="outline"></i></span>
+                  </span>
+                </div>
+                <div class="content-comment-text" *ngFor="let reply of comment.reply; index as j;">
+                  <div>
+                      <span class="comment-user">{{reply.replyUser.name}}</span>
+                      <span class="comment-reply">回复</span>
+                      <span class="comment-user">{{reply.replyedUser.name}}</span>
+                      <span class="comment-symbol">:</span>
+                      <span class="comment-content">{{reply.replyContent}}</span>
+                  </div>
+                  <span class="content-comment-icon">
+                      <span class="comment-detele" (click)="getPraiseCount(reply.replyId, 'commentReply')"><i nz-icon type="heart" theme="outline"></i>{{reply.praseCount}}</span>
+                      <span  (click)="showCommentReply(reply.replyId, reply.replyUser.name)"><i nz-icon type="message" theme="outline"></i></span>
+                      <span  (click)="deleteComment(reply.replyId, 'commentReply', reply.replyUser.Id)"><i nz-icon type="delete" theme="outline"></i></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div  *ngIf="commentList.length == 0" style="margin: 15px 0;text-align: center;">
+              暂无评论数据
+              <!-- <nz-empty></nz-empty> -->
             </div>
             <!-- 评论回复 end -->
 
             <!-- 评论框 -->
             <div class="question-content-textarea">
-                <textarea rows="3" placeholder="{{queUserNickName}}@ 回复" nz-input [(ngModel)]="queContent"></textarea>
+                <textarea rows="3" placeholder="回复  {{commentUserName}}：" nz-input [(ngModel)]="queContent"></textarea>
                 <button nz-button nzType="primary" (click)="commentPublish()">发表</button>
             </div>
             <!-- 评论框 end -->

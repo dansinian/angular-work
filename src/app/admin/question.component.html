@@ -9,7 +9,7 @@
         <!-- <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>Ìí¼Ó</button> -->
       </div>
       <div class="content-table">
-        <nz-table #borderedTable nzBordered [nzData]="dataSet">
+        <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
           <thead>
             <tr>
               <th>ÐòºÅ</th>
@@ -27,19 +27,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of infoList; index as i;">
+            <tr *ngFor="let item of nzTable.data; index as i;">
               <td>{{i+1}}</td>
-              <td>{{item.id}}</td>
-              <td>{{item.title}}</td>
-              
-              <td class="tableOver" title="{{item.detail}}">{{item.detail}}</td>
-              <td><img src="item.src"></td>
-              <td>{{item.userID}}</td>
-              <td>{{item.time}}</td>
-              <td>{{item.course}}</td>
-              <td>{{item.click}}</td>
-              <td>{{item.praise}}</td>
-              <td>{{item.reply}}</td>
+              <td>{{item.queId}}</td>
+              <td>{{item.queTitle}}</td>
+              <td class="tableOver" title="{{item.queDetail}}">{{item.queDetail}}</td>
+              <td><img src="item.queImg"></td>
+              <td>{{item.userId}}</td>
+              <td>{{item.createTime}}</td>
+              <td>{{item.queCourse}}</td>
+              <td>{{item.clickCount}}</td>
+              <td>{{item.praiseCount}}</td>
+              <td>{{item.replyCount}}</td>
               <td>
                 <button nz-button nzType="primary" (click)="updateInfo(item)">±à¼­</button>
                 <button nz-button nzType="danger" (click)="deteleInfo(item)">É¾³ý</button>

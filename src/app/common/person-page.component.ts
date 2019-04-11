@@ -16,6 +16,7 @@ export class PersonPageComponent implements OnInit {
   userAutograph;
   userQuestionList = [];
   userQuestionFlag = true;
+  userFocus; //focus: 关注； unfocus： 未关注
 
 
   constructor(private appService: AppService, private httpClient: HttpClient, private route: Router, private activatedRoute: ActivatedRoute) {
@@ -26,12 +27,19 @@ export class PersonPageComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe(params => {
       // this.questionId = params['questionId'];
       this.userID = params['userID'];
+      this.userFocus = params['focus'];
+      console.log(this.userID);
+      if (localStorage.getItem("personPageUserID") !== this.userID) {
+        location.reload(true);
+      }
+      localStorage.setItem("personPageUserID", params['userID']);
     });
     console.log(window.location.href); 
     this.sendData = {"content": this.userID};
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/user/selectUser', Params).subscribe(data => {
       if (data != null && data != '') {
+        console.log(data);
         if (data['status'] == 200) {
           let user = data['user'];
           this.userAutograph = user['autograph'];

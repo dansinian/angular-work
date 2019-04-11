@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-page',
@@ -8,9 +9,13 @@ export class QuestionPageComponent implements OnInit {
   commentPartFlag = false; //控制评论框是否出现
   commentConent; //评论回复对象
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit() {
+    if (!localStorage.getItem("userFlag")) {
+      this.route.navigate(['/admin/login']);
+      return;
+    }
   }
 
   //显示评论框

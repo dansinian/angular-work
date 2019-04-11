@@ -5,11 +5,11 @@
       <div class="content">
         <div class="content-search">
           <input nz-input style="width: 250px;" placeholder="请输入关键字查询" [(ngModel)]="searchValue">
-          <button nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i> 查询</button>
+          <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i> 查询</button>
           <!-- <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button> -->
         </div>
         <div class="content-table">
-          <nz-table #borderedTable nzBordered [nzData]="dataSet">
+          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
             <thead>
               <tr>
                 <th>序号</th>
@@ -19,22 +19,20 @@
                 <th>内容</th>
                 <th>点赞数</th>
                 <th>评论时间</th>
-                <th>图片</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>967585675</td>
-                <td>123456789</td>
-                <td>2511150329</td>
-                <td title="">内容</td>
-                <td>10</td>
-                <td>2018-12-05</td>
-                <td><img src=""></td>
+              <tr *ngFor="let item of nzTable.data; index as i">
+                <td>{{i+1}}</td>
+                <td>{{item.commentId}}</td>
+                <td>{{item.queId}}</td>
+                <td>{{item.userId}}</td>
+                <td title="{{item.content}}">{{item.content}}</td>
+                <td>{{item.praseCount}}</td>
+                <td>{{item.createTime}}</td>
                 <td>
-                  <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
+                  <!-- <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button> -->
                   <button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
                 </td>
               </tr>
@@ -66,10 +64,10 @@
           <td><textarea rows="2" nz-input [(ngModel)]="comment.content"></textarea></td>
         </tr>
         <!-- comment.img -->
-        <tr>
+        <!-- <tr>
           <td width="150"><nz-form-label>图片</nz-form-label></td>
           <td><img src=""></td>
-        </tr>
+        </tr> -->
       </table>
     </div>
   </nz-modal>

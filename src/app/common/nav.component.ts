@@ -43,11 +43,8 @@ export class NavComponent implements OnInit {
   }
 
   updateQuestion(item, value) {
-    this.navValue = {
-      "deparament": item.department,
-      "major": value
-    }
-    this.getNavValue.emit(JSON.stringify(this.navValue));
+    this.navValue = item.department + "," + value;
+    this.getNavValue.emit(this.navValue);
   }
 
   //

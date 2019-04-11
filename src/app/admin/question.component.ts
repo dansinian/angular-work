@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Question } from '../entity/question';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -15,13 +16,19 @@ export class QuestionComponent implements OnInit {
   sendData;
   isVisibleUpdate = false; //修改Model
   infoList = [];
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
-  constructor(private appService: AppService, private httpClient: HttpClient) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router) {
     this.basePath = this.appService.getBasePath();
     this.question = {id:'', title:'', detail:'', userID:'', time:'', click:'', praise:'', reply:'', course:'', unread:'', src:'' };
   }
 
   ngOnInit() {
+    if (!localStorage.getItem("userFlag")) {
+      this.route.navigate(['/admin/login']);
+      return;
+    }
     //active
     $(".navigation li").removeClass();
     $(".navigation li").eq(3).addClass("active");
@@ -29,21 +36,8 @@ export class QuestionComponent implements OnInit {
     this.httpClient.post(this.basePath + '/question/selectQuestion', Params).subscribe(data => {
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          let questions = data['questions'];
-          for (let question of questions) {
-            this.infoList.push({
-              "id": question['queId'],
-              "title": question['queTitle'],
-              "detail": question['queDetail'],
-              "src": question['queImg'],
-              "userID": question['userId'],
-              "time": question['createTime'],
-              "course": question['queCourse'],
-              "click": question['clickCount'],
-              "praise": question['praiseCount'],
-              "reply": question['replyCount'],
-            });
-          }
+          this.infoList = data['questions'];
+          this.pageLoading = false;
         }
       }
     }, error => {
@@ -53,27 +47,15 @@ export class QuestionComponent implements OnInit {
 
   //搜索信息
   getSearchInfo() {
+    this.pageLoading = true;
     this.sendData = { "content": this.searchValue };
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/selectQuestion', Params).subscribe(data => {
       if (data != null && data != '') {
+        this.infoList = [];
         if (data['status'] == '200') {
-          let questions = data['questions'];
-          this.infoList = [];
-          for (let question of questions) {
-            this.infoList.push({
-              "id": question['queId'],
-              "title": question['queTitle'],
-              "detail": question['queDetail'],
-              "src": question['queImg'],
-              "userID": question['userId'],
-              "time": question['createTime'],
-              "course": question['queCourse'],
-              "click": question['clickCount'],
-              "praise": question['praiseCount'],
-              "reply": question['replyCount'],
-            });
-          }
+          this.infoList = data['questions'];
+          this.pageLoading = false;
         }
       }
     }, error => {
@@ -83,12 +65,12 @@ export class QuestionComponent implements OnInit {
 
   //修改信息
   updateInfo(item) {
-    this.question.id = item.id;
-    this.question.title = item.title;
-    this.question.detail = item.detail;
-    this.question.userID = item.userID;
-    this.question.course = item.course;
-    this.question.src = item.src;
+    this.question.id = item.queId;
+    this.question.title = item.queTitle;
+    this.question.detail = item.queDetail;
+    this.question.userID = item.userId;
+    this.question.course = item.queCourse;
+    this.question.src = item.queImg;
     this.isVisibleUpdate = true;
   }
 

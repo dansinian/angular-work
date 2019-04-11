@@ -3,7 +3,7 @@ import { NzMessageService, UploadFile } from 'ng-zorro-antd';
 import { filter } from 'rxjs/operators';
 import { HttpClient, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare var Base64: any;
 declare var $: any;
@@ -21,9 +21,11 @@ export class PostDatilComponent implements OnInit {
   questionTitle; //标题
   userID;
   courseList = [];
+  department;
+  major;
 
   constructor(private appService: AppService ,private httpClient: HttpClient, private messageService: NzMessageService, 
-    private route: Router) {
+    private route: Router, private activatedRoute: ActivatedRoute) {
     this.basePath = this.appService.getBasePath();
   }
   // const Params = new HttpParams().set('data', Base64.encode(JSON.stringify(dataParams)))
@@ -120,6 +122,14 @@ export class PostDatilComponent implements OnInit {
         //         error => console.log(error)
         // )
     }
+  }
+
+  getNavValue(event) {
+    console.log(event);
+    let arr = event.split(',');
+    this.department = arr[0],
+    this.major = arr[1];
+    this.route.navigate(['/home'], {queryParams: {"department" : this.department, "major": this.major}});
   }
 
 }

@@ -2,41 +2,45 @@
 <div style="background: rgba(243, 242, 242);">
     <div class="container">
       <div class="main">
-        <app-nav  *ngIf="loginFlag == 'true'"></app-nav>
+        <app-nav (nav)="getNavValue($event)" *ngIf="loginFlag == 'true'"></app-nav>
         <div class="main-body" [ngStyle]="{'width': loginFlag === 'true' ? '60%' : '100%'}">
           <div class="view-attention">
-            <div style="margin-bottom: 30px;">
+            <div *ngFor="let questionInfo of followQuestionList">
               <!-- 关注/粉丝基本信息 -->
               <div class="attention-user">
                 <div class="attention-user-avatar">
-                    <img src="../../assets/image/stu002.jpg">
+                    <img src="{{questionInfo.user.headImg}}">
                     <p class="attention-nickName">
-                      <span>当前标题</span>
-                      <span>2018-09-12</span>
+                      <span>{{questionInfo.question.title}}</span>
+                      <span>{{questionInfo.question.createTime}}</span>
                     </p>
                 </div>
-                <span class="attention-cancel"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span>
+                <span class="attention-cancel" (click)="cancelFouce(questionInfo.user.userId)"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span>
               </div>
               <!-- 关注/粉丝基本信息 end -->
 
               <!-- 内容 -->
               <p class="attention-content">
-                <img src="../../assets/image/lun01.jpg" >
+                <!-- <img src="../../assets/image/lun01.jpg" >
                 <img src="../../assets/image/test.jpg" >
-                <br>
-                漫步在诗书的时间轮，望着赤日炎炎的夏天，思绪不禁翻开了卷卷黄页。那种感觉如夏雨落入尘世的前奏，雨点柔柔的、软软的，轻轻融进暗香浮动的梦境
-                ，飘逸浓浓醉心书香扑面而来，韵味悠久，沁人肺腑融入灵魂深处淡雅迷醉，如涓涓流水般，流过指尖，流过键盘，流到我的心底，填充我的灵魂，陪我一起领
-                悟生活，让书中文字的韵律，渐渐安静我的灵魂，让我在书中沉淀自己，去除生命的糟粕，提取生命的精华。让我在这尘世中找到属于自己的位置，安静而美好。
-                的那份悸动的瞬间。有书的熏陶，有文字的滋润从内而外都洋溢着一种自信。在夏之月夜里尽情挥洒，茶的香气满屋弥漫。捧卷而读，暗香，也由指间漾上了心头
+                <br> -->
+                {{questionInfo.question.detail}}
               </p>
               <!-- 内容  end-->
 
               <!-- 点赞评论 -->
               <p class="attention-icon">
-                <span><i nz-icon type="heart" theme="outline"></i><span>12</span></span>
-                <span><i nz-icon type="message" theme="outline"></i><span>12</span></span>
+                <span (click)="getPraiseCount(questionInfo.question.questionId)"><i nz-icon type="heart" theme="outline"></i><span>{{questionInfo.question.Praise}}</span></span>
+                <span (click)="showCommentReply(questionInfo.question.questionId, questionInfo.user.nickname)"><i nz-icon type="message" theme="outline"></i><span>{{questionInfo.question.reply}}</span></span>
               </p>
               <!-- 点赞评论 end -->
+
+              <!-- 评论框 -->
+              <div class="question-content-textarea" *ngIf=" commentShowFlag == 'show' + questionInfo.question.questionId ">
+                <textarea rows="3" placeholder="回复  {{commentUserName}}：" nz-input [(ngModel)]="queContent"></textarea>
+                <button nz-button nzType="primary" (click)="commentPublish()">发表</button>
+              </div>
+              <!-- 评论框 end -->
             </div>
           </div>
         </div>

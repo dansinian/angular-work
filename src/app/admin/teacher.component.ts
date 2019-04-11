@@ -3,6 +3,7 @@ import { NzModalService } from 'ng-zorro-antd';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from 'src/app/app.service';
 import { User } from '../entity/user';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -17,13 +18,20 @@ export class TeacherComponent implements OnInit {
   user: User;
   infoList = [];
   searchInfo;
+  nzNoResult = "正在加载。。。";
+  pageLoading = true;
 
-  constructor(private modalService: NzModalService, private httpClient: HttpClient, private appService: AppService) {
+  constructor(private modalService: NzModalService, private httpClient: HttpClient, private appService: AppService, private route: Router) {
     this.basePath = this.appService.getBasePath();
     this.user = {id: '', name: '', phone: '', major: '', department: '', password: '', nickname: '', img: '', autograph: '', type: ''};
   }
 
   ngOnInit() {
+    if (!localStorage.getItem("userFlag")) {
+      this.route.navigate(['/admin/login']);
+      return;
+    }
+
     $(".navigation li").removeClass();
     $(".navigation li").eq(1).addClass("active");
 
@@ -32,19 +40,8 @@ export class TeacherComponent implements OnInit {
     this.httpClient.post(this.basePath +'/user/selectAllUser', Params).subscribe(data => { 
       if (data != null && data != '') {
         if (data['status'] == '200') {
-          let list = data['Users'];
-          for (let item of list) {
-            this.infoList.push({
-              "id": item['userId'],
-              "name": item['userName'],
-              "phone": item['userPhone'],
-              "major": item['userMajor'],
-              "department": item['userDepartment'],
-              "nickname": item['nickname'],
-              "img": item['headImg'],
-              "autograph": item['autograph'],
-            });
-          }
+          this.infoList = data['Users'];
+          this.pageLoading = false;
         }
       }
     }, error => {
@@ -55,6 +52,7 @@ export class TeacherComponent implements OnInit {
 
  //查询信息
  getSearchInfo() {
+   this.pageLoading = true;
   if (this.searchInfo != null && this.searchInfo != ''){
     this.sendData = { "content": this.searchInfo, "type": "teacher" };
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
@@ -62,19 +60,8 @@ export class TeacherComponent implements OnInit {
       if (data != '' && data != null) {
         this.infoList = [];
         if (data['status'] == '200') {
-          let list = data['users'];
-          for (let item of list) {
-            this.infoList.push({
-              "id": item['userId'],
-              "name": item['userName'],
-              "phone": item['userPhone'],
-              "major": item['userMajor'],
-              "department": item['userDepartment'],
-              "nickname": item['nickname'],
-              "img": item['headImg'],
-              "autograph": item['autograph'],
-            });
-          }
+          this.infoList = data['Users'];
+          this.pageLoading = false;
         }
       }
     }, error => {

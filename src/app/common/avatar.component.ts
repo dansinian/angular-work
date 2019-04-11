@@ -24,6 +24,7 @@ export class AvatarComponent implements OnInit {
   followedList = [];
   questionLength; //帖子
   questionList = [];
+  questionListRecord = [];
 
 
   constructor(private appService: AppService, private httpClient: HttpClient, private msg: NzMessageService, private route: Router) {
@@ -52,6 +53,17 @@ export class AvatarComponent implements OnInit {
       console.log("errror");
     });
 
+    // 最新推荐数据
+    this.httpClient.get(this.basePath + '/question/recommendQuestion').subscribe(data => {
+      if (data != null && data != '') {
+        if (data['status'] == '200') {
+          this.questionListRecord = data['questions'];
+        }
+      }
+    }, eror => {
+      console.log("error");
+    });
+
     
   }
 
@@ -59,15 +71,19 @@ export class AvatarComponent implements OnInit {
   positionQuestion(item) {
     if (item.questionId != null && item.questionId != '') {
       this.route.navigate(['/questionContent'], {queryParams: {'questionId': item.questionId, "userID": item.userId}});
-      location.reload(true);
+      //location.reload(true);
     }
   }
 
+  positionQuestionDetail(questionID, userID) {
+    this.route.navigate(['/questionContent'], {queryParams: {'questionId': questionID, "userID": userID}});
+  }
+
   //进入个人主页
-  getPersonPage(item) {
+  getPersonPage(item, focus) {
     if (item.userId != null && item.userId != '') {
-      this.route.navigate(['/person'], {queryParams: {"userID": item.userId}});
-      location.reload(true);
+      this.route.navigate(['/person'], {queryParams: {"userID": item.userId, "focus": focus}});
+      //location.reload(true);
     }
   }
 
@@ -99,9 +115,9 @@ export class AvatarComponent implements OnInit {
       /*关注 */
       this.httpClient.post(this.basePath + '/user/follow', Params).subscribe(data => {
         if (data['status'] == '200') {
-          this.appService.info(data['msg']);
+          this.msg.success(data['msg']);
         } else {
-          this.appService.info(data['msg']);
+          this.msg.error(data['msg']);
         }
       }, error => {
         console.log("error");
@@ -111,9 +127,9 @@ export class AvatarComponent implements OnInit {
       /*取消关注 */
       this.httpClient.post(this.basePath + '/user/unfollow', Params).subscribe(data => {
         if (data['status'] == '200') {
-          this.appService.info(data['msg']);
+          this.msg.success(data['msg']);
         } else {
-          this.appService.info(data['msg']);
+          this.msg.error(data['msg']);
         }
       }, error => {
         console.log("error");

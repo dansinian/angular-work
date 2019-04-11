@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
           if (data['status'] == '200') {
             localStorage.setItem("id",data['admin']['adminId']);
             localStorage.setItem("pass",data['admin']['adminPass']);
+            localStorage.setItem("userFlag", "adminUser");
             this.route.navigate(['/admin/student']);
           }
         }

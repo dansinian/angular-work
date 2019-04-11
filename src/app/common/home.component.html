@@ -14,7 +14,7 @@
           </div>
           <div class="main-post">
             <h4>推荐关注</h4>
-            <ul>
+            <ul *ngIf="userQuestionList.length != 0">
               <li *ngFor="let item of userQuestionList" (click)="positionQuestion(item)">
                   <div class="main-post-title">
                     <span>{{item.queTitle}}</span><i>{{item.createTime}}</i>
@@ -26,6 +26,7 @@
                   </div>
               </li>
             </ul>
+            <div *ngIf="userQuestionList.length == 0">暂无数据</div>
           </div>
         </div>
         <app-avatar *ngIf="loginFlag == 'true'"></app-avatar>

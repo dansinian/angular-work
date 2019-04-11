@@ -11,13 +11,25 @@
     </p>
   </div>
 </div>
+<!-- 
+  clickCount: 82
+createTime: "2019-03-07 14:24:43"
+praiseCount: 4
+queCourse: ""
+
+queId: "1551939737000"
+queImg: ""
+queSummary: ""
+queTitle: "梦"
+replyCount: 0
+unread: 12
+userId: "2511150406"
+ -->
 <div class="main-avatar">
   <div class="avatar-link">
     <h4>最新推荐</h4>
     <ul>
-      <li><a href="">111111111111111111</a></li>
-      <li><a href="">222222222222222222</a></li>
-      <li><a href="">333333333333333333</a></li>
+      <li *ngFor="let item of questionListRecord" (click)="positionQuestionDetail(item.queId, item.userId)">{{item.queTitle}}</li>
     </ul>
   </div>
 </div>
@@ -40,9 +52,9 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followList">
-        <td width="60" (click)="getPersonPage(item)"><img src="{{item.headImg}}"></td>
-        <td width="300" (click)="getPersonPage(item)">{{item.nickName}}</td>
-        <td><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'unfouce')"></i>取消关注</td>
+        <td width="60" (click)="getPersonPage(item, 'focus')"><img src="{{item.headImg}}"></td>
+        <td width="300" (click)="getPersonPage(item, 'focus')">{{item.nickName}}</td>
+        <td><span (click)="getFouce(item, 'unfouce')"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span></td>
       </tr>
     </table>
   </div>
@@ -53,9 +65,9 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followedList">
-        <td width="60" (click)="getPersonPage(item)"><img src="{{item.headImg}}"></td>
-        <td width="300" (click)="getPersonPage(item)">{{item.nickName}}</td>
-        <td><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</td>
+        <td width="60" (click)="getPersonPage(item, 'unfocus')"><img src="{{item.headImg}}"></td>
+        <td width="300" (click)="getPersonPage(item, 'unfocus')">{{item.nickName}}</td>
+        <td><span (click)="getFouce(item, 'fouce')"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</span></td>
       </tr>
     </table>
   </div>

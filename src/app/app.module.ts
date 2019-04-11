@@ -4,9 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
+import zh from '@angular/common/locales/zh';
 import { IconDefinition } from '@ant-design/icons-angular';
-import { NgZorroAntdModule, NZ_I18N, en_US, NZ_ICONS  } from 'ng-zorro-antd';
+import { NgZorroAntdModule, NZ_I18N, zh_CN, NZ_ICONS  } from 'ng-zorro-antd';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { RouterModule } from '@angular/router';
 
@@ -23,7 +23,7 @@ import { ViewAttentionComponent } from './common/view-attention.component';
 import { PersonPageComponent } from './common/person-page.component';
 import { QuestionContentComponent } from './common/question-content.component';
 
-registerLocaleData(en);
+registerLocaleData(zh);
 const antDesignIcons = AllIcons as {
   [key: string]: IconDefinition;
 };
@@ -54,7 +54,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   ],
   providers: [
     AppService, 
-    { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: zh_CN },
     { provide: NZ_ICONS, useValue: icons }
   ],
   bootstrap: [AppComponent]

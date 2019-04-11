@@ -30,6 +30,10 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!localStorage.getItem("userFlag")) {
+      this.route.navigate(['/admin/login']);
+      return;
+    }
     this.uploader  = new FileUploader({
       url: this.basePath + '/ticket/uploadmedioFile?appName=',
       method: 'POST',
