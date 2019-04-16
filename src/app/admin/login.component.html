@@ -1,4 +1,4 @@
-<div class="admin-login">
+<!-- <div class="admin-login">
     <div class="login-lk">
         <h3>学习心得交流系统后台</h3>
         <div class="login-form">
@@ -18,4 +18,25 @@
             
         </div>
     </div>
-</div>
+</div> -->
+
+<input type="file" id="fileUpload"  capture="camcorder"
+    ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" [(ngModel)]="aaa" />
+
+    <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+        <button nz-button><i nz-icon type="upload"></i><span>Select File</span></button>
+    </nz-upload>
+      <button
+        nz-button
+        [nzType]="'primary'"
+        [nzLoading]="uploading"
+        (click)="handleUpload()"
+        [disabled]="fileList.length == 0"
+        style="margin-top: 16px"
+      >
+        {{ uploading ? 'Uploading' : 'Start Upload' }}
+      </button>
+
+      <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzCustomRequest]="customReq">
+        <button nz-button><i nz-icon type="upload"></i><span>Click to Upload</span></button>
+      </nz-upload>
