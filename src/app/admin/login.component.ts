@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { Admin } from '../entity/admin';
 import { FileUploader } from 'ng2-file-upload';
 
+import { DomSanitizer } from '@angular/platform-browser'
+
 import { NzMessageService, UploadFile, UploadXHRArgs  } from 'ng-zorro-antd';
-import { filter } from 'rxjs/operators';
-import { forkJoin } from 'rxjs';
 
 
 @Component({
@@ -22,6 +22,9 @@ export class LoginComponent implements OnInit {
   aaa;
   uploading = false;
   fileList: UploadFile[] = [];
+  files;
+
+  imgUrl;
 
   beforeUpload = (file: UploadFile): boolean => {
     console.log(file);
@@ -29,52 +32,22 @@ export class LoginComponent implements OnInit {
     return false;
   };
 
-  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router,  private msg: NzMessageService) { 
+  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router,  private msg: NzMessageService, private sanitizer: DomSanitizer) { 
     this.basePath = this.appService.getBasePath();
     this.admin = {account: '', password: '', type: '', flagLogin: true};
   }
 
   ngOnInit() {
-    this.uploader = new FileUploader({ 
-      url: this.basePath + "/uploadFile", 
-      method: "POST", 
-      itemAlias: "uploadedfile",
-      autoUpload: false,
-     });  
   }
 
-  handleUpload(): void {
-    const formData = new FormData();
-    // tslint:disable-next-line:no-any
-    this.fileList.forEach((file: any) => {
-      formData.append('files[]', file);
-    });
-    this.uploading = true;
 
-    console.log(formData, this.fileList);
-
-    // You can use any AJAX library you like
-    const req = new HttpRequest('POST', 'https://jsonplaceholder.typicode.com/posts/', formData, {
-      // reportProgress: true
-    });
-    console.log(req);
-    // this.httpClient.request(req).pipe(filter(e => e instanceof HttpResponse)).subscribe(
-    //     () => {
-    //       this.uploading = false;
-    //       this.fileList = [];
-    //       this.msg.success('upload successfully.');
-    //     },
-    //     () => {
-    //       this.uploading = false;
-    //       this.msg.error('upload failed.');
-    //     }
-    //   );
-  }
-
-  selectedFileOnChanged(event) {
-    console.log(event);
-    console.log(event.target.value);
-    console.log(this.aaa);
+  fileChange(event){
+    let file = event.target.files[0];
+    let imgUrl = window.URL.createObjectURL(file);
+    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+    console.log(sanitizerUrl);
+ 
+    this.imgUrl = sanitizerUrl;
   }
 
   //登录
