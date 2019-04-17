@@ -1,6 +1,6 @@
 <div class="main-avatar">
   <div class="avatar-info">
-    <p class="img"><img src="{{userHeadImg}}"></p>
+    <p class="img"><img [src]="userHeadImg"></p>
     <!-- {{userHeadImg}} -->
     <span>{{userNickName}}</span>
     <p>
@@ -39,7 +39,7 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followList">
-        <td width="60" (click)="getPersonPage(item, 'focus')"><img src="{{item.headImg}}"></td>
+        <td width="60" (click)="getPersonPage(item, 'focus')"><img [src]="item.headImg"></td>
         <td width="300" (click)="getPersonPage(item, 'focus')">{{item.nickName}}</td>
         <td><span (click)="getFouce(item, 'unfouce')"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span></td>
       </tr>
@@ -52,7 +52,7 @@
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followedList">
-        <td width="60" (click)="getPersonPage(item, 'unfocus')"><img src="{{item.headImg}}"></td>
+        <td width="60" (click)="getPersonPage(item, 'unfocus')"><img [src]="item.headImg"></td>
         <td width="300" (click)="getPersonPage(item, 'unfocus')">{{item.nickName}}</td>
         <td><span (click)="getFouce(item, 'fouce')"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</span></td>
       </tr>

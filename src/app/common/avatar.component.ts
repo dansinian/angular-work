@@ -3,7 +3,7 @@ import { AppService } from '../app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-avatar',
@@ -27,7 +27,8 @@ export class AvatarComponent implements OnInit {
   questionListRecord = [];
 
 
-  constructor(private appService: AppService, private httpClient: HttpClient, private msg: NzMessageService, private route: Router) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private msg: NzMessageService, private route: Router,
+    private sanitizer: DomSanitizer) {
     this.basePath = this.appService.getBasePath();
   }
 
@@ -40,6 +41,11 @@ export class AvatarComponent implements OnInit {
         if (data['status'] == 200) {
           this.userNickName = data['user']['nickname'];
           this.userHeadImg =  data['user']['headImg'];
+
+          // let imgUrl = JSON.parse( data['user']['headImg']).changingThisBreaksApplicationSecurity;
+          // let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          // this.userHeadImg = sanitizerUrl;
+
           this.followList = data['follow'];
           this.followedList = data['followed'];
           this.questionList = data['questions'];

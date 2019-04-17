@@ -2,6 +2,8 @@ import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AppService } from 'src/app/app.service';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NzMessageService } from 'ng-zorro-antd';
 
 declare var $: any;
 @Component({
@@ -29,8 +31,11 @@ export class HeaderComponent implements OnInit {
   userHeadImg;
   userID;
   promptFlag = false; //密码
+  questionImg;
+  userHeadImgFlag = true;
 
-  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router) {
+  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router, private sanitizer: DomSanitizer,
+    private message: NzMessageService) {
     this.basePath = this.appService.getBasePath();
   }
 
@@ -54,6 +59,10 @@ export class HeaderComponent implements OnInit {
           this.userNickName = data['user']['nickname'];
           this.userSignature = data['user']['autograph'];
           this.userHeadImg = data['user']['headImg'];
+
+          // let imgUrl = JSON.parse( data['user']['headImg']).changingThisBreaksApplicationSecurity;
+          // let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          // this.userHeadImg = sanitizerUrl;
         }
       }, error => {
         console.log("error");
@@ -68,11 +77,37 @@ export class HeaderComponent implements OnInit {
     this.getSearchValue.emit(this.searchValue);
   }
 
+  //选择上传文件
+  fileChange(event){
+    let file = event.target.files[0];
+    let imgUrl = window.URL.createObjectURL(file);
+    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+    this.questionImg = sanitizerUrl;
+  }
+
   //查看头像
   viewImg() { this.isVisibleImg = true; }
   ImgCancel() { this.isVisibleImg = false; }
+  //更新头像
   ImgOk() {
+    this.sendData = {
+        "HeadImg": this.questionImg,
+        "userId": this.userID,
+    }
 
+    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.httpClient.post(this.basePath + '/user/updateUser ', Params).subscribe(data => {
+      if (data != null && data != '') {
+          if (data['status'] == '200') {
+            this.message.success(data['msg']);
+          } else {
+            this.message.success(data['msg']);
+          }
+      }
+    }, error => {
+      console.log("error");
+    });
+    this.isVisibleImg = false; 
   }
   
 

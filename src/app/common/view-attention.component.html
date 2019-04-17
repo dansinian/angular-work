@@ -9,7 +9,7 @@
               <!-- 关注/粉丝基本信息 -->
               <div class="attention-user">
                 <div class="attention-user-avatar">
-                    <img src="{{questionInfo.user.headImg}}">
+                    <img [src]="questionInfo.user.headImg">
                     <p class="attention-nickName">
                       <span>{{questionInfo.question.title}}</span>
                       <span>{{questionInfo.question.createTime}}</span>
@@ -21,9 +21,6 @@
 
               <!-- 内容 -->
               <p class="attention-content">
-                <!-- <img src="../../assets/image/lun01.jpg" >
-                <img src="../../assets/image/test.jpg" >
-                <br> -->
                 {{questionInfo.question.detail}}
               </p>
               <!-- 内容  end-->
