@@ -22,11 +22,12 @@
                 </nz-select></td>
               </tr>
               <tr>
-                <td>上传文件:</td>
+                <td>上传图片:</td>
                 <td>
-                  <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+                  <!-- <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
                     <button nz-button> <i nz-icon type="upload"></i><span>选择文件</span></button>
-                  </nz-upload>
+                  </nz-upload>   [(ngModel)]="questionImg"-->
+                  <input  type="file" (change)="fileChange($event)"  style="margin-left: 15px;"  />
                 </td>
               </tr>
             </table>

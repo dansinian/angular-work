@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Question } from 'src/app/entity/question';
 import { NzMessageService } from 'ng-zorro-antd';
-import { error } from 'util';
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-question-content',
@@ -26,11 +26,13 @@ export class QuestionContentComponent implements OnInit {
   commentUserName = "" ; //评论人昵称
   commentPublishId; //评论内容ID
   praiseLikeData;  //点赞记录
+  questionHeadImgSrc; //帖子图片
 
   questionContentId; //判断当前页面是否更新
   userFocus = 'unfocus';
 
-  constructor(private appService: AppService, private httpClient: HttpClient, private activatedRoute: ActivatedRoute, private message: NzMessageService) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private activatedRoute: ActivatedRoute, 
+    private message: NzMessageService,  private sanitizer: DomSanitizer) {
     this.basePath = this.appService.getBasePath();
     this.question = {id: '', time: '', title: '', detail: '', userID: '', click: '', praise: '', reply: '', course: '', unread: '', src: ''};
   }
@@ -94,7 +96,9 @@ export class QuestionContentComponent implements OnInit {
         this.question.course = question['queCourse'];
         this.question.praise = question['praiseCount'];
         this.question.detail = question['queDetail'];
-        this.question.src = question['queImg'];
+        let imgUrl = JSON.parse(question['queImg']).changingThisBreaksApplicationSecurity;
+        let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+        this.questionHeadImgSrc = sanitizerUrl;
         this.question.title = question['queTitle'];
         this.question.reply = question['replyCount'];
         this.question.unread = question['createTime'];
@@ -212,7 +216,6 @@ export class QuestionContentComponent implements OnInit {
       this.message.success("该用户没有删除权限！");
     }
     
-
   }
 
   //评论

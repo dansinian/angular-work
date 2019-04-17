@@ -9,6 +9,8 @@ import { IconDefinition } from '@ant-design/icons-angular';
 import { NgZorroAntdModule, NZ_I18N, zh_CN, NZ_ICONS  } from 'ng-zorro-antd';
 import * as AllIcons from '@ant-design/icons-angular/icons';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
@@ -50,7 +52,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     BrowserAnimationsModule,
     ReactiveFormsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CommonModule,
+    FileUploadModule
   ],
   providers: [
     AppService, 

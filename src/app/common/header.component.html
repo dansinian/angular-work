@@ -14,7 +14,7 @@
   <div class="header-right">
     <div *ngIf="flagLogin">
       <span (click)="getMessage()"><i nz-icon type="mail" theme="outline"></i>通知</span>
-      <span><img (click)="viewImg()" src="../../assets/image/stu002.jpg">{{userNickName}}</span>
+      <span><img (click)="viewImg()" src="{{userHeadImg}}">{{userNickName}}</span>
       <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
       <span (click)="dropSystem()"><i nz-icon type="poweroff" theme="outline"></i>退出</span>
     </div>

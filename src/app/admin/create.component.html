@@ -16,16 +16,8 @@
             <tr>
               <th>图片</th>
               <td>
-                <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                    <button nz-button>
-                      <i nz-icon type="upload"></i><span>Select File</span>
-                    </button>
-                  </nz-upload>
+                  <input type="file" (change)="fileChange($event)" style="margin-left: 15px;height: 25px;line-height: 20px;">
               </td>
-              <!-- <input class="col-xs-12  dtwx-file-btn" type="file" id="fileUpload" accept="video/*" capture="camcorder"
-                        ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" *ngIf="'WXWORK' === appType"/> -->
-              <!-- <td><input type="file" ng2FileSelect [uploader]="uploader" (change)="selectedFileOnChanged($event)" 
-                class="form-control" id="imageFile" name="imageFile"></td> -->
             </tr>
             <tr>
               <td style="text-align: right;" colspan="2"><button (click)="publishQue()" nz-button nzType="primary">发布</button></td>

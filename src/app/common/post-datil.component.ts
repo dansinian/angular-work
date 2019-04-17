@@ -4,6 +4,8 @@ import { filter } from 'rxjs/operators';
 import { HttpClient, HttpRequest, HttpResponse, HttpParams } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FileUploader } from 'ng2-file-upload';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var Base64: any;
 declare var $: any;
@@ -19,21 +21,17 @@ export class PostDatilComponent implements OnInit {
   questionCourse; //课程
   questionText; //文本
   questionTitle; //标题
+  questionImg; //图片
   userID;
   courseList = [];
   department;
   major;
 
   constructor(private appService: AppService ,private httpClient: HttpClient, private messageService: NzMessageService, 
-    private route: Router, private activatedRoute: ActivatedRoute) {
+    private route: Router, private activatedRoute: ActivatedRoute,  private sanitizer: DomSanitizer) {
     this.basePath = this.appService.getBasePath();
   }
   // const Params = new HttpParams().set('data', Base64.encode(JSON.stringify(dataParams)))
-
-  beforeUpload = (file: UploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
-    return false;
-  }
 
   ngOnInit() {
     $(".header-left li").removeClass();//active
@@ -53,6 +51,15 @@ export class PostDatilComponent implements OnInit {
     }, error => {
       console.log("error");
     });
+
+  }
+
+  //选择上传文件
+  fileChange(event){
+    let file = event.target.files[0];
+    let imgUrl = window.URL.createObjectURL(file);
+    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+    this.questionImg = sanitizerUrl;
   }
 
   //发表帖子
@@ -62,8 +69,9 @@ export class PostDatilComponent implements OnInit {
       "title": this.questionTitle,
       "detail": this.questionText,
       "queCourse": this.questionCourse,
-      "queImg": ""
+      "queImg": this.questionImg
     }
+    console.log(this.sendData);
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/createQuestion', Params).subscribe(data => {
       if (data != null && data != '') {
@@ -75,6 +83,7 @@ export class PostDatilComponent implements OnInit {
     }, error => {
       console.log("发帖失败！");
     });
+
   }
 
 
@@ -107,21 +116,6 @@ export class PostDatilComponent implements OnInit {
     //       this.messageService.error('upload failed.');
     //     }
     //   );
-  }
-
-  fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        let formData:FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-        console.log(formData);
-        //let options = new RequestOptions({ headers: headers });
-        // this.http.post(`${this.apiEndPoint}`, formData, options).map(res => res.json()).catch(error => Observable.throw(error)).subscribe(
-        //         data => console.log('success'),
-        //         error => console.log(error)
-        // )
-    }
   }
 
   getNavValue(event) {

@@ -7,7 +7,7 @@
             <!-- 当前帖子用户信息 -->
             <div class="question-content-header">
                 <div>
-                    <img src="{{queUserHeadImg}}">
+                    <img [src]="queUserHeadImg">
                     <span>{{queUserNickName}}</span>
                 </div>
                 <div class="person-page-header-follow" *ngIf=" userFocus == 'unfocus' ">
@@ -20,7 +20,7 @@
             <div class="question-content-text">
                 <h5>{{question.title}} <i>{{question.time}}</i></h5>
                 <p class="question-content-text2">
-                    <img src="{{question.src}}" *ngIf="question.src">
+                    <img [src]="questionHeadImgSrc" *ngIf="questionHeadImgSrc">
                     <!-- <img src="../../assets/image/lun02.jpg" > -->
                     {{question.detail}}
                 </p>

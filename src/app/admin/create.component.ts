@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { UploadFile } from 'ng-zorro-antd';
 import { filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $: any;
 @Component({
@@ -19,14 +20,10 @@ export class CreateComponent implements OnInit {
   queImg;
   sendData;
   fileList: UploadFile[] = [];
+  questionImg;
 
-  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router, private sanitizer: DomSanitizer) {
     this.basePath = this.appService.getBasePath();
-  }
-
-  beforeUpload = (file: UploadFile): boolean => {
-    this.fileList = this.fileList.concat(file);
-    return false;
   }
 
   ngOnInit() {
@@ -34,40 +31,30 @@ export class CreateComponent implements OnInit {
       this.route.navigate(['/admin/login']);
       return;
     }
-    this.uploader  = new FileUploader({
-      url: this.basePath + '/ticket/uploadmedioFile?appName=',
-      method: 'POST',
-      itemAlias: 'medioFile'
-  });
-
   }
 
   //选择上传文件
-  selectedFileOnChanged(event: any) {
-    console.log(event);
+  fileChange(event){
+    let file = event.target.files[0];
+    let imgUrl = window.URL.createObjectURL(file);
+    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+    this.questionImg = sanitizerUrl;
   }
 
   //发布帖子
   publishQue() {
-    const formData = new FormData();
-    this.fileList.forEach((file: any) => {
-      console.log(file);
-      formData.append('files[]', file);
-    });
     this.sendData = {
       "title": this.queTitle,
       "detail": this.queContent,
       "userId": localStorage.getItem('id'),
-      "queImg": formData
+      "queImg": this.questionImg
     }
-    console.log(this.sendData);
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath +'/question/createQuestion', Params).subscribe(data => {
-      console.log(data);
       if (data != null && data != '') {
         if (data['status'] == '200') {
           this.appService.info(data['msg']);
-          this.route.navigate(['/admin/questionPage'], {queryParams: {'id':""} });
+          this.route.navigate(['/admin/questionPage'], {queryParams: {'id': data['question']['queId']} });
         } else {
           this.appService.info(data['msg']);
         }
