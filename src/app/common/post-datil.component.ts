@@ -59,7 +59,7 @@ export class PostDatilComponent implements OnInit {
     let file = event.target.files[0];
     let imgUrl = window.URL.createObjectURL(file);
     let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-    this.questionImg = sanitizerUrl;
+    this.questionImg = imgUrl;
   }
 
   //发表帖子
@@ -71,7 +71,6 @@ export class PostDatilComponent implements OnInit {
       "queCourse": this.questionCourse,
       "queImg": this.questionImg
     }
-    console.log(this.sendData);
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/createQuestion', Params).subscribe(data => {
       if (data != null && data != '') {

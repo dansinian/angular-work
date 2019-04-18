@@ -1,116 +1,147 @@
 <div class="admin">
-  <app-navigation></app-navigation>
-  <div class="admin-right">
-    <app-header></app-header>
-    <div class="content">
-      <div class="content-search">
-        <input nz-input style="width: 250px;" placeholder="请输入老师姓名/编号查询" [(ngModel)]="searchInfo">
-        <button nz-button nzType="primary" (click)="getSearchInfo()"><i nz-icon type="search" theme="outline"></i> 查询</button>
-        <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
-      </div>
-      <div class="content-table">
-        <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
-          <thead>
-            <tr>
-              <th>序号</th>
-              <th>编号</th>
-              <th>姓名</th>
-              <th>联系方式</th>
-              <th>专业</th>
-              <th>学院</th>
-              <th>昵称</th>
-              <th>头像</th>
-              <th>个性签名</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <!-- 
-            autograph: ""
-headImg: "./webapp/userhead/123.jpg"
-id: 11
-nickname: "笑话"
-userDepartment: "人文许愿"
-userId: "134563"
-userMajor: "历史学"
-userName: "笑话"
-userPass: "134563"
-userPhone: "134736578"
-userType: "teacher"
-           -->
-          <tbody>
-            <tr *ngFor="let item of nzTable.data; index as i">
-              <td>{{i+1}}</td>
-              <td>{{item.userId}}</td>
-              <td>{{item.userName}}</td>
-              <td>{{item.userPhone}}</td>
-              <td>{{item.userMajor}}</td>
-              <td>{{item.userDepartment}}</td>
-              <td>{{item.nickname}}</td>
-              <td><img src="item.headImg"></td>
-              <td>{{item.autograph}}</td>
-              <td>
-                <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
-                <button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </div>
-    </div>
-  </div>
+	<app-navigation></app-navigation>
+	<div class="admin-right">
+		<app-header></app-header>
+		<div class="content">
+			<div class="content-search">
+				<input nz-input style="width: 250px;" placeholder="请输入老师姓名/编号查询" [(ngModel)]="searchInfo">
+				<button nz-button nzType="primary" (click)="getSearchInfo()">
+					<i nz-icon type="search" theme="outline"></i> 查询</button>
+				<button nz-button nzType="primary" (click)="addInfo()">
+					<i nz-icon type="plus" theme="outline"></i>添加</button>
+			</div>
+			<div class="content-table">
+				<nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>编号</th>
+							<th>姓名</th>
+							<th>联系方式</th>
+							<th>专业</th>
+							<th>学院</th>
+							<th>昵称</th>
+							<th>头像</th>
+							<th>个性签名</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let item of nzTable.data; index as i">
+							<td>{{i+1}}</td>
+							<td>{{item.userId}}</td>
+							<td>{{item.userName}}</td>
+							<td>{{item.userPhone}}</td>
+							<td>{{item.userMajor}}</td>
+							<td>{{item.userDepartment}}</td>
+							<td>{{item.nickname}}</td>
+							<td>
+								<img [src]="item.headImg">
+							</td>
+							<td>{{item.autograph}}</td>
+							<td>
+								<button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
+								<button nz-button nzType="danger" (click)="deteleInfo(item)">删除</button>
+							</td>
+						</tr>
+					</tbody>
+				</nz-table>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- 添加 -->
 <nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="添加老师信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleAdd()">
-  <div class="content-model">
-    <table>
-     <tr>
-       <td width="150"><nz-form-label>编号</nz-form-label></td>
-       <td><input nz-input placeholder="编号" [(ngModel)]="user.id"></td>
-     </tr>
-     <tr>
-       <td width="150"><nz-form-label>姓名</nz-form-label></td>
-       <td><input nz-input placeholder="姓名" [(ngModel)]="user.name"></td>
-     </tr>
-     <tr>
-       <td width="150"><nz-form-label>联系方式</nz-form-label></td>
-       <td><input nz-input placeholder="联系方式" [(ngModel)]="user.phone"></td>
-     </tr>
-     <tr>
-       <td width="150"><nz-form-label>学院</nz-form-label></td>
-       <td><input nz-input placeholder="学院" [(ngModel)]="user.department"></td>
-     </tr>
-     <tr>
-       <td width="150"><nz-form-label>专业</nz-form-label></td>
-       <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
-     </tr>
-   </table>
-  </div>
+	<div class="content-model">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>编号</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="编号" [(ngModel)]="user.id">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>姓名</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="姓名" [(ngModel)]="user.name">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>联系方式</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="联系方式" [(ngModel)]="user.phone">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>学院</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="学院" [(ngModel)]="user.department">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>专业</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="专业" [(ngModel)]="user.major">
+				</td>
+			</tr>
+		</table>
+	</div>
 </nz-modal>
 
 <!-- 修改 -->
 <nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改老师信息" (nzOnCancel)="handleCancel()" (nzOnOk)="handleUpdate()">
-    <div class="content-model">
-       <table>
-        <tr>
-          <td width="150"><nz-form-label>编号</nz-form-label></td>
-          <td><input nz-input placeholder="编号" [(ngModel)]="user.id" disabled></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>姓名</nz-form-label></td>
-          <td><input nz-input placeholder="姓名" [(ngModel)]="user.name"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>联系方式</nz-form-label></td>
-          <td><input nz-input placeholder="联系方式" [(ngModel)]="user.phone"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>学院</nz-form-label></td>
-          <td><input nz-input placeholder="学院" [(ngModel)]="user.department"></td>
-        </tr>
-        <tr>
-          <td width="150"><nz-form-label>专业</nz-form-label></td>
-          <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
-        </tr>
-      </table>
-    </div>
-  </nz-modal>
+	<div class="content-model">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>编号</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="编号" [(ngModel)]="user.id" disabled>
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>姓名</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="姓名" [(ngModel)]="user.name">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>联系方式</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="联系方式" [(ngModel)]="user.phone">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>学院</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="学院" [(ngModel)]="user.department">
+				</td>
+			</tr>
+			<tr>
+				<td width="150">
+					<nz-form-label>专业</nz-form-label>
+				</td>
+				<td>
+					<input nz-input placeholder="专业" [(ngModel)]="user.major">
+				</td>
+			</tr>
+		</table>
+	</div>
+</nz-modal>

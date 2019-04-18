@@ -3,6 +3,7 @@ import { AppService } from 'src/app/app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var $: any;
 @Component({
@@ -24,7 +25,7 @@ export class ViewAttentionComponent implements OnInit {
   praiseLikeData = [];
 
   constructor(private appService: AppService, private httpClient: HttpClient, private route: Router, private activatedRoute: ActivatedRoute,
-    private message: NzMessageService) {
+    private message: NzMessageService, private sanitizer: DomSanitizer) {
     this.basePath = this.appService.getBasePath();
   }
 
@@ -38,17 +39,19 @@ export class ViewAttentionComponent implements OnInit {
     const userLoginParams = new HttpParams().set("data", JSON.stringify({"content": this.loginUserID}));
     this.httpClient.post(this.basePath + '/user/selectUser', userLoginParams).subscribe(data => {
       if (data['status'] == '200') {
-        console.log(data);
         this.praiseLikeData = data['likes']['question'];
         //questions
           for (let follow of data['follow']) {
-            console.log("userID: ", follow);
             const followParams = new HttpParams().set("data", JSON.stringify({"content": follow.userId}));
             this.httpClient.post(this.basePath + '/user/selectUser', followParams).subscribe(params => {
               if (params['status'] == '200') {
-                  console.log("foll0w: ", params);
                   // 关注的所有人信息
                   if (params['questions']) {
+
+                    let imgUrl = params['user'].headImg;
+                    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+                    params['user'].headImg = sanitizerUrl;
+                    //console.log(params['user']);
                     for (let question of params['questions']) {
                         this.followQuestionList.push({
                           "question": question,
@@ -56,11 +59,6 @@ export class ViewAttentionComponent implements OnInit {
                         });
                     }
                   }
-                  // this.followQuestionList.push({
-                  //   "question": params['questions'] ? params['questions'] : '',
-                  //   "user": params['user'] ? params['user'] : ''
-                  // });
-                  console.log(this.followQuestionList);
               }
             }, error => {
               console.log("error");
@@ -161,6 +159,10 @@ export class ViewAttentionComponent implements OnInit {
 
   }
 
+  
+  positionQuestionDetail(questionID, userID) {
+    this.route.navigate(['/questionContent'], {queryParams: {'questionId': questionID, "userID": userID}});
+  }
 
   getNavValue(event) {
     console.log(event);

@@ -37,8 +37,8 @@ export class CreateComponent implements OnInit {
   fileChange(event){
     let file = event.target.files[0];
     let imgUrl = window.URL.createObjectURL(file);
-    let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-    this.questionImg = sanitizerUrl;
+    //let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+    this.questionImg = imgUrl;
   }
 
   //发布帖子

@@ -3,7 +3,7 @@ import { AppService } from '../app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
 import { Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-avatar',
@@ -40,14 +40,26 @@ export class AvatarComponent implements OnInit {
       if (data != null && data != '') {
         if (data['status'] == 200) {
           this.userNickName = data['user']['nickname'];
-          this.userHeadImg =  data['user']['headImg'];
-
-          // let imgUrl = JSON.parse( data['user']['headImg']).changingThisBreaksApplicationSecurity;
-          // let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-          // this.userHeadImg = sanitizerUrl;
+          //this.userHeadImg =  data['user']['headImg'];
+          let imgUrl = data['user']['headImg'];
+          let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          this.userHeadImg = sanitizerUrl;
 
           this.followList = data['follow'];
           this.followedList = data['followed'];
+
+          for (let item of this.followList) {
+            let imgUrl = item['headImg'];
+            let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+            item['headImg'] = sanitizerUrl;
+          }
+
+          for (let item of this.followedList) {
+            let imgUrl = item['headImg'];
+            let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+            item['headImg'] = sanitizerUrl;
+          }
+          console.log(this.followList, this.followedList);
           this.questionList = data['questions'];
           //长度
           this.followLength = this.followList.length;

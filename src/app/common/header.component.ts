@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   promptFlag = false; //密码
   questionImg;
   userHeadImgFlag = true;
+  img;
 
   constructor(private httpClient: HttpClient, private appService: AppService, private route: Router, private sanitizer: DomSanitizer,
     private message: NzMessageService) {
@@ -58,11 +59,10 @@ export class HeaderComponent implements OnInit {
         if (data['status'] == '200') {
           this.userNickName = data['user']['nickname'];
           this.userSignature = data['user']['autograph'];
-          this.userHeadImg = data['user']['headImg'];
-
-          // let imgUrl = JSON.parse( data['user']['headImg']).changingThisBreaksApplicationSecurity;
-          // let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-          // this.userHeadImg = sanitizerUrl;
+          //this.userHeadImg = data['user']['headImg'];
+          let imgUrl = data['user']['headImg'];
+          let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          this.userHeadImg = sanitizerUrl;
         }
       }, error => {
         console.log("error");
@@ -82,7 +82,8 @@ export class HeaderComponent implements OnInit {
     let file = event.target.files[0];
     let imgUrl = window.URL.createObjectURL(file);
     let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-    this.questionImg = sanitizerUrl;
+    this.img = sanitizerUrl
+    this.questionImg = imgUrl;
   }
 
   //查看头像
@@ -96,10 +97,12 @@ export class HeaderComponent implements OnInit {
     }
 
     const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/user/updateUser ', Params).subscribe(data => {
+    this.httpClient.post(this.basePath + '/user/updateUser', Params).subscribe(data => {
       if (data != null && data != '') {
           if (data['status'] == '200') {
+            console.log(data);
             this.message.success(data['msg']);
+            location.reload(true);
           } else {
             this.message.success(data['msg']);
           }
@@ -205,8 +208,7 @@ export class HeaderComponent implements OnInit {
   dropSystem() {
     localStorage.setItem("loginFlag", "");
     localStorage.setItem("userID", "");
-    this.route.navigate(['/home']);
-    location.reload(true);
+    this.route.navigate(['/']);
     this.flagLogin = false;
   }
 

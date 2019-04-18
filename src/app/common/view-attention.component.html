@@ -7,7 +7,7 @@
           <div class="view-attention">
             <div *ngFor="let questionInfo of followQuestionList">
               <!-- 关注/粉丝基本信息 -->
-              <div class="attention-user">
+              <div class="attention-user" (click)="positionQuestionDetail(questionInfo.question.questionId, questionInfo.user.userId)">
                 <div class="attention-user-avatar">
                     <img [src]="questionInfo.user.headImg">
                     <p class="attention-nickName">
@@ -20,7 +20,7 @@
               <!-- 关注/粉丝基本信息 end -->
 
               <!-- 内容 -->
-              <p class="attention-content">
+              <p class="attention-content" (click)="positionQuestionDetail(questionInfo.question.questionId, questionInfo.user.userId)">
                 {{questionInfo.question.detail}}
               </p>
               <!-- 内容  end-->

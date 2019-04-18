@@ -1,93 +1,132 @@
 <div class="header">
-  <div class="header-left">
-    <ul>
-      <a routerLink="/home"><li>实时</li></a>
-      <a routerLink="/view-attention"><li>看关注</li></a>
-      <a routerLink="/post-datil"><li>发帖</li></a>
+	<div class="header-left">
+		<ul>
+			<a routerLink="/home">
+				<li>实时</li>
+			</a>
+			<a routerLink="/view-attention">
+				<li>看关注</li>
+			</a>
+			<a routerLink="/post-datil">
+				<li>发帖</li>
+			</a>
 
-    </ul>
-    <div>
-      <input nz-input placeholder="搜索" [(ngModel)]="searchValue">
-      <button (click)="getSearchInfo()" style="margin-left:30px;" nz-button nzType="primary"><i nz-icon type="search" theme="outline"></i>搜索</button>
-    </div>
-  </div>
-  <div class="header-right">
-    <div *ngIf="flagLogin">
-      <span (click)="getMessage()"><i nz-icon type="mail" theme="outline"></i>通知</span>
-      <span><img (click)="viewImg()" [src]="userHeadImg">{{userNickName}}</span>
-      <span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight"><i nz-icon type="setting" theme="outline"></i>设置</span>
-      <span (click)="dropSystem()"><i nz-icon type="poweroff" theme="outline"></i>退出</span>
-    </div>
-    <div *ngIf="!flagLogin">
-      <span (click)="loginPerson()"><i nz-icon type="login" theme="outline"></i>登录</span>
-    </div>
-    <ng-template #contentTemplate>
-      <div  class="setting">
-        <a (click)="updatePass()">修改密码</a><br>
-        <a (click)="updatePersonInfo()">个人信息</a>
-      </div>
-    </ng-template>
-  </div>
+		</ul>
+		<div>
+			<input nz-input placeholder="搜索" [(ngModel)]="searchValue">
+			<button (click)="getSearchInfo()" style="margin-left:30px;" nz-button nzType="primary">
+				<i nz-icon type="search" theme="outline"></i>搜索</button>
+		</div>
+	</div>
+	<div class="header-right">
+		<div *ngIf="flagLogin">
+			<span (click)="getMessage()">
+				<i nz-icon type="mail" theme="outline"></i>通知</span>
+			<span>
+				<img (click)="viewImg()" [src]="userHeadImg">{{userNickName}}</span>
+			<span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight">
+				<i nz-icon type="setting" theme="outline"></i>设置</span>
+			<span (click)="dropSystem()">
+				<i nz-icon type="poweroff" theme="outline"></i>退出</span>
+		</div>
+		<div *ngIf="!flagLogin">
+			<span (click)="loginPerson()">
+				<i nz-icon type="login" theme="outline"></i>登录</span>
+		</div>
+		<ng-template #contentTemplate>
+			<div class="setting">
+				<a (click)="updatePass()">修改密码</a>
+				<br>
+				<a (click)="updatePersonInfo()">个人信息</a>
+			</div>
+		</ng-template>
+	</div>
 </div>
 
 <!-- 修改头像 -->
 <nz-modal [(nzVisible)]="isVisibleImg" nzTitle="切换头像" (nzOnCancel)="ImgCancel()" (nzOnOk)="ImgOk()">
-    <img [src]="userHeadImg"><br>
-    <button (click)="userHeadImgFlag = false;">修改</button>
-    <div *ngIf="!userHeadImgFlag"><input type="file" (change)="fileChange($event)" /></div>
+	<img [src]="userHeadImg">
+	<br>
+	<button style="margin: 15px 20px;" nz-button nzType="primary" (click)="userHeadImgFlag = false;">修改</button>
+	<div *ngIf="!userHeadImgFlag">
+		<input type="file" (change)="fileChange($event)" />
+	</div>
+	<img [src]="img" />
 </nz-modal>
 
 <!-- 修改昵称 -->
 <nz-modal [(nzVisible)]="isVisiblePersonInfo" nzTitle="个人信息" (nzOnCancel)="personInfoCancel()" (nzOnOk)="personInfoOk()">
-    <table class="updatepws">
-      <tr>
-        <td width="150" align="right"><nz-form-label>昵称</nz-form-label></td>
-        <td><input nz-input placeholder="请输入旧密码" [(ngModel)]="userNickName"></td>
-      </tr>
-      <tr>
-        <td width="150" align="right"><nz-form-label>个性签名</nz-form-label></td>
-        <td><textarea rows="3" nz-input placeholder="" [(ngModel)]="userSignature"></textarea></td>
-      </tr>
-  </table>
+	<table class="updatepws">
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>昵称</nz-form-label>
+			</td>
+			<td>
+				<input nz-input placeholder="请输入旧密码" [(ngModel)]="userNickName">
+			</td>
+		</tr>
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>个性签名</nz-form-label>
+			</td>
+			<td>
+				<textarea rows="3" nz-input placeholder="" [(ngModel)]="userSignature"></textarea>
+			</td>
+		</tr>
+	</table>
 </nz-modal>
 
 <!-- 修改密码 -->
 <nz-modal [(nzVisible)]="isVisibleUpdate" nzTitle="修改密码" (nzOnCancel)="updateCancel()" (nzOnOk)="updateOk()">
-  <table class="updatepws">
-    <tr>
-      <td width="150" align="right"><nz-form-label>旧密码</nz-form-label></td>
-      <td><input type="password" nz-input placeholder="请输入旧密码" [(ngModel)]="oldPassword"></td>
-    </tr>
-    <tr>
-      <td width="150" align="right"><nz-form-label>新密码</nz-form-label></td>
-      <td><input type="password" nz-input placeholder="请输入新密码" [(ngModel)]="newPassword"></td>
-    </tr>
-    <tr>
-      <td width="150" align="right"><nz-form-label>确认密码</nz-form-label></td>
-      <td><input type="password" nz-input placeholder="再输入一遍密码" [(ngModel)]="repeatPassword"></td>
-    </tr>
-    <tr>
-      <td colspan="2" style="color: red;text-align: right" *ngIf="promptFlag">两次输入的密码不一样</td>
-    </tr>
-</table>
+	<table class="updatepws">
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>旧密码</nz-form-label>
+			</td>
+			<td>
+				<input type="password" nz-input placeholder="请输入旧密码" [(ngModel)]="oldPassword">
+			</td>
+		</tr>
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>新密码</nz-form-label>
+			</td>
+			<td>
+				<input type="password" nz-input placeholder="请输入新密码" [(ngModel)]="newPassword">
+			</td>
+		</tr>
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>确认密码</nz-form-label>
+			</td>
+			<td>
+				<input type="password" nz-input placeholder="再输入一遍密码" [(ngModel)]="repeatPassword">
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="color: red;text-align: right" *ngIf="promptFlag">两次输入的密码不一样</td>
+		</tr>
+	</table>
 </nz-modal>
 
 <!-- 登录 -->
 <nz-modal [(nzVisible)]="isVisibleLogin" nzTitle="用户登录" (nzOnCancel)="loginCancel()" (nzOnOk)="loginOk()">
-  <table class="login-person">
-    <tr>
-      <td width="150" align="right"><nz-form-label>账户</nz-form-label></td>
-      <td><input nz-input placeholder="请输入账户" [(ngModel)]="account"></td>
-    </tr>
-    <tr>
-      <td width="150" align="right"><nz-form-label>密码</nz-form-label></td>
-      <td><input type="password" nz-input placeholder="请输入密码" [(ngModel)]="password"></td>
-    </tr>
-    <!-- <tr>
-      <td colspan="2" style="text-align: right;padding-right: 40px;"><nz-radio-group [(ngModel)]="type">
-        <label nz-radio nzValue="stuednt">学生</label>
-        <label nz-radio nzValue="teacher">老师</label>
-      </nz-radio-group></td>
-    </tr> -->
-</table>
+	<table class="login-person">
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>账户</nz-form-label>
+			</td>
+			<td>
+				<input nz-input placeholder="请输入账户" [(ngModel)]="account">
+			</td>
+		</tr>
+		<tr>
+			<td width="150" align="right">
+				<nz-form-label>密码</nz-form-label>
+			</td>
+			<td>
+				<input type="password" nz-input placeholder="请输入密码" [(ngModel)]="password">
+			</td>
+		</tr>
+	</table>
 </nz-modal>

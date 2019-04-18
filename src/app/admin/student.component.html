@@ -33,7 +33,7 @@
               <td>{{item.userMajor}}</td>
               <td>{{item.userDepartment}}</td>
               <td>{{item.nickname}}</td>
-              <td><img src="item.headImg"></td>
+              <td><img [src]="item.headImg"></td>
               <td>{{item.autograph}}</td>
               <td>
                 <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
