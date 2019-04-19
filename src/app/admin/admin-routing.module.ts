@@ -11,21 +11,21 @@ import { AttendanceComponent } from 'src/app/admin/attendance.component';
 
 const AdminRoutes: Routes = [
 
-	{ path: '', redirectTo: '/admin/login', pathMatch: 'full' },
-	{ path: 'login', component: LoginComponent, canActivate: [] },
-	{ path: 'student', component: StudentComponent },
-	{ path: 'teacher', component: TeacherComponent },
-	{ path: 'course', component: CourseComponent },
-	{ path: 'leave-list', component: LeaveListComponent },
-	{ path: 'course-arrangement', component: CourseArrangementComponent },
-	{ path: 'attendance', component: AttendanceComponent },
+    { path: '', redirectTo: '/admin/login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent, canActivate: [] },
+    { path: 'student', component: StudentComponent },
+    { path: 'teacher', component: TeacherComponent },
+    { path: 'course', component: CourseComponent },
+    { path: 'leave-list', component: LeaveListComponent },
+    { path: 'course-arrangement', component: CourseArrangementComponent },
+    { path: 'attendance', component: AttendanceComponent },
 ];
 
 @NgModule({
-	imports: [
-		RouterModule.forChild(AdminRoutes)
-	],
-	declarations: [],
-	providers: []
+    imports: [
+        RouterModule.forChild(AdminRoutes)
+    ],
+    declarations: [],
+    providers: []
 })
 export class AdminRoutingModule { }

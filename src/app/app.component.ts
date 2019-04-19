@@ -35,7 +35,7 @@ export class AppComponent implements OnInit  {
     this.headerDivFlag = true;
   }
 
-  //Â·ÓÉÌø×ª
+
   getRouter(action) {
     this.route.navigate(['/'+action], {});
   }

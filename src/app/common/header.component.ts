@@ -3,26 +3,26 @@ import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
-	selector: 'app-header',
-	templateUrl: './header.component.html'
+    selector: 'app-header',
+    templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
-	name;
-	id;
-	type;
+    name;
+    id;
+    type;
 
-	constructor(private route: Router) { }
+    constructor(private route: Router) { }
 
-	ngOnInit() {
-		this.type = localStorage.getItem("type");
-		this.name = localStorage.getItem("name");
-		this.id = localStorage.getItem("id");
-		// console.log($(".header ul"));
-	}
+    ngOnInit() {
+        this.type = localStorage.getItem("type");
+        this.name = localStorage.getItem("name");
+        this.id = localStorage.getItem("id");
+        // console.log($(".header ul"));
+    }
 
-	drop() {
-		localStorage.setItem("userFlag", "");
-		this.route.navigate(['/login'], {});
-	}
+    drop() {
+        localStorage.setItem("userFlag", "");
+        this.route.navigate(['/login'], {});
+    }
 
 }
