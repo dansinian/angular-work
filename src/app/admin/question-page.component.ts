@@ -55,13 +55,9 @@ export class QuestionPageComponent implements OnInit {
         this.question.course = question['queCourse'];
         this.question.praise = question['praiseCount'];
         this.question.detail = question['queDetail'];
-<<<<<<< HEAD
         let imgUrl = question['queImg'];
         //let imgUrl = JSON.parse(question['queImg']).changingThisBreaksApplicationSecurity;
-=======
-       // let imgUrl = JSON.parse(question['queImg']).changingThisBreaksApplicationSecurity;
         let imgUrl = question['queImg'];
->>>>>>> 4ee8885eb9124ba2d5cd816d36a0649d0ba09303
         let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
         this.questionImg = sanitizerUrl;
         this.question.title = question['queTitle'];
