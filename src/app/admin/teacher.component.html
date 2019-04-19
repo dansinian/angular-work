@@ -1,141 +1,189 @@
 <app-header></app-header>
 <div class="admin-teacher">
-    <app-navigation></app-navigation>
-    <div class="admin">
-        <div class="add student-add">
-          <div class="admin-search">
-            <!-- <label>老师信息：</label> -->
-            <input style="width:200px;" nz-input placeholder="请输入专业或者老师关键字搜索" [(ngModel)]="searchInfo">
-          </div>
-          <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i>查询</button>
-          <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
-        </div>
-        <div class="admin-table teacher-table">
-          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
-            <thead>
-              <tr>
-                <th width="10">序号</th>
-                <th>教师编号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>学院名称</th>
-                <th>联系方式</th>
-                <th>教师职责</th>
-                <th>登录密码</th>
-                <th>所带班级</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of nzTable.data; index as i">
-                <td>{{i+1}}</td>
-                <td>{{item.teaId}}</td>
-                <td>{{item.teaName}}</td>
-                <td>{{item.teaGender}}</td>
-                <td>{{item.teaDepartment}}</td>
-                <td>{{item.teaPhone}}</td>
-                <td *ngIf="item.teaFlag == 'teacher'">教师</td>
-                <td *ngIf="item.teaFlag == 'guide'">导员</td>
-                <td>{{item.teaPassword}}</td>
-                <td>{{item.teaClass}}</td>
-                <td>
-                  <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
-                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.teaId)"><i nz-icon type="delete" theme="outline"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-    </div>
-  </div>
-  
-  <nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()" (nzOnOk)="handleEdit()">
-      <div class="admin-edit">
-          <table>
-              <tr>
-                <td width="150"><nz-form-label>教师编号</nz-form-label></td>
-                <td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id" disabled></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>姓名</nz-form-label></td>
-                <td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>性别</nz-form-label></td>
-                <td><nz-radio-group [(ngModel)]="teacher.gender">
-                    <label nz-radio nzValue="男">男</label>
-                    <label nz-radio nzValue="女">女</label>
-                  </nz-radio-group></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>学院名称</nz-form-label></td>
-                <td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>联系方式</nz-form-label></td>
-                <td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>教师职责</nz-form-label></td>
-                <td><nz-radio-group [(ngModel)]="teacher.flag">
-                    <label nz-radio nzValue="teacher">老师</label>
-                    <label nz-radio nzValue="guide">导员</label>
-                  </nz-radio-group></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>密码</nz-form-label></td>
-                <td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
-              </tr>
-              <tr>
-                <td><nz-form-label>所带班级</nz-form-label></td>
-                <td><textarea  rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea></td>
-              </tr>
-            </table>
-      </div>
-  </nz-modal>
-  
-  <nz-modal [(nzVisible)]="isVisibleAdd" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelAdd()" (nzOnOk)="handleAdd()">
-      <div class="admin-edit">
-        <table>
-          <tr>
-            <td width="150"><nz-form-label>教师编号</nz-form-label></td>
-            <td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>姓名</nz-form-label></td>
-            <td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>性别</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="teacher.gender">
-                <label nz-radio nzValue="男">男</label>
-                <label nz-radio nzValue="女">女</label>
-              </nz-radio-group></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>学院名称</nz-form-label></td>
-            <td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>联系方式</nz-form-label></td>
-            <td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>教师职责</nz-form-label></td>
-            <td><nz-radio-group [(ngModel)]="teacher.flag">
-                <label nz-radio nzValue="teacher">老师</label>
-                <label nz-radio nzValue="guide">导员</label>
-              </nz-radio-group></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>密码</nz-form-label></td>
-            <td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>所带班级</nz-form-label></td>
-            <td><textarea  rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea></td>
-          </tr>
-        </table>
-      </div>
-  </nz-modal>
-  
+	<app-navigation></app-navigation>
+	<div class="admin">
+		<div class="add student-add">
+			<div class="admin-search">
+				<!-- <label>老师信息：</label> -->
+				<input style="width:200px;" nz-input placeholder="请输入专业或者老师关键字搜索" [(ngModel)]="searchInfo">
+			</div>
+			<button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search"
+					theme="outline"></i>查询</button>
+			<button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus"
+					theme="outline"></i>添加</button>
+		</div>
+		<div class="admin-table teacher-table">
+			<nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]=""
+				[nzLoading]="pageLoading">
+				<thead>
+					<tr>
+						<th width="10">序号</th>
+						<th>教师编号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>学院名称</th>
+						<th>联系方式</th>
+						<th>教师职责</th>
+						<th>登录密码</th>
+						<th>所带班级</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of nzTable.data; index as i">
+						<td>{{i+1}}</td>
+						<td>{{item.teaId}}</td>
+						<td>{{item.teaName}}</td>
+						<td>{{item.teaGender}}</td>
+						<td>{{item.teaDepartment}}</td>
+						<td>{{item.teaPhone}}</td>
+						<td *ngIf="item.teaFlag == 'teacher'">教师</td>
+						<td *ngIf="item.teaFlag == 'guide'">导员</td>
+						<td>{{item.teaPassword}}</td>
+						<td>{{item.teaClass}}</td>
+						<td>
+							<button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon
+									type="edit" theme="outline"></i></button>
+							<button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.teaId)"><i
+									nz-icon type="delete" theme="outline"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</nz-table>
+		</div>
+	</div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()"
+	(nzOnOk)="handleEdit()">
+	<div class="admin-edit">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>教师编号</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id" disabled></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>姓名</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>性别</nz-form-label>
+				</td>
+				<td>
+					<nz-radio-group [(ngModel)]="teacher.gender">
+						<label nz-radio nzValue="男">男</label>
+						<label nz-radio nzValue="女">女</label>
+					</nz-radio-group>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>学院名称</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>联系方式</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>教师职责</nz-form-label>
+				</td>
+				<td>
+					<nz-radio-group [(ngModel)]="teacher.flag">
+						<label nz-radio nzValue="teacher">老师</label>
+						<label nz-radio nzValue="guide">导员</label>
+					</nz-radio-group>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>密码</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所带班级</nz-form-label>
+				</td>
+				<td><textarea rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelAdd()"
+	(nzOnOk)="handleAdd()">
+	<div class="admin-edit">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>教师编号</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="教师编号" [(ngModel)]="teacher.id"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>姓名</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="姓名" [(ngModel)]="teacher.name"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>性别</nz-form-label>
+				</td>
+				<td>
+					<nz-radio-group [(ngModel)]="teacher.gender">
+						<label nz-radio nzValue="男">男</label>
+						<label nz-radio nzValue="女">女</label>
+					</nz-radio-group>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>学院名称</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="学院名称" [(ngModel)]="teacher.department"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>联系方式</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="联系方式" [(ngModel)]="teacher.phone"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>教师职责</nz-form-label>
+				</td>
+				<td>
+					<nz-radio-group [(ngModel)]="teacher.flag">
+						<label nz-radio nzValue="teacher">老师</label>
+						<label nz-radio nzValue="guide">导员</label>
+					</nz-radio-group>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>密码</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="密码" [(ngModel)]="teacher.password"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所带班级</nz-form-label>
+				</td>
+				<td><textarea rows="3" placeholder="例如(1503,1403,1502)" nz-input [(ngModel)]="teacher.class"></textarea>
+				</td>
+			</tr>
+		</table>
+	</div>
+</nz-modal>

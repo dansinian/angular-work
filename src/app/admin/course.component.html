@@ -1,104 +1,132 @@
 <app-header></app-header>
 <div class="admin-teacher">
-    <app-navigation></app-navigation>
-    <div class="admin">
-        <div class="add student-add">
-          <div class="admin-search">
-            <!-- <label>课程信息：</label> -->
-            <input style="width:200px;" nz-input placeholder="请输入专业和课程关键字搜索" [(ngModel)]="searchCourse">
-          </div>
-          <button nz-button nzType="primary" (click)="getCourse()"><i nz-icon type="search" theme="outline"></i>查询</button>
-          <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
-        </div>
-        <div class="admin-table student-table">
-          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
-            <thead>
-              <tr>
-                <th width="10">序号</th>
-                <th>课程编号</th>
-                <th>课程名称</th>
-                <th>任课老师</th>
-                <th nzWidth="350px">上课班级</th>
-                <th>所属专业</th>
-                <th>所属学院</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of nzTable.data; index as i">
-                <td>{{i+1}}</td>
-                <td>{{item.courseId}}</td>
-                <td>{{item.courseName}}</td>
-                <td>{{item.teaName}}</td>
-                <td nzWidth="350px">{{item.courseClass}}</td>
-                <td>{{item.courseMajor}}</td>
-                <td>{{item.courseDepartment}}</td>
-                <td>
-                  <button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon type="edit" theme="outline"></i></button>
-                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.courseId)"><i nz-icon type="delete" theme="outline"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-    </div>
-  </div>
-  
-  <nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()" (nzOnOk)="handleEdit()">
-      <div class="admin-edit">
-        <table>
-          <tr>
-            <td width="150"><nz-form-label>课程编号</nz-form-label></td>
-            <td><input nz-input placeholder="课程编号" [(ngModel)]="course.id" disabled></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>课程名称</nz-form-label></td>
-            <td><input nz-input placeholder="课程名称" [(ngModel)]="course.name"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>任课老师</nz-form-label></td>
-            <td><input nz-input placeholder="任课老师" [(ngModel)]="course.teaName"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>上课班级</nz-form-label></td>
-            <td><textarea  rows="3" nz-input [(ngModel)]="course.class"></textarea></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>所属专业</nz-form-label></td>
-            <td><input nz-input placeholder="所属专业" [(ngModel)]="course.major"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>所属学院</nz-form-label></td>
-            <td><input nz-input placeholder="所属学院" [(ngModel)]="course.department"></td>
-          </tr>
-        </table>
-      </div>
-  </nz-modal>
-  
-  <nz-modal [(nzVisible)]="isVisibleAdd" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelAdd()" (nzOnOk)="handleAdd()">
-      <div class="admin-edit">
-        <table>
-          <tr>
-            <td width="150"><nz-form-label>课程名称</nz-form-label></td>
-            <td><input nz-input placeholder="课程名称" [(ngModel)]="course.name"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>任课老师</nz-form-label></td>
-            <td><input nz-input placeholder="任课老师" [(ngModel)]="course.teaName"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>上课班级</nz-form-label></td>
-            <td><textarea  rows="3" nz-input [(ngModel)]="course.class"></textarea></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>所属专业</nz-form-label></td>
-            <td><input nz-input placeholder="所属专业" [(ngModel)]="course.major"></td>
-          </tr>
-          <tr>
-            <td><nz-form-label>所属学院</nz-form-label></td>
-            <td><input nz-input placeholder="所属学院" [(ngModel)]="course.department"></td>
-          </tr>
-        </table>
-      </div>
-  </nz-modal>
-  
+	<app-navigation></app-navigation>
+	<div class="admin">
+		<div class="add student-add">
+			<div class="admin-search">
+				<!-- <label>课程信息：</label> -->
+				<input style="width:200px;" nz-input placeholder="请输入专业和课程关键字搜索" [(ngModel)]="searchCourse">
+			</div>
+			<button nz-button nzType="primary" (click)="getCourse()"><i nz-icon type="search"
+					theme="outline"></i>查询</button>
+			<button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus"
+					theme="outline"></i>添加</button>
+		</div>
+		<div class="admin-table student-table">
+			<nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]=""
+				[nzLoading]="pageLoading">
+				<thead>
+					<tr>
+						<th width="10">序号</th>
+						<th>课程编号</th>
+						<th>课程名称</th>
+						<th>任课老师</th>
+						<th nzWidth="350px">上课班级</th>
+						<th>所属专业</th>
+						<th>所属学院</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of nzTable.data; index as i">
+						<td>{{i+1}}</td>
+						<td>{{item.courseId}}</td>
+						<td>{{item.courseName}}</td>
+						<td>{{item.teaName}}</td>
+						<td nzWidth="350px">{{item.courseClass}}</td>
+						<td>{{item.courseMajor}}</td>
+						<td>{{item.courseDepartment}}</td>
+						<td>
+							<button nz-button nzType="primary" [nzSize]="small" (click)="editInfo(item)"><i nz-icon
+									type="edit" theme="outline"></i></button>
+							<button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.courseId)"><i
+									nz-icon type="delete" theme="outline"></i></button>
+						</td>
+					</tr>
+				</tbody>
+			</nz-table>
+		</div>
+	</div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisibleEdit" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelEdit()"
+	(nzOnOk)="handleEdit()">
+	<div class="admin-edit">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>课程编号</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="课程编号" [(ngModel)]="course.id" disabled></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>课程名称</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="课程名称" [(ngModel)]="course.name"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>任课老师</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="任课老师" [(ngModel)]="course.teaName"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>上课班级</nz-form-label>
+				</td>
+				<td><textarea rows="3" nz-input [(ngModel)]="course.class"></textarea></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所属专业</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="所属专业" [(ngModel)]="course.major"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所属学院</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="所属学院" [(ngModel)]="course.department"></td>
+			</tr>
+		</table>
+	</div>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzWidth="600" nzTitle="EditHead" (nzOnCancel)="cancelAdd()"
+	(nzOnOk)="handleAdd()">
+	<div class="admin-edit">
+		<table>
+			<tr>
+				<td width="150">
+					<nz-form-label>课程名称</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="课程名称" [(ngModel)]="course.name"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>任课老师</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="任课老师" [(ngModel)]="course.teaName"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>上课班级</nz-form-label>
+				</td>
+				<td><textarea rows="3" nz-input [(ngModel)]="course.class"></textarea></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所属专业</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="所属专业" [(ngModel)]="course.major"></td>
+			</tr>
+			<tr>
+				<td>
+					<nz-form-label>所属学院</nz-form-label>
+				</td>
+				<td><input nz-input placeholder="所属学院" [(ngModel)]="course.department"></td>
+			</tr>
+		</table>
+	</div>
+</nz-modal>

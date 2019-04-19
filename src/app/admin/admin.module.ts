@@ -16,24 +16,24 @@ import { AttendanceComponent } from './attendance.component';
 import { HeaderComponent } from './header.component';
 
 @NgModule({
-  imports: [
-    AdminRoutingModule,
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgZorroAntdModule
-  ],
-  declarations: [
-      LoginComponent,
-      StudentComponent,
-      TeacherComponent,
-      NavigationComponent,
-      CourseComponent,
-      LeaveListComponent,
-      CourseArrangementComponent,
-      AttendanceComponent,
-      HeaderComponent
-  ]
+	imports: [
+		AdminRoutingModule,
+		CommonModule,
+		RouterModule,
+		FormsModule,
+		ReactiveFormsModule,
+		NgZorroAntdModule
+	],
+	declarations: [
+		LoginComponent,
+		StudentComponent,
+		TeacherComponent,
+		NavigationComponent,
+		CourseComponent,
+		LeaveListComponent,
+		CourseArrangementComponent,
+		AttendanceComponent,
+		HeaderComponent
+	]
 })
 export class AdminModule { }

@@ -9,287 +9,287 @@ import { error } from '@angular/compiler/src/util';
 
 declare var $: any;
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html'
+	selector: 'app-detail',
+	templateUrl: './detail.component.html'
 })
 export class DetailComponent implements OnInit {
-  basePath;
-  type;
-  isVisibleUpdate = false; //Ä£Ì¬¿ò
-  isVisiblenotice = false; //Ä£Ì¬¿ò
-  leaveDetailInfo;
-  sendData;
-  leaveId;
-  leave: Leave;
-  startTime;
-  endTime;
-  infoList = [];
+	basePath;
+	type;
+	isVisibleUpdate = false; //Ä£Ì¬ï¿½ï¿½
+	isVisiblenotice = false; //Ä£Ì¬ï¿½ï¿½
+	leaveDetailInfo;
+	sendData;
+	leaveId;
+	leave: Leave;
+	startTime;
+	endTime;
+	infoList = [];
 
-  constructor(private httpClient: HttpClient, private appService: AppService, private route: Router,
-              private activatedRoute: ActivatedRoute) {
-    this.basePath = this.appService.getBasePath();
-    this.leave = {id: '',stuId: '', stuName: '',startTime: '',guideTea: '',applicationTime: '',endTime: '',day: '', courTea: '',status: '',reason: ''};
-  }
+	constructor(private httpClient: HttpClient, private appService: AppService, private route: Router,
+		private activatedRoute: ActivatedRoute) {
+		this.basePath = this.appService.getBasePath();
+		this.leave = { id: '', stuId: '', stuName: '', startTime: '', guideTea: '', applicationTime: '', endTime: '', day: '', courTea: '', status: '', reason: '' };
+	}
 
-  ngOnInit() {
-    this.type = localStorage.getItem("type");
-    $(".attendance-nav ul li").removeClass('active');
-    $(".attendance-nav ul li").eq(2).addClass('active');
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.leaveId = params['leaveID'];
-    });
+	ngOnInit() {
+		this.type = localStorage.getItem("type");
+		$(".attendance-nav ul li").removeClass('active');
+		$(".attendance-nav ul li").eq(2).addClass('active');
+		this.activatedRoute.queryParams.subscribe(params => {
+			this.leaveId = params['leaveID'];
+		});
 
-    if (this.type == 'student') {
-      if (this.leaveId == null) {
-        this.sendData = {"content": localStorage.getItem("name"), "type": "student"};
-        const nameParams = new HttpParams().set("data", JSON.stringify(this.sendData));
-        this.httpClient.post(this.basePath + '/leave/selectLeave', nameParams).subscribe(data => {
-          if (data['status'] == '200') {
-            let list = data['leaves'];
-            for (let item of list) {
-              this.infoList.push({
-                "id": item.leaveId,
-                "time": item.applicationTime,
-                "day": item.leaveDay,
-                "reason": item.leaveReason,
-                "status": item.status
-              });
-            }
-            let params = list[0];
-            this.leave.id = params['leaveId'];
-            this.leave.stuId = params['stuId'];
-            this.leave.stuName =  params['stuName'];
-            this.leave.applicationTime =  params['applicationTime'];
-            this.leave.guideTea =  params['approvalTea'];
-            this.leave.endTime =  params['endTime'];
-            this.leave.startTime =  params['startTime'];
-            this.leave.day =  params['leaveDay'];
-            this.leave.status =  params['status'];
-            this.leave.courTea =  params['leavecourseTea'];
-            this.leave.reason =  params['leaveReason'];
-          }
-        }, error => {
-          this.appService.error("³ö´í£¡");
-        });
-      } else {
-        this.sendData = {"content": this.leaveId};
-        const idParams = new HttpParams().set("data", JSON.stringify(this.sendData));
-        this.httpClient.post(this.basePath +'/leave/selectLeave', idParams).subscribe(data => {
-          if (data != null && data != '') {
-            if (data['status'] == '200') {
-              let params = data['leaves'][0];
-              this.leave.id = params['leaveId'];
-              this.leave.stuId = params['stuId'];
-              this.leave.stuName =  params['stuName'];
-              this.leave.applicationTime =  params['applicationTime'];
-              this.leave.guideTea =  params['approvalTea'];
-              this.leave.endTime =  params['endTime'];
-              this.leave.startTime =  params['startTime'];
-              this.leave.day =  params['leaveDay'];
-              this.leave.status =  params['status'];
-              this.leave.courTea =  params['leavecourseTea'];
-              this.leave.reason =  params['leaveReason'];
-              this.sendData = {"content": this.leave.stuName, "type": "student"};
-              const Params1 = new HttpParams().set("data", JSON.stringify(this.sendData));
-              this.httpClient.post(this.basePath +'/leave/selectLeave', Params1).subscribe(data => {
-                if (data != null && data != '') {
-                  if (data['status'] == '200') {
-                    let list = data['leaves'];
-                    for (let item of list) {
-                      this.infoList.push({
-                        "id": item.leaveId,
-                        "time": item.applicationTime,
-                        "day": item.leaveDay,
-                        "reason": item.leaveReason,
-                        "status": item.status
-                      });
-                    }
-                  }
-                }
-              }, error => {
-              
-              });
-    
-            } else {
-    
-            }
-          }
-        }, error => {
-          //this.route.navigate(['/error']);
-        });
-      }
-    }
+		if (this.type == 'student') {
+			if (this.leaveId == null) {
+				this.sendData = { "content": localStorage.getItem("name"), "type": "student" };
+				const nameParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+				this.httpClient.post(this.basePath + '/leave/selectLeave', nameParams).subscribe(data => {
+					if (data['status'] == '200') {
+						let list = data['leaves'];
+						for (let item of list) {
+							this.infoList.push({
+								"id": item.leaveId,
+								"time": item.applicationTime,
+								"day": item.leaveDay,
+								"reason": item.leaveReason,
+								"status": item.status
+							});
+						}
+						let params = list[0];
+						this.leave.id = params['leaveId'];
+						this.leave.stuId = params['stuId'];
+						this.leave.stuName = params['stuName'];
+						this.leave.applicationTime = params['applicationTime'];
+						this.leave.guideTea = params['approvalTea'];
+						this.leave.endTime = params['endTime'];
+						this.leave.startTime = params['startTime'];
+						this.leave.day = params['leaveDay'];
+						this.leave.status = params['status'];
+						this.leave.courTea = params['leavecourseTea'];
+						this.leave.reason = params['leaveReason'];
+					}
+				}, error => {
+					this.appService.error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+				});
+			} else {
+				this.sendData = { "content": this.leaveId };
+				const idParams = new HttpParams().set("data", JSON.stringify(this.sendData));
+				this.httpClient.post(this.basePath + '/leave/selectLeave', idParams).subscribe(data => {
+					if (data != null && data != '') {
+						if (data['status'] == '200') {
+							let params = data['leaves'][0];
+							this.leave.id = params['leaveId'];
+							this.leave.stuId = params['stuId'];
+							this.leave.stuName = params['stuName'];
+							this.leave.applicationTime = params['applicationTime'];
+							this.leave.guideTea = params['approvalTea'];
+							this.leave.endTime = params['endTime'];
+							this.leave.startTime = params['startTime'];
+							this.leave.day = params['leaveDay'];
+							this.leave.status = params['status'];
+							this.leave.courTea = params['leavecourseTea'];
+							this.leave.reason = params['leaveReason'];
+							this.sendData = { "content": this.leave.stuName, "type": "student" };
+							const Params1 = new HttpParams().set("data", JSON.stringify(this.sendData));
+							this.httpClient.post(this.basePath + '/leave/selectLeave', Params1).subscribe(data => {
+								if (data != null && data != '') {
+									if (data['status'] == '200') {
+										let list = data['leaves'];
+										for (let item of list) {
+											this.infoList.push({
+												"id": item.leaveId,
+												"time": item.applicationTime,
+												"day": item.leaveDay,
+												"reason": item.leaveReason,
+												"status": item.status
+											});
+										}
+									}
+								}
+							}, error => {
 
-    if (this.type == 'teacher') {
-      let flag = localStorage.getItem("flag");
-      if (flag == 'guide') {
-        this.sendData = {"content": localStorage.getItem("name"), "type": "guide"};
-      } else {
-        this.sendData = {"content": localStorage.getItem("name"), "type": "teacher"};
-      }
-      console.log(this.sendData);
-      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-      this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
-        if (data != null && data != '') {
-          if (data['status'] == '200') {
-            let list = data['leaves'];
-            for (let item of list) {
-              this.infoList.push({
-                "id": item.leaveId,
-                "time": item.applicationTime,
-                "day": item.leaveDay,
-                "reason": item.leaveReason,
-                "status": item.status
-              });
-            }
-            let params = list[0];
-            this.leave.id = params['leaveId'];
-            this.leave.stuId = params['stuId'];
-            this.leave.stuName =  params['stuName'];
-            this.leave.applicationTime =  params['applicationTime'];
-            this.leave.guideTea =  params['approvalTea'];
-            this.leave.endTime =  params['endTime'];
-            this.leave.startTime =  params['startTime'];
-            this.leave.day =  params['leaveDay'];
-            this.leave.status =  params['status'];
-            this.leave.courTea =  params['leavecourseTea'];
-            this.leave.reason =  params['leaveReason'];
-          }
-        }
-      }, error => {
-        this.appService.error("³ö´í£¡");
-      });
-      
-    }
+							});
 
-  }
+						} else {
 
-  //ÇÐ»»Çë¼ÙÌõÐÅÏ¢
-  getLeaveInfo(ID) {
-    this.sendData = {"content": ID};
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
-          let params = data['leaves'][0];
-          this.leave.id = params['leaveId'];
-          this.leave.stuId = params['stuId'];
-          this.leave.stuName =  params['stuName'];
-          this.leave.applicationTime =  params['applicationTime'];
-          this.leave.guideTea =  params['approvalTea'];
-          this.leave.endTime =  params['endTime'];
-          this.leave.startTime =  params['startTime'];
-          this.leave.day =  params['leaveDay'];
-          this.leave.status =  params['status'];
-          this.leave.courTea =  params['leavecourseTea'];
-          this.leave.reason =  params['leaveReason'];
-        }
-      }
-    }, error => {
+						}
+					}
+				}, error => {
+					//this.route.navigate(['/error']);
+				});
+			}
+		}
 
-    });
-  }
+		if (this.type == 'teacher') {
+			let flag = localStorage.getItem("flag");
+			if (flag == 'guide') {
+				this.sendData = { "content": localStorage.getItem("name"), "type": "guide" };
+			} else {
+				this.sendData = { "content": localStorage.getItem("name"), "type": "teacher" };
+			}
+			console.log(this.sendData);
+			const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+			this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
+				if (data != null && data != '') {
+					if (data['status'] == '200') {
+						let list = data['leaves'];
+						for (let item of list) {
+							this.infoList.push({
+								"id": item.leaveId,
+								"time": item.applicationTime,
+								"day": item.leaveDay,
+								"reason": item.leaveReason,
+								"status": item.status
+							});
+						}
+						let params = list[0];
+						this.leave.id = params['leaveId'];
+						this.leave.stuId = params['stuId'];
+						this.leave.stuName = params['stuName'];
+						this.leave.applicationTime = params['applicationTime'];
+						this.leave.guideTea = params['approvalTea'];
+						this.leave.endTime = params['endTime'];
+						this.leave.startTime = params['startTime'];
+						this.leave.day = params['leaveDay'];
+						this.leave.status = params['status'];
+						this.leave.courTea = params['leavecourseTea'];
+						this.leave.reason = params['leaveReason'];
+					}
+				}
+			}, error => {
+				this.appService.error("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+			});
 
-  // Åú×¼Çë¼ÙÉêÇë
-  agreeApply() {
-    this.sendData = {
-      "leaveId": this.leave.id,
-      "StuId": this.leave.stuId,
-      "StuName": this.leave.stuName,
-      "endTime": this.leave.endTime,
-      "startTime": this.leave.startTime,
-      "applicationTime": this.leave.applicationTime,
-      "leaveDay": this.leave.day,
-      "approvalTea": this.leave.guideTea,
-      "leaveCourseTea": this.leave.courTea,
-      "reason": this.leave.reason,
-      "status": "1",
-      "type": "guide"
-    };
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath +'/leave/updateLeave', Params).subscribe(data => {
-      console.log(data);
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
-          console.log(data['msg']);
-          this.appService.info("Åú×¼³É¹¦£¡");
-          location.reload(true);
-        } else {
-          this.appService.info(data['msg']);
-        }
-      }
-    }, error => {
+		}
 
-    });
-  }
+	}
 
-  //ÐÞ¸ÄÇë¼ÙÐÅÏ¢£¨²éÑ¯£©
-  updateApply() {
-    console.log(this.leave.startTime, this.leave.endTime);
-    this.startTime = this.leave.startTime;
-    this.endTime = this.leave.endTime;
-    this.isVisibleUpdate = true;
-  }
-  //Ä£Ì¬¿òÈ¡Ïû£¨È¡ÏûÐÞ¸Ä£©
-  handleCancel() {
-    this.isVisibleUpdate = false;
-  }
-  //±£´æÐÞ¸ÄµÄÐÅÏ¢
-  saveUpdateApply() {
-    this.leave.applicationTime = this.appService.getDate(new Date());
-    this.leave.startTime = this.appService.getDate(this.startTime);
-    this.leave.endTime = this.appService.getDate(this.endTime);
-    this.sendData = {
-      "leaveId": this.leave.id,
-      "StuId": this.leave.stuId,
-      "StuName": this.leave.stuName,
-      "endTime": this.leave.endTime,
-      "startTime": this.leave.startTime,
-      "applicationTime": this.leave.applicationTime,
-      "leaveDay": this.leave.day,
-      "approvalTea": this.leave.guideTea,
-      "leaveCourseTea": this.leave.courTea,
-      "reason": this.leave.reason,
-      "type": "student"
-    }; 
-    const Params = new HttpParams().set("data",JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/leave/updateLeave', Params).subscribe(data => {
-      console.log(data);
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
-          this.appService.info(data['msg']);
-          location.reload(true);
-          this.isVisibleUpdate = false;
-        } else {
-          this.appService.info(data['msg']);
-        }
-      }
-    }, error => {
-      this.appService.error("ÐÞ¸Ä²»³É¹¦");
-    });
-  }
+	//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	getLeaveInfo(ID) {
+		this.sendData = { "content": ID };
+		const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+		this.httpClient.post(this.basePath + '/leave/selectLeave', Params).subscribe(data => {
+			if (data != null && data != '') {
+				if (data['status'] == '200') {
+					let params = data['leaves'][0];
+					this.leave.id = params['leaveId'];
+					this.leave.stuId = params['stuId'];
+					this.leave.stuName = params['stuName'];
+					this.leave.applicationTime = params['applicationTime'];
+					this.leave.guideTea = params['approvalTea'];
+					this.leave.endTime = params['endTime'];
+					this.leave.startTime = params['startTime'];
+					this.leave.day = params['leaveDay'];
+					this.leave.status = params['status'];
+					this.leave.courTea = params['leavecourseTea'];
+					this.leave.reason = params['leaveReason'];
+				}
+			}
+		}, error => {
 
-  //Í¨ÖªÀÏÊ¦Çë¼ÙÐÅÏ¢
-  noticeTeach(ID) {
-    this.sendData = {
-      "studentName": this.leave.stuName,
-      "teacherName": this.leave.guideTea,
-      "teacherPhone": localStorage.getItem("phone")
-    }
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/leave/callTeacher', Params).subscribe(data => {
-      if (data != null && data!= '') {
-        if (data['status'] == '200') {
+		});
+	}
 
-        } else {
-          this.appService.info(data['msg']);
-        }
-      }
-    },error => {
-      this.appService.error("´íÎó");
-        //this.route.navigate(['/error'], {queryParams: {'msg': 'httpÇëÇóÊ§°Ü', 'title': ''}});
-    }
-    );  
-  }
+	// ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	agreeApply() {
+		this.sendData = {
+			"leaveId": this.leave.id,
+			"StuId": this.leave.stuId,
+			"StuName": this.leave.stuName,
+			"endTime": this.leave.endTime,
+			"startTime": this.leave.startTime,
+			"applicationTime": this.leave.applicationTime,
+			"leaveDay": this.leave.day,
+			"approvalTea": this.leave.guideTea,
+			"leaveCourseTea": this.leave.courTea,
+			"reason": this.leave.reason,
+			"status": "1",
+			"type": "guide"
+		};
+		const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+		this.httpClient.post(this.basePath + '/leave/updateLeave', Params).subscribe(data => {
+			console.log(data);
+			if (data != null && data != '') {
+				if (data['status'] == '200') {
+					console.log(data['msg']);
+					this.appService.info("ï¿½ï¿½×¼ï¿½É¹ï¿½ï¿½ï¿½");
+					location.reload(true);
+				} else {
+					this.appService.info(data['msg']);
+				}
+			}
+		}, error => {
+
+		});
+	}
+
+	//ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ñ¯ï¿½ï¿½
+	updateApply() {
+		console.log(this.leave.startTime, this.leave.endTime);
+		this.startTime = this.leave.startTime;
+		this.endTime = this.leave.endTime;
+		this.isVisibleUpdate = true;
+	}
+	//Ä£Ì¬ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Þ¸Ä£ï¿½
+	handleCancel() {
+		this.isVisibleUpdate = false;
+	}
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸Äµï¿½ï¿½ï¿½Ï¢
+	saveUpdateApply() {
+		this.leave.applicationTime = this.appService.getDate(new Date());
+		this.leave.startTime = this.appService.getDate(this.startTime);
+		this.leave.endTime = this.appService.getDate(this.endTime);
+		this.sendData = {
+			"leaveId": this.leave.id,
+			"StuId": this.leave.stuId,
+			"StuName": this.leave.stuName,
+			"endTime": this.leave.endTime,
+			"startTime": this.leave.startTime,
+			"applicationTime": this.leave.applicationTime,
+			"leaveDay": this.leave.day,
+			"approvalTea": this.leave.guideTea,
+			"leaveCourseTea": this.leave.courTea,
+			"reason": this.leave.reason,
+			"type": "student"
+		};
+		const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+		this.httpClient.post(this.basePath + '/leave/updateLeave', Params).subscribe(data => {
+			console.log(data);
+			if (data != null && data != '') {
+				if (data['status'] == '200') {
+					this.appService.info(data['msg']);
+					location.reload(true);
+					this.isVisibleUpdate = false;
+				} else {
+					this.appService.info(data['msg']);
+				}
+			}
+		}, error => {
+			this.appService.error("ï¿½Þ¸Ä²ï¿½ï¿½É¹ï¿½");
+		});
+	}
+
+	//Í¨Öªï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+	noticeTeach(ID) {
+		this.sendData = {
+			"studentName": this.leave.stuName,
+			"teacherName": this.leave.guideTea,
+			"teacherPhone": localStorage.getItem("phone")
+		}
+		const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+		this.httpClient.post(this.basePath + '/leave/callTeacher', Params).subscribe(data => {
+			if (data != null && data != '') {
+				if (data['status'] == '200') {
+
+				} else {
+					this.appService.info(data['msg']);
+				}
+			}
+		}, error => {
+			this.appService.error("ï¿½ï¿½ï¿½ï¿½");
+			//this.route.navigate(['/error'], {queryParams: {'msg': 'httpï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½', 'title': ''}});
+		}
+		);
+	}
 
 }

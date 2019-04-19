@@ -1,34 +1,36 @@
 <app-header></app-header>
 <div class="admin-teacher">
-    <app-navigation></app-navigation>
-    <div class="admin">
-        <div class="add student-add">
-          <div class="admin-search">
-            <!-- <label>请假编号：</label>
+	<app-navigation></app-navigation>
+	<div class="admin">
+		<div class="add student-add">
+			<div class="admin-search">
+				<!-- <label>请假编号：</label>
             <input style="width:200px;" nz-input placeholder="请假编号">
             <label>学生姓名：</label> -->
-            <input style="width:300px;" nz-input placeholder="请输入学生姓名(请假编号)搜索" [(ngModel)]="searchInfo">
-          </div>
-          <button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search" theme="outline"></i>查询</button>
-        </div>
-        <div class="admin-table student-table">
-          <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
-            <thead>
-              <tr>
-                <th width="10">序号</th>
-                <th>请假信息编号</th>
-                <th>请假人学号</th>
-                <th>请假人</th>
-                <th>申请请假时间</th>
-                <th>请假开始时间</th>
-                <th>请假结束时间</th>
-                <th>请假天数</th>
-                <th>审批老师姓名</th>
-                <th>审批状态</th>
-                <th>操作</th>
-              </tr>
-            </thead>
-            <!-- 
+				<input style="width:300px;" nz-input placeholder="请输入学生姓名(请假编号)搜索" [(ngModel)]="searchInfo">
+			</div>
+			<button nz-button nzType="primary" (click)="getSearch()"><i nz-icon type="search"
+					theme="outline"></i>查询</button>
+		</div>
+		<div class="admin-table student-table">
+			<nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]=""
+				[nzLoading]="pageLoading">
+				<thead>
+					<tr>
+						<th width="10">序号</th>
+						<th>请假信息编号</th>
+						<th>请假人学号</th>
+						<th>请假人</th>
+						<th>申请请假时间</th>
+						<th>请假开始时间</th>
+						<th>请假结束时间</th>
+						<th>请假天数</th>
+						<th>审批老师姓名</th>
+						<th>审批状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<!-- 
               applicationTime: "2019-02-07 21:10:30"
 approvalTea: "刘洁琳"
 endTime: "2019-02-09 21:09:40"
@@ -42,25 +44,26 @@ status: "0"
 stuId: "123"
 stuName: "人群"
              -->
-            <tbody>
-              <tr *ngFor="let item of nzTable.data; index as i">
-                <td>{{i+1}}</td>
-                <td>{{item.leaveId}}</td>
-                <td>{{item.stuId}}</td>
-                <td>{{item.stuName}}</td>
-                <td>{{item.applicationTime}}</td>
-                <td>{{item.startTime}}</td>
-                <td>{{item.endTime}}</td>
-                <td>{{item.leaveDay}}</td>
-                <td>{{item.approvalTea}}</td>
-                <td *ngIf="item.status == '0'">未批准</td>
-                <td *ngIf="item.status == '1'">已批准</td>
-                <td>
-                  <button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.leaveId)"><i nz-icon type="delete" theme="outline"></i>删除</button>
-                </td>
-              </tr>
-            </tbody>
-          </nz-table>
-        </div>
-    </div>
-  </div>
+				<tbody>
+					<tr *ngFor="let item of nzTable.data; index as i">
+						<td>{{i+1}}</td>
+						<td>{{item.leaveId}}</td>
+						<td>{{item.stuId}}</td>
+						<td>{{item.stuName}}</td>
+						<td>{{item.applicationTime}}</td>
+						<td>{{item.startTime}}</td>
+						<td>{{item.endTime}}</td>
+						<td>{{item.leaveDay}}</td>
+						<td>{{item.approvalTea}}</td>
+						<td *ngIf="item.status == '0'">未批准</td>
+						<td *ngIf="item.status == '1'">已批准</td>
+						<td>
+							<button nz-button nzType="danger" [nzSize]="small" (click)="deleteConfirm(item.leaveId)"><i
+									nz-icon type="delete" theme="outline"></i>删除</button>
+						</td>
+					</tr>
+				</tbody>
+			</nz-table>
+		</div>
+	</div>
+</div>
