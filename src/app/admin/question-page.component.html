@@ -33,10 +33,8 @@ this.question.id = question['queId'];
            <div class="question-content-text">
               <h5>{{question.title}} <i>{{question.time}}</i></h5>
               <p class="question-content-text2">
-                  <img [src]="questionImg" *ngIf="questionImg">
-                  <!-- <img src="../../assets/image/lun02.jpg" > -->
-                  {{question.detail}}
-              </p>
+                  <img [src]="questionImg" *ngIf="questionImg" style="width: 400px;height: 400px">
+                 <pre>{{question.detail}}</pre>
               <p class="question-content-text-icon">
                 <span><i nz-icon type="message" theme="outline"></i><span>{{question.reply}}</span></span>
                 <span><i nz-icon type="heart" theme="outline"></i><span>{{question.praise}}</span></span>

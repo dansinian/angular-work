@@ -18,11 +18,11 @@ export class AvatarComponent implements OnInit {
   userID;
   userNickName;
   userHeadImg;
-  followLength; //关注
+  followLength; // 关注
   followList = [];
-  followedLength; //粉丝
+  followedLength; // 粉丝
   followedList = [];
-  questionLength; //帖子
+  questionLength; // 帖子
   questionList = [];
   questionListRecord = [];
 
@@ -33,84 +33,80 @@ export class AvatarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userID = localStorage.getItem("userID");
-    this.sendData = {"content": this.userID};
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.userID = localStorage.getItem('userID');
+    this.sendData = {'content': this.userID};
+    const Params = new HttpParams().set('data', JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/user/selectUser', Params).subscribe(data => {
-      if (data != null && data != '') {
-        if (data['status'] == 200) {
-          this.userNickName = data['user']['nickname'];
-          //this.userHeadImg =  data['user']['headImg'];
-          let imgUrl = data['user']['headImg'];
-          let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
-          this.userHeadImg = sanitizerUrl;
+      if (data != null && data !== '') {
+        if (data['status'] === '200') {
+          this.userNickName = data['users']['nickname'];
+          this.userHeadImg =  data['users']['headImg'];
 
           this.followList = data['follow'];
           this.followedList = data['followed'];
 
-          for (let item of this.followList) {
-            let imgUrl = item['headImg'];
-            let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          /*for (const item of this.followList) {
+            const imgUrl = item['headImg'];
+            const sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
             item['headImg'] = sanitizerUrl;
-          }
+          }*/
 
-          for (let item of this.followedList) {
-            let imgUrl = item['headImg'];
-            let sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
+          /*for (const item of this.followedList) {
+            const imgUrl = item['headImg'];
+            const sanitizerUrl = this.sanitizer.bypassSecurityTrustUrl(imgUrl);
             item['headImg'] = sanitizerUrl;
-          }
-          console.log(this.followList, this.followedList);
+          }*/
           this.questionList = data['questions'];
-          //长度
+          // 长度
           this.followLength = this.followList.length;
           this.followedLength = this.followedList.length;
           this.questionLength = this.questionList.length;
         }
       }
     }, error => {
-      console.log("errror");
+      console.log('errror');
     });
 
     // 最新推荐数据
     this.httpClient.get(this.basePath + '/question/recommendQuestion').subscribe(data => {
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
+      if (data != null && data !== '') {
+        if (data['status'] === '200') {
           this.questionListRecord = data['questions'];
         }
       }
     }, eror => {
-      console.log("error");
+      console.log('error');
     });
 
-    
+
   }
 
-  //进入详情
+  // 进入详情
   positionQuestion(item) {
-    if (item.questionId != null && item.questionId != '') {
-      this.route.navigate(['/questionContent'], {queryParams: {'questionId': item.questionId, "userID": item.userId}});
-      //location.reload(true);
+    if (item.questionId != null && item.questionId !== '') {
+      this.route.navigate(['/questionContent'], {queryParams: {'questionId': item.questionId, 'userID': item.userId}});
+      // location.reload(true);
     }
   }
 
   positionQuestionDetail(questionID, userID) {
-    this.route.navigate(['/questionContent'], {queryParams: {'questionId': questionID, "userID": userID}});
+    this.route.navigate(['/questionContent'], {queryParams: {'questionId': questionID, 'userID': userID}});
   }
 
-  //进入个人主页
+  // 进入个人主页
   getPersonPage(item, focus) {
-    if (item.userId != null && item.userId != '') {
-      this.route.navigate(['/person'], {queryParams: {"userID": item.userId, "focus": focus}});
-      //location.reload(true);
+    if (item.userId != null && item.userId !== '') {
+      this.route.navigate(['/person'], {queryParams: {'userID': item.userId, 'focus': focus}});
+      // location.reload(true);
     }
   }
 
-  //删除帖子
+  // 删除帖子
   deleteQuestion(item) {
-    this.sendData = {"questionId": item.questionId};
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.sendData = {'questionId': item.questionId};
+    const Params = new HttpParams().set('data', JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/deleteQuestion', Params).subscribe(data => {
-      if (data['status'] == '200') {
+      if (data['status'] === '200') {
         this.msg.success(data['msg']);
         location.reload(true);
       } else {
@@ -121,47 +117,46 @@ export class AvatarComponent implements OnInit {
     });
   }
 
-  //关注信息
+  // 关注信息
   getFouce(item, fouce) {
-    console.log(item, fouce);
     this.sendData = {
-      "userId": this.userID,
-      "followedId": item.userId
-    }
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      'userId': this.userID,
+      'followedId': item.userId
+    };
+    const Params = new HttpParams().set('data', JSON.stringify(this.sendData));
     if (fouce === 'fouce') {
       /*关注 */
       this.httpClient.post(this.basePath + '/user/follow', Params).subscribe(data => {
-        if (data['status'] == '200') {
+        if (data['status'] === '200') {
           this.msg.success(data['msg']);
         } else {
           this.msg.error(data['msg']);
         }
       }, error => {
-        console.log("error");
+        console.log('error');
       });
 
-    } else{
+    } else {
       /*取消关注 */
       this.httpClient.post(this.basePath + '/user/unfollow', Params).subscribe(data => {
-        if (data['status'] == '200') {
+        if (data['status'] === '200') {
           this.msg.success(data['msg']);
         } else {
           this.msg.error(data['msg']);
         }
       }, error => {
-        console.log("error");
+        console.log('error');
       });
     }
     location.reload(true);
 
   }
 
-  //打开
+  // 打开
   openPost() { this.isVisiblePost = true; }
   openAttend() { this.isVisibleAttend = true; }
   openFan() { this.isVisibleFan = true; }
-  //取消
+  // 取消
   cancelPost() { this.isVisiblePost = false; }
   cancelAttend() { this.isVisibleAttend = false; }
   cancelFan() { this.isVisibleFan = false; }

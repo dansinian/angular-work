@@ -1,6 +1,8 @@
 <div class="main-avatar">
   <div class="avatar-info">
-    <p class="img"><img [src]="userHeadImg"></p>
+    <p class="img"><img *ngIf="userHeadImg !== '' && userHeadImg !== undefined" [src]="userHeadImg">
+      <img *ngIf="userHeadImg === '' || userHeadImg === undefined" src="../assets/image/head.jpg">
+    </p>
     <!-- {{userHeadImg}} -->
     <span>{{userNickName}}</span>
     <p>
@@ -22,11 +24,11 @@
 </div>
 
 <!-- 帖子 -->
-<nz-modal [(nzVisible)]="isVisiblePost" nzTitle="发表的帖子" (nzOnCancel)="cancelPost()" (nzOnOk)="handlePost()">
+<nz-modal [(nzVisible)]="isVisiblePost" nzTitle="发表的帖子" (nzOnCancel)="cancelPost()">
   <div class="post-model1">
     <ul>
       <li *ngFor="let item of questionList">
-        <span (click)="positionQuestion(item)">{{item.title}}</span>
+        <span style="width: 150px;" (click)="positionQuestion(item)">{{item.title}}</span>
         <span class="time">{{item.createTime}}</span>
         <span><i nz-icon type="delete" theme="outline" (click)="deleteQuestion(item)"></i></span>
       </li>
@@ -35,11 +37,12 @@
 </nz-modal>
 
 <!-- 关注 -->
-<nz-modal [(nzVisible)]="isVisibleAttend" nzTitle="我关注的" (nzOnCancel)="cancelAttend()" (nzOnOk)="handleAttend()">
+<nz-modal [(nzVisible)]="isVisibleAttend" nzTitle="我关注的" (nzOnCancel)="cancelAttend()">
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followList">
-        <td width="60" (click)="getPersonPage(item, 'focus')"><img [src]="item.headImg"></td>
+        <td *ngIf="item.headImg !== '' && item.headImg !== null" width="60" (click)="getPersonPage(item, 'focus')"><img [src]="item.headImg"></td>
+        <td *ngIf="item.headImg === '' || item.headImg === null" width="60" (click)="getPersonPage(item, 'focus')"><img src="../assets/image/head.jpg"></td>
         <td width="300" (click)="getPersonPage(item, 'focus')">{{item.nickName}}</td>
         <td><span (click)="getFouce(item, 'unfouce')"><i nz-icon type="user-delete" theme="outline" style="margin-right:5px;"></i>取消关注</span></td>
       </tr>
@@ -48,11 +51,12 @@
 </nz-modal>
 
 <!-- 粉丝 -->
-<nz-modal [(nzVisible)]="isVisibleFan" nzTitle="关注我的" (nzOnCancel)="cancelFan()" (nzOnOk)="handleFan()">
+<nz-modal [(nzVisible)]="isVisibleFan" nzTitle="关注我的" (nzOnCancel)="cancelFan()">
   <div class="fan-model">
     <table>
       <tr *ngFor="let item of followedList">
-        <td width="60" (click)="getPersonPage(item, 'unfocus')"><img [src]="item.headImg"></td>
+        <td *ngIf="item.headImg !== '' && item.headImg !== undefined " width="60" (click)="getPersonPage(item, 'unfocus')"><img [src]="item.headImg"></td>
+        <td *ngIf="item.headImg === '' || item.headImg === undefined " width="60" (click)="getPersonPage(item, 'unfocus')"><img src="../assets/image/head.jpg"></td>
         <td width="300" (click)="getPersonPage(item, 'unfocus')">{{item.nickName}}</td>
         <td><span (click)="getFouce(item, 'fouce')"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</span></td>
       </tr>

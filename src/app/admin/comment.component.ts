@@ -35,9 +35,11 @@ export class CommentComponent implements OnInit {
     const Params = new HttpParams().set("data", "");
     this.httpClient.post(this.basePath + '/comment/selectComment', Params).subscribe(data => {
       if (data != null && data != '') {
-        console.log(data);
         if (data['status'] == '200') {
           this.infoList = data['comments'];
+          this.pageLoading = false;
+        } else {
+          this.infoList = [];
           this.pageLoading = false;
         }
       }
@@ -49,21 +51,41 @@ export class CommentComponent implements OnInit {
   //搜索
   getSearch() {
     this.pageLoading = true;
-    this.sendData = { "content": this.searchValue };
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
-    this.httpClient.post(this.basePath + '/comment/selectCommentByContent', Params).subscribe(data => {
-      if (data != null && data != '') {
-        this.infoList = [];
-        console.log(data);
-        if (data['status'] == '200') {
-          this.infoList = data['comment'];
-          console.log(this.infoList);
-          this.pageLoading = false;
+    if (this.searchValue !== null && this.searchValue !== '' && this.searchValue !== undefined) {
+      this.sendData = { "content": this.searchValue };
+      const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      this.httpClient.post(this.basePath + '/comment/selectCommentByContent', Params).subscribe(data => {
+        if (data != null && data != '') {
+          this.infoList = [];
+          console.log(data);
+          if (data['status'] == '200') {
+            this.infoList = data['comment'];
+            console.log(this.infoList);
+            this.pageLoading = false;
+          } else {
+            this.infoList = [ ];
+            this.pageLoading = false;
+          }
         }
-      }
-    }, error => {
-      console.log("error");
-    });
+      }, error => {
+        console.log("error");
+      });
+    } else {
+      const Params = new HttpParams().set("data", "");
+      this.httpClient.post(this.basePath + '/comment/selectComment', Params).subscribe(data => {
+        if (data != null && data != '') {
+          if (data['status'] == '200') {
+            this.infoList = data['comments'];
+            this.pageLoading = false;
+          } else {
+            this.infoList = [];
+            this.pageLoading = false;
+          }
+        }
+      }, error => {
+        console.log("error");
+      });
+    }
   }
 
   //编辑

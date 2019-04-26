@@ -7,6 +7,10 @@
         <input nz-input style="width: 250px;" placeholder="请输入学生姓名/学号查询" [(ngModel)]="searchInfo">
         <button nz-button nzType="primary" (click)="getSearchInfo()"><i nz-icon type="search" theme="outline"></i> 查询</button>
         <button nz-button nzType="primary" (click)="addInfo()"><i nz-icon type="plus" theme="outline"></i>添加</button>
+        <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/">
+          <button nz-button nzType="primary" (click)="ImportExcel()"><i nz-icon type="plus" theme="outline"></i><span>批量导入</span></button>
+        </nz-upload>
+        <a href="../assets/image/user.xls">点击下载示例文件</a>
       </div>
       <div class="content-table">
         <nz-table #nzTable [nzData]="infoList" nzBordered [nzPageSize]="6" nzShowSizeChanger [nzNoResult]="" [nzLoading]="pageLoading">
@@ -33,7 +37,8 @@
               <td>{{item.userMajor}}</td>
               <td>{{item.userDepartment}}</td>
               <td>{{item.nickname}}</td>
-              <td><img [src]="item.headImg"></td>
+              <td><img *ngIf="item.headImg !== '' && item.headImg !== undefined" [src]="item.headImg">
+                <img *ngIf="item.headImg === '' || item.headImg === undefined" src="../assets/image/head.jpg"></td>
               <td>{{item.autograph}}</td>
               <td>
                 <button nz-button nzType="primary" (click)="updateInfo(item)">编辑</button>
@@ -63,12 +68,33 @@
        <td><input nz-input placeholder="联系方式" [(ngModel)]="user.phone"></td>
      </tr>
      <tr>
-       <td width="150"><nz-form-label>学院</nz-form-label></td>
-       <td><input nz-input placeholder="学院" [(ngModel)]="user.department"></td>
+       <td width="150"><nz-form-label><font style="color:red;">*  </font>学院</nz-form-label></td>
+       <td>
+         <nz-select id="select1"
+           style="width: 322px; height: 32px;"
+           nzShowSearch
+           nzAllowClear
+           (ngModelChange) = giveVulue()
+           nzPlaceHolder="学院"
+           [(ngModel)]="selectedDepart"
+         >
+           <nz-option *ngFor="let item of AllDepartment" [nzLabel]=item [nzValue]=item></nz-option>
+         </nz-select>
+       </td>
      </tr>
      <tr>
-       <td width="150"><nz-form-label>专业</nz-form-label></td>
-       <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
+       <td width="150"><nz-form-label><font style="color:red;">*  </font>专业</nz-form-label></td>
+       <td>
+         <nz-select id="select2"
+           style="width: 322px; height: 32px;"
+           nzShowSearch
+           nzAllowClear
+           nzPlaceHolder="专业"
+           [(ngModel)]="selectedMajor"
+         >
+           <nz-option *ngFor="let item of AllMajor" [nzLabel]=item [nzValue]=item></nz-option>
+         </nz-select>
+       </td>
      </tr>
    </table>
   </div>
@@ -91,12 +117,31 @@
           <td><input nz-input placeholder="联系方式" [(ngModel)]="user.phone"></td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>学院</nz-form-label></td>
-          <td><input nz-input placeholder="学院" [(ngModel)]="user.department"></td>
+          <td width="150"><nz-form-label><font style="color:red;">*  </font>学院</nz-form-label></td>
+          <td><nz-select
+               style="width: 322px; height: 32px;"
+               nzShowSearch
+               nzAllowClear
+               (ngModelChange) = giveVulue()
+               nzPlaceHolder="学院"
+               [(ngModel)]="selectedUpdateDepart"
+          >
+            <nz-option *ngFor="let item of AllDepartment" [nzLabel]=item [nzValue]=item></nz-option>
+          </nz-select>
+          </td>
         </tr>
         <tr>
-          <td width="150"><nz-form-label>专业</nz-form-label></td>
-          <td><input nz-input placeholder="专业" [(ngModel)]="user.major"></td>
+          <td width="150"><nz-form-label><font style="color:red;">*  </font>专业</nz-form-label></td>
+          <td><nz-select
+                         style="width: 322px; height: 32px;"
+                         nzShowSearch
+                         nzAllowClear
+                         nzPlaceHolder="专业"
+                         [(ngModel)]="selectedUpdateMajor"
+          >
+            <nz-option *ngFor="let item of AllMajor" [nzLabel]=item [nzValue]=item></nz-option>
+          </nz-select>
+          </td>
         </tr>
       </table>
     </div>

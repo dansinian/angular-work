@@ -237,6 +237,13 @@ a{
     width: 60%;
     padding: 30px 20px;
 }
+.main-text{
+  padding-left: 15px;
+  color: #999;
+  overflow:hidden;/*内容超出后隐藏*/
+  text-overflow:ellipsis;/* 超出内容显示为省略号*/
+  white-space:nowrap;/*文本不进行换行*/"
+}
 .main-avatar{
     width: 220px;
     background: #fff;

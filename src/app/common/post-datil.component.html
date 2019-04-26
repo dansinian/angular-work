@@ -13,7 +13,7 @@
               </tr>
               <tr>
                 <td>文本:</td>
-                <td><textarea rows="3" nz-input placeholder="限字数200" [(ngModel)]="questionText"></textarea></td>
+                <td><textarea style="height: 400px;" rows="3" nz-input placeholder="限字数200" [(ngModel)]="questionText"></textarea></td>
               </tr>
               <tr>
                 <td>类型:</td>
@@ -24,10 +24,22 @@
               <tr>
                 <td>上传图片:</td>
                 <td>
-                  <!-- <nz-upload [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
-                    <button nz-button> <i nz-icon type="upload"></i><span>选择文件</span></button>
-                  </nz-upload>   [(ngModel)]="questionImg"-->
-                  <input  type="file" (change)="fileChange($event)"  style="margin-left: 15px;"  />
+                  <nz-upload
+                    class="avatar-uploader"
+                    nzAction="http://127.0.0.1:8080/forum/file/upload"
+                    nzName="files"
+                    nzListType="picture-card"
+                    [nzShowUploadList]="false"
+                    [nzBeforeUpload]="beforeUpload"
+                    (nzChange)="handleChange($event)"
+                    style="margin-left: 40px"
+                  >
+                    <ng-container *ngIf="!avatarUrl">
+                      <i class="upload-icon" nz-icon [type]="loading ? 'loading' : 'plus'"></i>
+                      <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img style="width: 300px;height: 300px" *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" />
+                  </nz-upload>
                 </td>
               </tr>
             </table>

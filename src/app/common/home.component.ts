@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
+import {NzMessageService} from 'ng-zorro-antd';
 
 declare var $: any;
 @Component({
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
   department;
   major;
 
-  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private appService: AppService, private httpClient: HttpClient, private route: Router, private activatedRoute: ActivatedRoute,
+              private message: NzMessageService) {
     this.basePath = this.appService.getBasePath();
   }
 
@@ -27,94 +29,94 @@ export class HomeComponent implements OnInit {
       this.major = params['major'];
     });
 
-    this.loginFlag = localStorage.getItem("loginFlag");
-    $(".header-left li").removeClass();//active
-    $(".header-left li").eq(0).addClass('active');
+    this.loginFlag = localStorage.getItem('loginFlag');
+    $('.header-left li').removeClass(); // active
+    $('.header-left li').eq(0).addClass('active');
     // 获取admin帖子信息
-    const adminParams = new HttpParams().set("data", JSON.stringify(""));
+    const adminParams = new HttpParams().set('data', JSON.stringify(''));
     this.httpClient.post(this.basePath + '/question/adminList', adminParams).subscribe(data => {
-      if (data['status'] == '200') {
+      if (data['status'] === '200') {
         this.adminQuestionList = data['questions'];
       }
     }, error => {
       console.log(error);
     });
 
-    //正常帖子信息
+    // 正常帖子信息
     if (!this.department && !this.major) {
-      const recommendParams = new HttpParams().set("data", "");
+      const recommendParams = new HttpParams().set('data', '');
       this.httpClient.post(this.basePath + '/question/recommendQuestion', recommendParams).subscribe(data => {
-        if (data['status'] == '200') {
+        if (data['status'] === '200') {
           this.userQuestionList = data['questions'];
         } else {
           this.userQuestionList = [];
         }
       }, error => {
-        console.log("error");
+        console.log('error');
       });
 
     } else {
       this.getDeparment();
     }
-    
+
 
   }
 
-  //搜索
+  // 搜索
   getSearchValue(event) {
-    this.sendData = { "content": event };
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+    this.sendData = { 'content': event };
+    const Params = new HttpParams().set('data', JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/selectQuestion', Params).subscribe(data => {
-      if (data != null && data != '') {
-        if (data['status'] == '200') {
-          this.userQuestionList = [];
+      if (data != null && data !== '') {
+        if (data['status'] === '200') {
           this.userQuestionList = data['questions'];
+        } else {
+              this.message.error(data['msg']);
         }
       }
     }, error => {
-      console.log("error");
+      this.message.error('查询出错！');
     });
   }
 
-  //帖子详情
+  // 帖子详情
   positionQuestion(item) {
     if (this.loginFlag != 'true') {
-      this.appService.info("请先登录！");
+      this.appService.info('请先登录！');
     } else {
       if (item.queId != null && item.queId != '') {
-        this.route.navigate(['/questionContent'], {queryParams: {"questionId" : item.queId, "userID": item.userId}});
+        this.route.navigate(['/questionContent'], {queryParams: {'questionId' : item.queId, 'userID': item.userId}});
       }
     }
-    
+
   }
 
-  //根据院系显示
+  // 根据院系显示
   getNavValue(event) {
-    let arr = event.split(',');
+    const arr = event.split(',');
     this.department = arr[0],
     this.major = arr[1];
     this.getDeparment();
   }
 
-  //获取左侧list
+  // 获取左侧list
   getDeparment() {
     this.sendData = {
-      "department": this.department,
-      "major": this.major
-    }
-    console.log(this.sendData);
-    const Params = new HttpParams().set("data", JSON.stringify(this.sendData));
+      'department': this.department,
+      'major': this.major
+    };
+    const Params = new HttpParams().set('data', JSON.stringify(this.sendData));
     this.httpClient.post(this.basePath + '/question/navigation', Params).subscribe(data => {
-      if (data['status'] == '200') {
+      if (data['status'] === '200') {
         this.userQuestionList = data['questions'][0];
       } else {
         this.userQuestionList = [];
       }
     }, error => {
-      console.log("error");
+      console.log('error');
     });
   }
 
 }
 
-  
+

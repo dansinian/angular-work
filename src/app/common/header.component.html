@@ -20,10 +20,10 @@
 	</div>
 	<div class="header-right">
 		<div *ngIf="flagLogin">
-			<span (click)="getMessage()">
-				<i nz-icon type="mail" theme="outline"></i>通知</span>
 			<span>
-				<img (click)="viewImg()" [src]="userHeadImg">{{userNickName}}</span>
+				<img *ngIf="userHeadImg !== null && userHeadImg !== ''" (click)="viewImg()" [src]="userHeadImg">
+				<img *ngIf="userHeadImg === null || userHeadImg === ''" (click)="viewImg()" src="../assets/image/head.jpg">{{userNickName}}
+      </span>
 			<span id="settingBtn" nz-popover [nzContent]="contentTemplate" nzPlacement="bottomRight">
 				<i nz-icon type="setting" theme="outline"></i>设置</span>
 			<span (click)="dropSystem()">
@@ -45,13 +45,23 @@
 
 <!-- 修改头像 -->
 <nz-modal [(nzVisible)]="isVisibleImg" nzTitle="切换头像" (nzOnCancel)="ImgCancel()" (nzOnOk)="ImgOk()">
-	<img [src]="userHeadImg">
+	<img style="width: 400px;height: 400px;" [src]="userHeadImg">
 	<br>
-	<button style="margin: 15px 20px;" nz-button nzType="primary" (click)="userHeadImgFlag = false;">修改</button>
-	<div *ngIf="!userHeadImgFlag">
-		<input type="file" (change)="fileChange($event)" />
-	</div>
-	<img [src]="img" />
+  <nz-upload
+    class="avatar-uploader"
+    nzAction="http://127.0.0.1:8080/forum/file/upload"
+    nzName="files"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+    [nzBeforeUpload]="beforeUpload"
+    (nzChange)="handleChange($event)"
+  >
+    <ng-container *ngIf="!avatarUrl">
+      <i class="upload-icon" nz-icon [type]="loading ? 'loading' : 'plus'"></i>
+      <div class="ant-upload-text">Upload</div>
+    </ng-container>
+    <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 400px;height: 400px" />
+  </nz-upload>
 </nz-modal>
 
 <!-- 修改昵称 -->
@@ -62,9 +72,41 @@
 				<nz-form-label>昵称</nz-form-label>
 			</td>
 			<td>
-				<input nz-input placeholder="请输入旧密码" [(ngModel)]="userNickName">
+				<input nz-input placeholder="请输入新昵称" [(ngModel)]="userNickName">
 			</td>
 		</tr>
+    <tr>
+      <td width="150" align="right">
+        <nz-form-label>姓名</nz-form-label>
+      </td>
+      <td>
+        <input nz-input [disabled]="true" [placeholder]="userName">
+      </td>
+    </tr>
+    <tr>
+      <td width="150" align="right">
+        <nz-form-label>电话</nz-form-label>
+      </td>
+      <td>
+        <input nz-input placeholder="请输入新号码" [(ngModel)]="userPhone">
+      </td>
+    </tr>
+    <tr>
+      <td width="150" align="right">
+        <nz-form-label>院系</nz-form-label>
+      </td>
+      <td>
+        <input nz-input [disabled]="true" [placeholder]="userdepartment">
+      </td>
+    </tr>
+    <tr>
+      <td width="150" align="right">
+        <nz-form-label>专业</nz-form-label>
+      </td>
+      <td>
+        <input nz-input [placeholder]="userMajor" [disabled]="true">
+      </td>
+    </tr>
 		<tr>
 			<td width="150" align="right">
 				<nz-form-label>个性签名</nz-form-label>

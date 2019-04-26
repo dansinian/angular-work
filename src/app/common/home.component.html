@@ -8,7 +8,7 @@
             <ul>
               <li *ngFor="let item of adminQuestionList;index as i;" (click)="positionQuestion(item)">
                 <p class="text-title"><span style="margin-right: 10px;">{{item.queTitle}}</span><i style="color: #ccc;">{{item.createTime}}</i></p>
-                <p style="padding-left: 15px;color: #999;">{{item.queDetail}}</p>
+                <p class="main-text">{{item.queDetail}}</p>
               </li>
             </ul>
           </div>
@@ -17,10 +17,11 @@
             <ul *ngIf="userQuestionList.length != 0">
               <li *ngFor="let item of userQuestionList" (click)="positionQuestion(item)">
                   <div class="main-post-title">
-                    <span>{{item.queTitle}}</span><i>{{item.createTime}}</i>
+                    <span>{{item.queTitle}}</span>
                   </div>
                   <p>{{item.queDetail}}</p>
                   <div class="main-post-number">
+                    <i>{{item.createTime}}</i>
                     <span>点击量 <i>{{item.clickCount}}</i></span>
                     <span>点赞数 <i>{{item.praiseCount}}</i></span>
                   </div>

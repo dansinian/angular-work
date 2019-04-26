@@ -7,8 +7,10 @@
             <!-- 当前帖子用户信息 -->
             <div class="question-content-header">
                 <div>
-                    <img [src]="queUserHeadImg">
-                    <span>{{queUserNickName}}</span>
+                    <img *ngIf="queUserHeadImg !== '' && queUserHeadImg !== undefined" [src]="queUserHeadImg">
+                    <img *ngIf="queUserHeadImg === '' || queUserHeadImg === undefined" src="../assets/image/head.jpg">
+                    <span>{{queUserNickName}}</span><br>
+                    <span>个性签名：  {{Autophone}}</span>
                 </div>
                 <div class="person-page-header-follow" *ngIf=" userFocus == 'unfocus' ">
                     <span (click)="getFocus()"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</span>
@@ -18,13 +20,13 @@
 
             <!-- 帖子标题及其内容 -->
             <div class="question-content-text">
-                <h5>{{question.title}} <i>{{question.time}}</i></h5>
+                <h5><div class="text" style=" text-align:center;">{{question.title}}</div></h5>
                 <p class="question-content-text2">
                     <img [src]="questionHeadImgSrc" *ngIf="questionHeadImgSrc">
-                    <!-- <img src="../../assets/image/lun02.jpg" > -->
-                    {{question.detail}}
+                  {{question.detail}}
                 </p>
-                <p class="question-content-text-icon">
+              <p class="question-content-text-icon">
+                  <span><i>{{question.time}}</i></span>
                   <span (click)="showCommentReply(question.id, queUserNickName)"><i nz-icon type="message" theme="outline"></i><span>{{question.reply}}</span></span>
                   <span (click)="getPraiseCount(question.id, 'question')"><i nz-icon type="heart" theme="outline"></i><span>{{question.praise}}</span></span>
                 </p>

@@ -7,11 +7,13 @@
             <!-- 用户信息 -->
             <div class="person-page-header">
               <div>
-                  <p class="nickName"><img src="{{userHeadImg}}"><span>{{userNickName}}</span></p>
+                  <p class="nickName"><img *ngIf="userHeadImg !== '' && userHeadImg !== undefined" src="{{userHeadImg}}">
+                  <img *ngIf="userHeadImg === '' || userHeadImg === undefined" src="../assets/image/head.jpg">
+                    <span>{{userNickName}}</span></p>
                   <p><span>{{userAutograph}}</span></p>
               </div>
               <div class="person-page-header-follow" *ngIf=" userFocus == 'unfocus' ">
-                  <span><i nz-icon type="user-add" theme="outline" style="margin-right:5px;" (click)="getFouce(item, 'fouce')"></i>关注</span>
+                  <span (click)="getFocus()"><i nz-icon type="user-add" theme="outline" style="margin-right:5px;"></i>关注</span>
               </div>
             </div>
              <!-- 用户信息 end-->
@@ -23,8 +25,7 @@
                       
                     <!-- 帖子标题 -->
                     <div class="moment-title" (click)="positionQuestion(question)">
-                      <h5>{{question.title}}</h5>
-                      <span>创建时间: <i>{{question.createTime}}</i></span>
+                      <h5 style="align-content: center">{{question.title}}</h5>
                     </div>
                     <!-- 帖子标题 end -->
     
@@ -36,6 +37,7 @@
     
                     <!-- 点赞评论信息 -->
                     <p class="moment-icon">
+                      <span>创建时间: <i>{{question.createTime}}</i></span>
                       <span><i nz-icon type="message" theme="outline"></i><span>{{question.Praise}}</span></span>
                       <span><i nz-icon type="heart" theme="outline"></i><span>{{question.reply}}</span></span>
                     </p>

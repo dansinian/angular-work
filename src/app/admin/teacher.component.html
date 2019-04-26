@@ -36,7 +36,8 @@
 							<td>{{item.userDepartment}}</td>
 							<td>{{item.nickname}}</td>
 							<td>
-								<img [src]="item.headImg">
+								<img *ngIf="item.headImg !== '' && item.headImg !== undefined" [src]="item.headImg">
+								<img *ngIf="item.headImg === '' || item.headImg === undefined" src="../assets/image/head.jpg">
 							</td>
 							<td>{{item.autograph}}</td>
 							<td>
